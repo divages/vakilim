@@ -197,14 +197,16 @@ model Booking {
 }
 
 model Payment {
-  id          String        @id @default(cuid())
-  bookingId   String        @unique
-  booking     Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  provider    String
+  id            String        @id @default(cuid())
+  bookingId     String?       @unique
+  booking       Booking?      @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  docOrderId    String?       @unique
+  docOrder      DocOrder?     @relation(fields: [docOrderId], references: [id], onDelete: Cascade)
+  provider      String
   amountQepik   Int
   refundedQepik Int           @default(0)
   status        PaymentStatus
-  createdAt   DateTime      @default(now())
+  createdAt     DateTime      @default(now())
 }
 
 model ConsultSession {
@@ -289,5 +291,54 @@ model Notification {
   createdAt DateTime  @default(now())
 
   @@index([userId, readAt])
+  @@index([userId, createdAt])
+}
+
+model DocTemplate {
+  id            String            @id @default(cuid())
+  slug          String            @unique
+  titleAz       String
+  descriptionAz String
+  category      String
+  priceQepik    Int               @default(0)
+  active        Boolean           @default(true)
+  sortOrder     Int               @default(0)
+  versions      TemplateVersion[]
+  createdAt     DateTime          @default(now())
+}
+
+model TemplateVersion {
+  id         String      @id @default(cuid())
+  templateId String
+  template   DocTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  version    Int
+  bodyText   String
+  fields     Json
+  published  Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  orders     DocOrder[]
+
+  @@unique([templateId, version])
+}
+
+enum DocOrderStatus {
+  PENDING_PAYMENT
+  PAID
+}
+
+model DocOrder {
+  id                String          @id @default(cuid())
+  userId            String
+  templateVersionId String
+  templateVersion   TemplateVersion @relation(fields: [templateVersionId], references: [id])
+  answersEncrypted  String
+  status            DocOrderStatus  @default(PENDING_PAYMENT)
+  priceQepik        Int
+  docUid            String          @unique
+  pdfKey            String?
+  payment           Payment?
+  paidAt            DateTime?
+  createdAt         DateTime        @default(now())
+
   @@index([userId, createdAt])
 }

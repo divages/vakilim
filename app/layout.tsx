@@ -37,6 +37,9 @@ export default async function RootLayout({
               <Link href="/lawyers" className="text-white/80 hover:text-white">
                 Vəkillər
               </Link>
+              <Link href="/templates" className="text-white/80 hover:text-white">
+                Sənədlər
+              </Link>
               {user?.role === "CLIENT" && (
                 <Link href="/bookings" className="text-white/80 hover:text-white">
                   Görüşlərim
