@@ -36,6 +36,20 @@ enum BookingMode {
   REQUEST
 }
 
+enum BookingStatus {
+  PENDING_PAYMENT
+  REQUESTED
+  CONFIRMED
+  DECLINED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  CAPTURED
+  REFUNDED
+}
+
 model User {
   id            String         @id @default(cuid())
   role          UserRole       @default(CLIENT)
@@ -46,6 +60,7 @@ model User {
   updatedAt     DateTime       @updatedAt
   lawyerProfile LawyerProfile?
   sessions      Session[]
+  bookings      Booking[]
 }
 
 model Session {
@@ -101,6 +116,7 @@ model LawyerProfile {
   practiceAreas      LawyerPracticeArea[]
   services           Service[]
   availabilityRules  AvailabilityRule[]
+  bookings           Booking[]
 }
 
 model LawyerPracticeArea {
@@ -135,4 +151,37 @@ model AvailabilityRule {
   endMin   Int
 
   @@index([lawyerId, weekday])
+}
+
+model Booking {
+  id            String        @id @default(cuid())
+  clientId      String
+  client        User          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  lawyerId      String
+  lawyer        LawyerProfile @relation(fields: [lawyerId], references: [id], onDelete: Cascade)
+  serviceId     String
+  serviceType   ServiceType
+  durationMin   Int
+  priceQepik    Int
+  startAt       DateTime
+  endAt         DateTime
+  status        BookingStatus @default(PENDING_PAYMENT)
+  activeSlotKey String?       @default("A")
+  payment       Payment?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@unique([lawyerId, startAt, activeSlotKey])
+  @@index([clientId, startAt])
+  @@index([lawyerId, startAt])
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  bookingId   String        @unique
+  booking     Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  provider    String
+  amountQepik Int
+  status      PaymentStatus
+  createdAt   DateTime      @default(now())
 }

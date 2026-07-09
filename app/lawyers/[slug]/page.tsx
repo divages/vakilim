@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
+import { getCurrentUser } from "@/lib/auth";
+import BookingWidget from "./booking-widget";
 
 const TYPE_LABELS: Record<string, string> = {
   ADVOCATE: "Vəkil (Vəkillər Kollegiyasının üzvü)",
@@ -55,8 +57,20 @@ export default async function LawyerProfilePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const profile = await loadProfile(slug);
+  const [profile, viewer] = await Promise.all([
+    loadProfile(slug),
+    getCurrentUser(),
+  ]);
   if (!profile) notFound();
+
+  const callServices = profile.services
+    .filter((s) => s.type === "VIDEO" || s.type === "AUDIO")
+    .map((s) => ({
+      id: s.id,
+      type: s.type as "VIDEO" | "AUDIO",
+      durationMin: s.durationMin,
+      priceQepik: s.priceQepik,
+    }));
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
@@ -119,13 +133,12 @@ export default async function LawyerProfilePage({
         </>
       )}
 
-      <button
-        disabled
-        title="Onlayn görüşlər tezliklə əlavə olunacaq"
-        className="mt-10 w-full cursor-not-allowed rounded bg-navy py-3 font-medium text-white opacity-50"
-      >
-        Onlayn görüş — tezliklə
-      </button>
+      <BookingWidget
+        lawyerSlug={slug}
+        services={callServices}
+        loggedIn={!!viewer}
+        bookingMode={profile.bookingMode}
+      />
     </div>
   );
 }
