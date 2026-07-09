@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
+import { cancellationRefund } from "@/lib/policy";
 import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
+import CancelButton from "./cancel-button";
 
 const SERVICE_LABELS: Record<string, string> = {
   VIDEO: "Video görüş",
@@ -21,6 +23,8 @@ const STATUS_BADGES: Record<string, { label: string; cls: string }> = {
   COMPLETED: { label: "Baş tutub", cls: "bg-navy/10 text-navy" },
 };
 
+const CANCELLABLE = ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"];
+
 function bakuTimeLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
   return fmtMin(Math.round((d.getTime() - dayStart) / 60_000));
@@ -30,13 +34,13 @@ export default async function BookingsPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/bookings");
 
+  const now = new Date();
   const bookings = await prisma.booking.findMany({
     where: { clientId: user.id },
     orderBy: { startAt: "asc" },
     include: {
-      lawyer: {
-        select: { slug: true, user: { select: { fullName: true } } },
-      },
+      lawyer: { select: { slug: true, user: { select: { fullName: true } } } },
+      payment: { select: { amountQepik: true, refundedQepik: true } },
     },
   });
 
@@ -57,6 +61,12 @@ export default async function BookingsPage() {
           {bookings.map((b) => {
             const badge = STATUS_BADGES[b.status] ?? STATUS_BADGES.CONFIRMED;
             const dateIso = bakuDateIso(b.startAt);
+            const cancellable =
+              CANCELLABLE.includes(b.status) && b.startAt > now;
+            const preview = b.payment
+              ? cancellationRefund(b.payment.amountQepik, b.startAt, now)
+              : { pct: 0 as const, refundQepik: 0 };
+
             return (
               <div key={b.id} className="rounded border border-gray-200 p-4">
                 <div className="flex items-start justify-between gap-3">
@@ -84,16 +94,34 @@ export default async function BookingsPage() {
                     <p className="mt-2 text-sm font-semibold text-navy">
                       {formatAzn(b.priceQepik)}
                     </p>
+                    {b.payment && b.payment.refundedQepik > 0 && (
+                      <p className="mt-1 text-xs text-emerald">
+                        Geri qaytarıldı: {formatAzn(b.payment.refundedQepik)}
+                      </p>
+                    )}
                   </div>
                 </div>
-                {b.status === "PENDING_PAYMENT" && (
-                  <Link
-                    href={`/pay/${b.id}`}
-                    className="mt-3 inline-block rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
-                  >
-                    Ödənişi tamamla
-                  </Link>
-                )}
+
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  {b.status === "PENDING_PAYMENT" && (
+                    <Link
+                      href={`/pay/${b.id}`}
+                      className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                    >
+                      Ödənişi tamamla
+                    </Link>
+                  )}
+                  {cancellable && (
+                    <CancelButton
+                      bookingId={b.id}
+                      refundLabel={
+                        b.payment
+                          ? `${formatAzn(preview.refundQepik)} (${preview.pct}%)`
+                          : "ödəniş edilməyib"
+                      }
+                    />
+                  )}
+                </div>
               </div>
             );
           })}

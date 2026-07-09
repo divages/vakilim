@@ -47,6 +47,7 @@ enum BookingStatus {
 
 enum PaymentStatus {
   CAPTURED
+  PARTIALLY_REFUNDED
   REFUNDED
 }
 
@@ -181,7 +182,8 @@ model Payment {
   bookingId   String        @unique
   booking     Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   provider    String
-  amountQepik Int
-  status      PaymentStatus
+  amountQepik   Int
+  refundedQepik Int           @default(0)
+  status        PaymentStatus
   createdAt   DateTime      @default(now())
 }
