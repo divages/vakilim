@@ -28,6 +28,15 @@ export default async function RootLayout({
               Vakilim<span className="text-emerald">.az</span>
             </Link>
             <nav className="flex items-center gap-4 text-sm">
+              {user?.role === "LAWYER" ? (
+                <Link href="/lawyer/dashboard" className="text-white/80 hover:text-white">
+                  Vəkil paneli
+                </Link>
+              ) : (
+                <Link href="/lawyer/apply" className="text-white/80 hover:text-white">
+                  Vəkillər üçün
+                </Link>
+              )}
               {user ? (
                 <>
                   <span className="text-white/80">
