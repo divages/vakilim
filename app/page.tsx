@@ -8,11 +8,22 @@ export default function Home() {
         Yoxlanılmış vəkillər və hüquqşünaslarla tanış olun və sizə uyğununu
         seçin.
       </p>
-      <Link
-        href="/lawyers"
-        className="mt-8 inline-block rounded bg-navy px-6 py-3 font-medium text-white hover:bg-navy-dark"
+      <form
+        method="GET"
+        action="/lawyers"
+        className="mx-auto mt-8 flex max-w-md gap-2"
       >
-        Vəkil axtar
+        <input
+          name="q"
+          placeholder="Ad, sahə və ya açar söz…"
+          className="w-full rounded border border-gray-300 px-4 py-3 text-sm outline-none focus:border-navy"
+        />
+        <button className="rounded bg-navy px-6 py-3 font-medium text-white hover:bg-navy-dark">
+          Axtar
+        </button>
+      </form>
+      <Link href="/lawyers" className="mt-4 inline-block text-sm text-emerald underline">
+        Bütün vəkillərə bax
       </Link>
     </section>
   );
