@@ -37,12 +37,20 @@ export default async function RootLayout({
                 </Link>
               )}
               {user?.role === "ADMIN" ? (
-                <Link
-                  href="/admin/verifications"
-                  className="text-white/80 hover:text-white"
-                >
-                  Admin
-                </Link>
+                <>
+                  <Link
+                    href="/admin/verifications"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Müraciətlər
+                  </Link>
+                  <Link
+                    href="/admin/recordings"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Yazılar
+                  </Link>
+                </>
               ) : user?.role === "LAWYER" ? (
                 <Link
                   href="/lawyer/dashboard"

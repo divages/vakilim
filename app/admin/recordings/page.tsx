@@ -1,0 +1,90 @@
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { presignRecordingUrl } from "@/lib/storage";
+import { bakuDateIso, fmtMin } from "@/lib/slots";
+
+function bakuTimeLabel(d: Date): string {
+  const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
+  return fmtMin(Math.round((d.getTime() - dayStart) / 60_000));
+}
+
+export default async function AdminRecordingsPage() {
+  const user = await getCurrentUser();
+  if (!user || user.role !== "ADMIN") redirect("/");
+
+  const sessions = await prisma.consultSession.findMany({
+    where: { recordingKey: { not: null } },
+    orderBy: { createdAt: "desc" },
+    take: 50,
+    include: {
+      booking: {
+        include: {
+          client: { select: { fullName: true, phone: true } },
+          lawyer: { select: { user: { select: { fullName: true } } } },
+        },
+      },
+    },
+  });
+
+  const rows = await Promise.all(
+    sessions.map(async (s) => ({
+      id: s.id,
+      key: s.recordingKey as string,
+      url: await presignRecordingUrl(s.recordingKey as string),
+      startAt: s.booking.startAt,
+      durationMin: s.booking.durationMin,
+      client: s.booking.client.fullName ?? s.booking.client.phone ?? "Müştəri",
+      lawyer: s.booking.lawyer.user.fullName ?? "Vəkil",
+      status: s.booking.status,
+    }))
+  );
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-12">
+      <h1 className="text-2xl font-bold text-navy">Görüş yazıları</h1>
+      <p className="mt-2 text-sm">
+        Yazılar görüş bitdikdən bir neçə dəqiqə sonra hazır olur və 30 gün
+        saxlanılır. Link 10 dəqiqə ərzində keçərlidir.
+      </p>
+
+      {rows.length === 0 ? (
+        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+          Hələ yazı yoxdur.
+        </p>
+      ) : (
+        <div className="mt-6 space-y-3">
+          {rows.map((r) => (
+            <div
+              key={r.id}
+              className="flex items-center justify-between gap-3 rounded border border-gray-200 p-4"
+            >
+              <div>
+                <p className="text-sm font-medium text-navy">
+                  {r.lawyer} × {r.client}
+                </p>
+                <p className="mt-1 text-sm">
+                  {bakuDateIso(r.startAt)} · {bakuTimeLabel(r.startAt)} ·{" "}
+                  {r.durationMin} dəq
+                </p>
+                <p className="mt-1 text-xs text-slate">{r.key}</p>
+              </div>
+              {r.url ? (
+                <a
+                  href={r.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                >
+                  İzlə
+                </a>
+              ) : (
+                <span className="text-xs text-slate">Konfiqurasiya yoxdur</span>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

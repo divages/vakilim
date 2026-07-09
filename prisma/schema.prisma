@@ -199,5 +199,8 @@ model ConsultSession {
   clientJoinedAt  DateTime?
   lawyerJoinedAt  DateTime?
   endedAt         DateTime?
+  egressId        String?
+  recordingKey    String?
+  recordingStartedAt DateTime?
   createdAt       DateTime  @default(now())
 }

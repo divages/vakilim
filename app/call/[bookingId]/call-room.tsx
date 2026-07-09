@@ -84,6 +84,11 @@ export default function CallRoom({
         connect
         audio
         video
+        onConnected={() => {
+          fetch(`/api/bookings/${bookingId}/recording/start`, {
+            method: "POST",
+          }).catch(() => {});
+        }}
         onDisconnected={() => {
           window.location.href = backHref;
         }}
