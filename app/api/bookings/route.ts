@@ -22,6 +22,16 @@ export async function POST(req: Request) {
   if (!parsed.success)
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
 
+  const tenMinAgo = new Date(Date.now() - 10 * 60_000);
+  const recentBookings = await prisma.booking.count({
+    where: { clientId: user.id, createdAt: { gte: tenMinAgo } },
+  });
+  if (recentBookings >= 5)
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
+
   const service = await prisma.service.findFirst({
     where: {
       id: parsed.data.serviceId,

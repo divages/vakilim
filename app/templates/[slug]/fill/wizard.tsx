@@ -8,6 +8,7 @@ const ERRORS: Record<string, string> = {
   NOT_FOUND: "Şablon tapılmadı.",
   INVALID_FIELD: "Cavablardan biri düzgün deyil — geri qayıdıb yoxlayın.",
   INVALID_BODY: "Məlumatlar düzgün deyil.",
+  TOO_MANY_REQUESTS: "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin.",
   DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
 };
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Link from "next/link";
 import "./globals.css";
 import { getCurrentUser } from "@/lib/auth";
@@ -71,6 +72,12 @@ export default async function RootLayout({
                   >
                     Mübahisələr
                   </Link>
+                  <Link
+                    href="/admin/templates"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Şablonlar
+                  </Link>
                 </>
               ) : user?.role === "LAWYER" ? (
                 <Link
@@ -125,6 +132,9 @@ export default async function RootLayout({
             © {new Date().getFullYear()} Vakilim.az
           </div>
         </footer>
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );

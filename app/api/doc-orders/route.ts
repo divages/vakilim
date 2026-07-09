@@ -20,6 +20,16 @@ export async function POST(req: Request) {
   if (!parsed.success)
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
 
+  const tenMinAgo = new Date(Date.now() - 10 * 60_000);
+  const recentOrders = await prisma.docOrder.count({
+    where: { userId: user.id, createdAt: { gte: tenMinAgo } },
+  });
+  if (recentOrders >= 5)
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
+
   const template = await prisma.docTemplate.findFirst({
     where: { slug: parsed.data.templateSlug, active: true },
     include: {
