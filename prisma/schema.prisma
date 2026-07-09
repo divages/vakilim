@@ -13,12 +13,82 @@ enum UserRole {
   ADMIN
 }
 
+enum LawyerType {
+  ADVOCATE
+  LICENSED_LAWYER
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model User {
+  id            String         @id @default(cuid())
+  role          UserRole       @default(CLIENT)
+  phone         String?        @unique
+  email         String?        @unique
+  fullName      String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  lawyerProfile LawyerProfile?
+  sessions      Session[]
+}
+
+model Session {
   id        String   @id @default(cuid())
-  role      UserRole @default(CLIENT)
-  phone     String?  @unique
-  email     String?  @unique
-  fullName  String?
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model OtpCode {
+  id         String    @id @default(cuid())
+  phone      String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([phone, createdAt])
+}
+
+model PracticeArea {
+  id        String               @id @default(cuid())
+  slug      String               @unique
+  nameAz    String
+  nameEn    String?
+  sortOrder Int                  @default(0)
+  lawyers   LawyerPracticeArea[]
+}
+
+model LawyerProfile {
+  id                 String               @id @default(cuid())
+  userId             String               @unique
+  user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type               LawyerType
+  verificationStatus VerificationStatus   @default(PENDING)
+  licenseNo          String?
+  bio                String?
+  yearsExperience    Int?
+  city               String               @default("Bakı")
+  languages          String[]             @default(["az"])
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  practiceAreas      LawyerPracticeArea[]
+}
+
+model LawyerPracticeArea {
+  lawyerProfileId String
+  practiceAreaId  String
+  lawyerProfile   LawyerProfile @relation(fields: [lawyerProfileId], references: [id], onDelete: Cascade)
+  practiceArea    PracticeArea  @relation(fields: [practiceAreaId], references: [id], onDelete: Cascade)
+
+  @@id([lawyerProfileId, practiceAreaId])
 }
