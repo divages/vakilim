@@ -50,6 +50,12 @@ export default async function RootLayout({
                   >
                     Yazılar
                   </Link>
+                  <Link
+                    href="/admin/flags"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Moderasiya
+                  </Link>
                 </>
               ) : user?.role === "LAWYER" ? (
                 <Link

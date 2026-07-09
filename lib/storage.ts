@@ -1,4 +1,8 @@
-import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export type S3Env = {
@@ -47,4 +51,22 @@ export async function presignRecordingUrl(
     new GetObjectCommand({ Bucket: env.bucket, Key: key }),
     { expiresIn: expiresInSeconds }
   );
+}
+
+export async function uploadObject(
+  key: string,
+  body: Buffer,
+  contentType: string
+): Promise<boolean> {
+  const env = s3Env();
+  if (!env) return false;
+  await s3Client(env).send(
+    new PutObjectCommand({
+      Bucket: env.bucket,
+      Key: key,
+      Body: body,
+      ContentType: contentType,
+    })
+  );
+  return true;
 }

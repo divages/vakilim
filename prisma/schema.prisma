@@ -62,6 +62,7 @@ model User {
   lawyerProfile LawyerProfile?
   sessions      Session[]
   bookings      Booking[]
+  messages      Message[]
 }
 
 model Session {
@@ -170,6 +171,7 @@ model Booking {
   activeSlotKey String?       @default("A")
   payment       Payment?
   session       ConsultSession?
+  messages      Message[]
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -203,4 +205,21 @@ model ConsultSession {
   recordingKey    String?
   recordingStartedAt DateTime?
   createdAt       DateTime  @default(now())
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  bookingId      String
+  booking        Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  body           String
+  attachmentKey  String?
+  attachmentName String?
+  flagged        Boolean  @default(false)
+  flagReasons    String[] @default([])
+  createdAt      DateTime @default(now())
+
+  @@index([bookingId, createdAt])
+  @@index([flagged, createdAt])
 }

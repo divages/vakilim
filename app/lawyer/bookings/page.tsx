@@ -98,6 +98,14 @@ export default async function LawyerBookingsPage() {
             Görüşə qoşul
           </Link>
         )}
+        {["REQUESTED", "CONFIRMED", "COMPLETED"].includes(b.status) && (
+          <Link
+            href={`/chat/${b.id}`}
+            className="mt-3 ml-2 inline-block rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+          >
+            Yazışma
+          </Link>
+        )}
         {actions && <DecisionButtons bookingId={b.id} />}
       </div>
     );
