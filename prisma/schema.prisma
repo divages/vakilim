@@ -186,6 +186,8 @@ model Booking {
   status        BookingStatus @default(PENDING_PAYMENT)
   activeSlotKey String?       @default("A")
   rescheduledCount Int        @default(0)
+  reminded24At  DateTime?
+  reminded1At   DateTime?
   payment       Payment?
   session       ConsultSession?
   messages      Message[]
@@ -276,6 +278,7 @@ model Dispute {
   resolution        DisputeResolution?
   refundQepik       Int                @default(0)
   resolvedAt        DateTime?
+  overdueNotifiedAt DateTime?
   createdAt         DateTime           @default(now())
 
   @@index([status, createdAt])
