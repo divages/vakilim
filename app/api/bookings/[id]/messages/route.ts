@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { canMessage, isConversationVisible } from "@/lib/messaging";
 import { detectContactInfo } from "@/lib/moderation";
 import { uploadObject, s3Env } from "@/lib/storage";
+import { notifyNewMessageThrottled } from "@/lib/notify";
 
 const MAX_BODY = 2000;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
@@ -128,6 +129,14 @@ export async function POST(
       flagReasons: reasons,
     },
   });
+
+  const recipientId =
+    booking.clientId === user.id ? booking.lawyer.userId : booking.clientId;
+  await notifyNewMessageThrottled(
+    recipientId,
+    user.fullName || user.phone || "İstifadəçi",
+    booking.id
+  );
 
   return NextResponse.json({ ok: true, id: message.id });
 }

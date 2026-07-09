@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import LogoutButton from "@/components/logout-button";
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
@@ -19,6 +20,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const user = await getCurrentUser();
+  const unread = user
+    ? await prisma.notification.count({
+        where: { userId: user.id, readAt: null },
+      })
+    : 0;
   return (
     <html lang="az">
       <body className={`${inter.className} flex min-h-screen flex-col`}>
@@ -80,9 +86,23 @@ export default async function RootLayout({
               )}
               {user ? (
                 <>
-                  <span className="text-white/80">
+                  <Link
+                    href="/notifications"
+                    className="relative text-white/80 hover:text-white"
+                  >
+                    🔔
+                    {unread > 0 && (
+                      <span className="absolute -right-2 -top-1 rounded-full bg-emerald px-1.5 text-[10px] font-bold text-navy-dark">
+                        {unread}
+                      </span>
+                    )}
+                  </Link>
+                  <Link
+                    href="/settings"
+                    className="text-white/80 hover:text-white"
+                  >
                     {user.fullName || user.phone}
-                  </span>
+                  </Link>
                   <LogoutButton />
                 </>
               ) : (

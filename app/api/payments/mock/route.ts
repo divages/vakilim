@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { notifyUser, whenLabel } from "@/lib/notify";
 
 const bodySchema = z.object({ bookingId: z.string().min(1) });
 
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
 
   const booking = await prisma.booking.findUnique({
     where: { id: parsed.data.bookingId },
-    include: { lawyer: { select: { bookingMode: true } } },
+    include: { lawyer: { select: { bookingMode: true, userId: true } } },
   });
   if (!booking || booking.clientId !== user.id)
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
@@ -40,6 +41,17 @@ export async function POST(req: Request) {
       data: { status: nextStatus },
     }),
   ]);
+
+  const clientName = user.fullName || user.phone || "Müştəri";
+  await notifyUser(booking.lawyer.userId, {
+    type: nextStatus === "REQUESTED" ? "NEW_BOOKING_REQUEST" : "NEW_BOOKING",
+    title:
+      nextStatus === "REQUESTED"
+        ? "Yeni sifariş — təsdiq gözləyir"
+        : "Yeni görüş təsdiqləndi",
+    body: `${clientName} · ${whenLabel(booking.startAt)}`,
+    link: "/lawyer/bookings",
+  });
 
   return NextResponse.json({ ok: true, status: nextStatus });
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { cancellationRefund } from "@/lib/policy";
+import { notifyUser, whenLabel } from "@/lib/notify";
 
 const CANCELLABLE = ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"] as const;
 
@@ -17,7 +18,7 @@ export async function POST(
 
   const booking = await prisma.booking.findUnique({
     where: { id },
-    include: { payment: true },
+    include: { payment: true, lawyer: { select: { userId: true } } },
   });
   if (!booking || booking.clientId !== user.id)
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
@@ -52,6 +53,13 @@ export async function POST(
         ]
       : []),
   ]);
+
+  await notifyUser(booking.lawyer.userId, {
+    type: "BOOKING_CANCELLED",
+    title: "Görüş ləğv edildi",
+    body: `Müştəri ${whenLabel(booking.startAt)} görüşünü ləğv etdi.`,
+    link: "/lawyer/bookings",
+  });
 
   return NextResponse.json({ ok: true, pct, refundQepik });
 }

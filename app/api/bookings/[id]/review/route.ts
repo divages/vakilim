@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canReview } from "@/lib/disputes";
+import { notifyUser } from "@/lib/notify";
 
 const ALLOWED_TAGS = ["clear", "on_time", "solved", "professional"] as const;
 
@@ -23,7 +24,7 @@ export async function POST(
 
   const booking = await prisma.booking.findUnique({
     where: { id },
-    include: { payment: true, review: true },
+    include: { payment: true, review: true, lawyer: { select: { userId: true, slug: true } } },
   });
   if (!booking || booking.clientId !== user.id)
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
@@ -45,6 +46,13 @@ export async function POST(
       tags: parsed.data.tags,
       text: parsed.data.text || null,
     },
+  });
+
+  await notifyUser(booking.lawyer.userId, {
+    type: "NEW_REVIEW",
+    title: "Yeni rəy",
+    body: `Profilinizə ${"★".repeat(parsed.data.stars)} rəy yazıldı.`,
+    link: booking.lawyer.slug ? `/lawyers/${booking.lawyer.slug}` : "/lawyers",
   });
 
   return NextResponse.json({ ok: true });

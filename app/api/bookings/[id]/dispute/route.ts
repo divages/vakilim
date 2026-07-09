@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canOpenDispute } from "@/lib/disputes";
+import { notifyUser, whenLabel } from "@/lib/notify";
 
 const REASONS = ["no_show", "technical", "quality", "other"] as const;
 
@@ -22,7 +23,7 @@ export async function POST(
 
   const booking = await prisma.booking.findUnique({
     where: { id },
-    include: { dispute: true },
+    include: { dispute: true, lawyer: { select: { userId: true } } },
   });
   if (!booking || booking.clientId !== user.id)
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
@@ -42,6 +43,13 @@ export async function POST(
       reason: parsed.data.reason,
       description: parsed.data.description,
     },
+  });
+
+  await notifyUser(booking.lawyer.userId, {
+    type: "DISPUTE_OPENED",
+    title: "Yeni şikayət",
+    body: `${whenLabel(booking.startAt)} görüşü üzrə şikayət açıldı — cavab müddəti 2 gündür.`,
+    link: "/lawyer/disputes",
   });
 
   return NextResponse.json({ ok: true });

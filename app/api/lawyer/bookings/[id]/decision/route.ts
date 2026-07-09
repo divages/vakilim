@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { notifyUser, whenLabel } from "@/lib/notify";
 
 const bodySchema = z.object({ action: z.enum(["ACCEPT", "DECLINE"]) });
 
@@ -40,6 +41,12 @@ export async function POST(
       where: { id },
       data: { status: "CONFIRMED" },
     });
+    await notifyUser(booking.clientId, {
+      type: "BOOKING_ACCEPTED",
+      title: "Görüş təsdiqləndi",
+      body: `Vəkil görüşü qəbul etdi · ${whenLabel(booking.startAt)}`,
+      link: "/bookings",
+    });
     return NextResponse.json({ ok: true, status: "CONFIRMED" });
   }
 
@@ -61,6 +68,13 @@ export async function POST(
         ]
       : []),
   ]);
+
+  await notifyUser(booking.clientId, {
+    type: "BOOKING_DECLINED",
+    title: "Vəkil imtina etdi",
+    body: `${whenLabel(booking.startAt)} görüşü baş tutmayacaq — ödəniş tam geri qaytarılır.`,
+    link: "/bookings",
+  });
 
   return NextResponse.json({ ok: true, status: "DECLINED" });
 }

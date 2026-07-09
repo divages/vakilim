@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { notifyUser, money } from "@/lib/notify";
 
 const bodySchema = z.object({
   resolution: z.enum(["FULL_REFUND", "PARTIAL_REFUND", "DISMISSED"]),
@@ -19,7 +20,7 @@ export async function POST(
 
   const dispute = await prisma.dispute.findUnique({
     where: { id },
-    include: { booking: { include: { payment: true } } },
+    include: { booking: { include: { payment: true, lawyer: { select: { userId: true } } } } },
   });
   if (!dispute)
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
@@ -71,6 +72,23 @@ export async function POST(
         ]
       : []),
   ]);
+
+  const outcome =
+    resolution === "DISMISSED"
+      ? "Şikayət rədd edildi."
+      : `Qərar: ${money(refund)} geri qaytarılır.`;
+  await notifyUser(dispute.clientId, {
+    type: "DISPUTE_RESOLVED",
+    title: "Mübahisə həll olundu",
+    body: outcome,
+    link: "/bookings",
+  });
+  await notifyUser(dispute.booking.lawyer.userId, {
+    type: "DISPUTE_RESOLVED",
+    title: "Mübahisə həll olundu",
+    body: outcome,
+    link: "/lawyer/disputes",
+  });
 
   return NextResponse.json({ ok: true, refundQepik: refund });
 }
