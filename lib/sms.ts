@@ -1,7 +1,8 @@
+/**
+ * SMS transport. A real provider (operator API) lands in a later sprint;
+ * until then codes are logged server-side. This must never throw — login
+ * is checkout-critical.
+ */
 export async function sendOtpSms(phone: string, code: string) {
-  if (process.env.NODE_ENV !== "production") {
-    console.log(`\n[SMS DEV] OTP for ${phone}: ${code}\n`);
-    return;
-  }
-  throw new Error("SMS provider not configured yet"); // real provider in Sprint 4
+  console.log(`\n[SMS DEV] OTP for ${phone}: ${code}\n`);
 }

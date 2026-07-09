@@ -36,5 +36,9 @@ export async function POST(req: Request) {
   });
   await sendOtpSms(phone, code);
 
-  return NextResponse.json({ ok: true });
+  // Demo mode: surface the code to the client so visitors can log in
+  // without server-log access. Never enable in real production.
+  const devEcho = process.env.OTP_DEV_ECHO === "true";
+
+  return NextResponse.json({ ok: true, ...(devEcho ? { devCode: code } : {}) });
 }

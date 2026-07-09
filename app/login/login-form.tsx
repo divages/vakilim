@@ -11,13 +11,14 @@ const ERRORS: Record<string, string> = {
   DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
 };
 
-export default function LoginForm() {
+export default function LoginForm({ next }: { next: string }) {
   const [step, setStep] = useState<"phone" | "code">("phone");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [resendIn, setResendIn] = useState(0);
+  const [devCode, setDevCode] = useState<string | null>(null);
 
   useEffect(() => {
     if (resendIn <= 0) return;
@@ -42,6 +43,7 @@ export default function LoginForm() {
       setStep("code");
       setCode("");
       setResendIn(30);
+      setDevCode(data.devCode ?? null);
     } catch {
       setError(ERRORS.DEFAULT);
     } finally {
@@ -63,7 +65,7 @@ export default function LoginForm() {
         setError(ERRORS[data.error] ?? ERRORS.DEFAULT);
         return;
       }
-      window.location.href = "/";
+      window.location.href = next;
     } catch {
       setError(ERRORS.DEFAULT);
     } finally {
@@ -119,6 +121,11 @@ export default function LoginForm() {
       <p className="text-sm">
         Təsdiq kodu <b className="text-navy">{phone}</b> nömrəsinə göndərildi.
       </p>
+      {devCode && (
+        <p className="rounded border border-amber-200 bg-amber-50 p-2 text-center text-sm text-amber-800">
+          Demo rejimi — təsdiq kodu: <b className="tracking-widest">{devCode}</b>
+        </p>
+      )}
       <input
         value={code}
         onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
