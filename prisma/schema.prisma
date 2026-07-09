@@ -24,6 +24,13 @@ enum VerificationStatus {
   REJECTED
 }
 
+enum ServiceType {
+  VIDEO
+  AUDIO
+  WRITTEN
+  DOC_REVIEW
+}
+
 model User {
   id            String         @id @default(cuid())
   role          UserRole       @default(CLIENT)
@@ -85,6 +92,7 @@ model LawyerProfile {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   practiceAreas      LawyerPracticeArea[]
+  services           Service[]
 }
 
 model LawyerPracticeArea {
@@ -94,4 +102,18 @@ model LawyerPracticeArea {
   practiceArea    PracticeArea  @relation(fields: [practiceAreaId], references: [id], onDelete: Cascade)
 
   @@id([lawyerProfileId, practiceAreaId])
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  lawyerId    String
+  lawyer      LawyerProfile @relation(fields: [lawyerId], references: [id], onDelete: Cascade)
+  type        ServiceType
+  durationMin Int?
+  priceQepik  Int
+  active      Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([lawyerId])
 }

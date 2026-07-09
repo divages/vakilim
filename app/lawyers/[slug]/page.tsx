@@ -1,9 +1,17 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { formatAzn } from "@/lib/money";
 
 const TYPE_LABELS: Record<string, string> = {
   ADVOCATE: "Vəkil (Vəkillər Kollegiyasının üzvü)",
   LICENSED_LAWYER: "Hüquqşünas",
+};
+
+const SERVICE_LABELS: Record<string, string> = {
+  VIDEO: "Video görüş",
+  AUDIO: "Səsli zəng",
+  WRITTEN: "Yazılı cavab",
+  DOC_REVIEW: "Sənəd yoxlanışı",
 };
 
 const LANG_LABELS: Record<string, string> = {
@@ -18,6 +26,10 @@ async function loadProfile(slug: string) {
     include: {
       user: { select: { fullName: true } },
       practiceAreas: { include: { practiceArea: true } },
+      services: {
+        where: { active: true },
+        orderBy: { priceQepik: "asc" },
+      },
     },
   });
 }
@@ -82,6 +94,30 @@ export default async function LawyerProfilePage({
       <p className="mt-2 whitespace-pre-line text-[15px] leading-relaxed">
         {profile.bio}
       </p>
+
+      {profile.services.length > 0 && (
+        <>
+          <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
+            Xidmətlər
+          </h2>
+          <div className="mt-2 divide-y divide-gray-100 rounded border border-gray-200">
+            {profile.services.map((s) => (
+              <div
+                key={s.id}
+                className="flex items-center justify-between px-4 py-3 text-sm"
+              >
+                <span className="text-navy">
+                  {SERVICE_LABELS[s.type]}
+                  {s.durationMin ? ` · ${s.durationMin} dəq` : ""}
+                </span>
+                <span className="font-semibold text-navy">
+                  {formatAzn(s.priceQepik)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <button
         disabled

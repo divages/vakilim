@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { formatAzn } from "@/lib/money";
 
 const TYPE_LABELS: Record<string, string> = {
   ADVOCATE: "Vəkil",
@@ -35,6 +36,7 @@ export default async function LawyersPage({
     include: {
       user: { select: { fullName: true } },
       practiceAreas: { include: { practiceArea: true } },
+      services: { where: { active: true }, select: { priceQepik: true } },
     },
     orderBy: [{ yearsExperience: "desc" }, { createdAt: "asc" }],
   });
@@ -99,6 +101,12 @@ export default async function LawyersPage({
               <p className="mt-3 text-xs text-slate">
                 {p.practiceAreas.map((pa) => pa.practiceArea.nameAz).join(" · ")}
               </p>
+              {p.services.length > 0 && (
+                <p className="mt-2 text-sm font-semibold text-navy">
+                  {formatAzn(Math.min(...p.services.map((s) => s.priceQepik)))}
+                  -dan
+                </p>
+              )}
             </Link>
           ))}
         </div>
