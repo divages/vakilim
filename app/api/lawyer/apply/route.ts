@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { slugify, randomSuffix } from "@/lib/slug";
 
 const bodySchema = z.object({
   fullName: z.string().trim().min(3).max(100),
@@ -38,6 +39,8 @@ export async function POST(req: Request) {
   if (areas.length !== practiceAreaIds.length)
     return NextResponse.json({ ok: false, error: "INVALID_AREAS" }, { status: 400 });
 
+  const slug = `${slugify(fullName)}-${randomSuffix()}`;
+
   await prisma.$transaction([
     prisma.user.update({
       where: { id: user.id },
@@ -46,6 +49,7 @@ export async function POST(req: Request) {
     prisma.lawyerProfile.create({
       data: {
         userId: user.id,
+        slug,
         type: profile.type,
         licenseNo: profile.licenseNo,
         yearsExperience: profile.yearsExperience,

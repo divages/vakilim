@@ -28,6 +28,9 @@ export default async function RootLayout({
               Vakilim<span className="text-emerald">.az</span>
             </Link>
             <nav className="flex items-center gap-4 text-sm">
+              <Link href="/lawyers" className="text-white/80 hover:text-white">
+                Vəkillər
+              </Link>
               {user?.role === "ADMIN" ? (
                 <Link
                   href="/admin/verifications"

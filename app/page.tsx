@@ -5,13 +5,14 @@ export default function Home() {
     <section className="mx-auto max-w-5xl px-4 py-24 text-center">
       <h1 className="text-4xl font-bold text-navy">Vəkilinizi tapın</h1>
       <p className="mx-auto mt-4 max-w-xl text-lg">
-        Yoxlanılmış vəkillər və hüquqşünaslarla onlayn görüş — tezliklə.
+        Yoxlanılmış vəkillər və hüquqşünaslarla tanış olun və sizə uyğununu
+        seçin.
       </p>
       <Link
-        href="/login"
+        href="/lawyers"
         className="mt-8 inline-block rounded bg-navy px-6 py-3 font-medium text-white hover:bg-navy-dark"
       >
-        Daxil ol
+        Vəkil axtar
       </Link>
     </section>
   );
