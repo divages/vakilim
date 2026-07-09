@@ -1,9 +1,12 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
 import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
 import DecisionButtons from "./decision-buttons";
+import { completePastBookings } from "@/lib/bookings";
+import { isJoinable } from "@/lib/call-window";
 
 const SERVICE_LABELS: Record<string, string> = {
   VIDEO: "Video görüş",
@@ -40,6 +43,8 @@ export default async function LawyerBookingsPage() {
     select: { id: true },
   });
   if (!profile) redirect("/lawyer/apply");
+
+  await completePastBookings({ lawyerId: profile.id });
 
   const now = new Date();
   const bookings = await prisma.booking.findMany({
@@ -85,6 +90,14 @@ export default async function LawyerBookingsPage() {
             </p>
           </div>
         </div>
+        {b.status === "CONFIRMED" && isJoinable(b.startAt, b.endAt, now) && (
+          <Link
+            href={`/call/${b.id}`}
+            className="mt-3 inline-block rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
+          >
+            Görüşə qoşul
+          </Link>
+        )}
         {actions && <DecisionButtons bookingId={b.id} />}
       </div>
     );

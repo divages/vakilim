@@ -169,6 +169,7 @@ model Booking {
   status        BookingStatus @default(PENDING_PAYMENT)
   activeSlotKey String?       @default("A")
   payment       Payment?
+  session       ConsultSession?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -186,4 +187,17 @@ model Payment {
   refundedQepik Int           @default(0)
   status        PaymentStatus
   createdAt   DateTime      @default(now())
+}
+
+model ConsultSession {
+  id              String    @id @default(cuid())
+  bookingId       String    @unique
+  booking         Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  roomName        String
+  consentClientAt DateTime?
+  consentLawyerAt DateTime?
+  clientJoinedAt  DateTime?
+  lawyerJoinedAt  DateTime?
+  endedAt         DateTime?
+  createdAt       DateTime  @default(now())
 }

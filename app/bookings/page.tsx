@@ -4,6 +4,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
 import { cancellationRefund } from "@/lib/policy";
+import { completePastBookings } from "@/lib/bookings";
+import { isJoinable } from "@/lib/call-window";
 import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
 import CancelButton from "./cancel-button";
 
@@ -33,6 +35,8 @@ function bakuTimeLabel(d: Date): string {
 export default async function BookingsPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/bookings");
+
+  await completePastBookings({ clientId: user.id });
 
   const now = new Date();
   const bookings = await prisma.booking.findMany({
@@ -103,6 +107,15 @@ export default async function BookingsPage() {
                 </div>
 
                 <div className="mt-3 flex flex-wrap items-center gap-3">
+                  {b.status === "CONFIRMED" &&
+                    isJoinable(b.startAt, b.endAt, now) && (
+                      <Link
+                        href={`/call/${b.id}`}
+                        className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
+                      >
+                        Görüşə qoşul
+                      </Link>
+                    )}
                   {b.status === "PENDING_PAYMENT" && (
                     <Link
                       href={`/pay/${b.id}`}
