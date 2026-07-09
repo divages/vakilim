@@ -74,6 +74,8 @@ model LawyerProfile {
   user               User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   type               LawyerType
   verificationStatus VerificationStatus   @default(PENDING)
+  rejectionReason    String?
+  reviewedAt         DateTime?
   licenseNo          String?
   bio                String?
   yearsExperience    Int?
