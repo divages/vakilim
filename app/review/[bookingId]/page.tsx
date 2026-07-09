@@ -1,0 +1,37 @@
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { canReview } from "@/lib/disputes";
+import ReviewForm from "./review-form";
+
+export default async function ReviewPage({
+  params,
+}: {
+  params: Promise<{ bookingId: string }>;
+}) {
+  const { bookingId } = await params;
+  const user = await getCurrentUser();
+  if (!user) redirect(`/login?next=/review/${bookingId}`);
+
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      review: true,
+      payment: true,
+      lawyer: { select: { user: { select: { fullName: true } } } },
+    },
+  });
+  if (!booking || booking.clientId !== user.id) redirect("/bookings");
+  if (booking.review || !canReview(booking.status) || !booking.payment)
+    redirect("/bookings");
+
+  return (
+    <div className="mx-auto max-w-md px-4 py-12">
+      <h1 className="text-2xl font-bold text-navy">Rəy yazın</h1>
+      <p className="mt-2 text-sm">
+        {booking.lawyer.user.fullName ?? "Vəkil"} ilə görüşünüz necə keçdi?
+      </p>
+      <ReviewForm bookingId={booking.id} />
+    </div>
+  );
+}

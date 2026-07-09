@@ -16,6 +16,13 @@ const SERVICE_LABELS: Record<string, string> = {
   DOC_REVIEW: "Sənəd yoxlanışı",
 };
 
+const TAG_LABELS: Record<string, string> = {
+  clear: "Aydın izahat",
+  on_time: "Vaxtında",
+  solved: "Problemi həll etdi",
+  professional: "Peşəkar yanaşma",
+};
+
 const LANG_LABELS: Record<string, string> = {
   az: "Azərbaycan",
   ru: "Rus",
@@ -31,6 +38,16 @@ async function loadProfile(slug: string) {
       services: {
         where: { active: true },
         orderBy: { priceQepik: "asc" },
+      },
+      reviews: {
+        where: { hidden: false },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+        include: {
+          booking: {
+            select: { client: { select: { fullName: true } } },
+          },
+        },
       },
     },
   });
@@ -127,6 +144,49 @@ export default async function LawyerProfilePage({
                 <span className="font-semibold text-navy">
                   {formatAzn(s.priceQepik)}
                 </span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {profile.reviews.length > 0 && (
+        <>
+          <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
+            Rəylər (
+            {(
+              profile.reviews.reduce((a, r) => a + r.stars, 0) /
+              profile.reviews.length
+            ).toFixed(1)}{" "}
+            ★ · {profile.reviews.length})
+          </h2>
+          <div className="mt-2 space-y-3">
+            {profile.reviews.map((r) => (
+              <div key={r.id} className="rounded border border-gray-200 p-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-navy">
+                    {(r.booking.client.fullName ?? "Müştəri").split(" ")[0]}
+                  </p>
+                  <p className="text-sm text-amber-500">
+                    {"★".repeat(r.stars)}
+                    <span className="text-gray-300">
+                      {"★".repeat(5 - r.stars)}
+                    </span>
+                  </p>
+                </div>
+                {r.tags.length > 0 && (
+                  <div className="mt-1 flex flex-wrap gap-1">
+                    {r.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full bg-navy/5 px-2 py-0.5 text-xs text-navy"
+                      >
+                        {TAG_LABELS[t] ?? t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {r.text && <p className="mt-2 text-sm">{r.text}</p>}
               </div>
             ))}
           </div>

@@ -37,6 +37,7 @@ export default async function LawyersPage({
       user: { select: { fullName: true } },
       practiceAreas: { include: { practiceArea: true } },
       services: { where: { active: true }, select: { priceQepik: true } },
+      reviews: { where: { hidden: false }, select: { stars: true } },
     },
     orderBy: [{ yearsExperience: "desc" }, { createdAt: "asc" }],
   });
@@ -94,6 +95,16 @@ export default async function LawyersPage({
                 {p.city} · {p.yearsExperience ?? 0} il təcrübə ·{" "}
                 {p.languages.map((l) => l.toUpperCase()).join(", ")}
               </p>
+              {p.reviews.length > 0 && (
+                <p className="mt-1 text-sm text-amber-500">
+                  ★{" "}
+                  {(
+                    p.reviews.reduce((a, r) => a + r.stars, 0) /
+                    p.reviews.length
+                  ).toFixed(1)}{" "}
+                  <span className="text-slate">({p.reviews.length} rəy)</span>
+                </p>
+              )}
               <p className="mt-2 text-sm text-slate">
                 {(p.bio ?? "").slice(0, 140)}
                 {(p.bio ?? "").length > 140 ? "…" : ""}

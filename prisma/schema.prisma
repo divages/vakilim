@@ -45,6 +45,18 @@ enum BookingStatus {
   COMPLETED
 }
 
+enum DisputeStatus {
+  OPEN
+  RESPONDED
+  RESOLVED
+}
+
+enum DisputeResolution {
+  FULL_REFUND
+  PARTIAL_REFUND
+  DISMISSED
+}
+
 enum PaymentStatus {
   CAPTURED
   PARTIALLY_REFUNDED
@@ -119,6 +131,7 @@ model LawyerProfile {
   services           Service[]
   availabilityRules  AvailabilityRule[]
   bookings           Booking[]
+  reviews            Review[]
 }
 
 model LawyerPracticeArea {
@@ -172,6 +185,8 @@ model Booking {
   payment       Payment?
   session       ConsultSession?
   messages      Message[]
+  review        Review?
+  dispute       Dispute?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
@@ -222,4 +237,40 @@ model Message {
 
   @@index([bookingId, createdAt])
   @@index([flagged, createdAt])
+}
+
+model Review {
+  id         String        @id @default(cuid())
+  bookingId  String        @unique
+  booking    Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  lawyerId   String
+  lawyer     LawyerProfile @relation(fields: [lawyerId], references: [id], onDelete: Cascade)
+  clientId   String
+  stars      Int
+  tags       String[]      @default([])
+  text       String?
+  lawyerReply String?
+  repliedAt  DateTime?
+  hidden     Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+
+  @@index([lawyerId, hidden, createdAt])
+}
+
+model Dispute {
+  id                String             @id @default(cuid())
+  bookingId         String             @unique
+  booking           Booking            @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  clientId          String
+  reason            String
+  description       String
+  lawyerResponse    String?
+  lawyerRespondedAt DateTime?
+  status            DisputeStatus      @default(OPEN)
+  resolution        DisputeResolution?
+  refundQepik       Int                @default(0)
+  resolvedAt        DateTime?
+  createdAt         DateTime           @default(now())
+
+  @@index([status, createdAt])
 }

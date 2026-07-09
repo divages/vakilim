@@ -56,6 +56,12 @@ export default async function RootLayout({
                   >
                     Moderasiya
                   </Link>
+                  <Link
+                    href="/admin/disputes"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Mübahisələr
+                  </Link>
                 </>
               ) : user?.role === "LAWYER" ? (
                 <Link

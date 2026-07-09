@@ -6,6 +6,7 @@ import { formatAzn } from "@/lib/money";
 import { cancellationRefund } from "@/lib/policy";
 import { completePastBookings } from "@/lib/bookings";
 import { isJoinable } from "@/lib/call-window";
+import { canOpenDispute } from "@/lib/disputes";
 import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
 import CancelButton from "./cancel-button";
 
@@ -45,6 +46,8 @@ export default async function BookingsPage() {
     include: {
       lawyer: { select: { slug: true, user: { select: { fullName: true } } } },
       payment: { select: { amountQepik: true, refundedQepik: true } },
+      review: { select: { id: true } },
+      dispute: { select: { status: true } },
     },
   });
 
@@ -133,6 +136,30 @@ export default async function BookingsPage() {
                     >
                       Ödənişi tamamla
                     </Link>
+                  )}
+                  {b.status === "COMPLETED" && b.payment && !b.review && (
+                    <Link
+                      href={`/review/${b.id}`}
+                      className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+                    >
+                      Rəy yaz
+                    </Link>
+                  )}
+                  {!b.dispute &&
+                    canOpenDispute(b.status, b.endAt, now) && (
+                      <Link
+                        href={`/dispute/${b.id}`}
+                        className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
+                      >
+                        Problem bildir
+                      </Link>
+                    )}
+                  {b.dispute && (
+                    <span className="rounded bg-navy/10 px-3 py-2 text-xs font-medium text-navy">
+                      {b.dispute.status === "RESOLVED"
+                        ? "Mübahisə həll olunub"
+                        : "Mübahisə baxılır"}
+                    </span>
                   )}
                   {cancellable && (
                     <CancelButton
