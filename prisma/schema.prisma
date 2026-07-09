@@ -31,6 +31,11 @@ enum ServiceType {
   DOC_REVIEW
 }
 
+enum BookingMode {
+  INSTANT
+  REQUEST
+}
+
 model User {
   id            String         @id @default(cuid())
   role          UserRole       @default(CLIENT)
@@ -88,11 +93,14 @@ model LawyerProfile {
   bio                String?
   yearsExperience    Int?
   city               String               @default("Bakı")
+  bufferMin          Int                  @default(0)
+  bookingMode        BookingMode          @default(REQUEST)
   languages          String[]             @default(["az"])
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   practiceAreas      LawyerPracticeArea[]
   services           Service[]
+  availabilityRules  AvailabilityRule[]
 }
 
 model LawyerPracticeArea {
@@ -116,4 +124,15 @@ model Service {
   updatedAt   DateTime      @updatedAt
 
   @@index([lawyerId])
+}
+
+model AvailabilityRule {
+  id       String        @id @default(cuid())
+  lawyerId String
+  lawyer   LawyerProfile @relation(fields: [lawyerId], references: [id], onDelete: Cascade)
+  weekday  Int
+  startMin Int
+  endMin   Int
+
+  @@index([lawyerId, weekday])
 }
