@@ -1,0 +1,56 @@
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { canReschedule } from "@/lib/reschedule";
+import { bakuDateIso, fmtMin } from "@/lib/slots";
+import ReschedulePicker from "./reschedule-picker";
+
+function bakuTimeLabel(d: Date): string {
+  const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
+  return fmtMin(Math.round((d.getTime() - dayStart) / 60_000));
+}
+
+export default async function ReschedulePage({
+  params,
+}: {
+  params: Promise<{ bookingId: string }>;
+}) {
+  const { bookingId } = await params;
+
+  const user = await getCurrentUser();
+  if (!user) redirect(`/login?next=/reschedule/${bookingId}`);
+
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: {
+      lawyer: { select: { slug: true, user: { select: { fullName: true } } } },
+    },
+  });
+  if (!booking || booking.clientId !== user.id) redirect("/bookings");
+  if (
+    !booking.lawyer.slug ||
+    !canReschedule(booking.status, booking.startAt, booking.rescheduledCount)
+  )
+    redirect("/bookings");
+
+  return (
+    <div className="mx-auto max-w-md px-4 py-12">
+      <h1 className="text-xl font-bold text-navy">Görüş vaxtını dəyişin</h1>
+      <p className="mt-2 text-sm">
+        {booking.lawyer.user.fullName ?? "Vəkil"} · hazırkı vaxt:{" "}
+        <b className="text-navy">
+          {bakuDateIso(booking.startAt)} · {bakuTimeLabel(booking.startAt)}
+        </b>
+      </p>
+      <p className="mt-1 text-xs text-slate">
+        Vaxtı 1 dəfə, görüşə ən azı 24 saat qalmış dəyişmək olar. Ödəniş və
+        yazışma saxlanılır.
+      </p>
+      <ReschedulePicker
+        bookingId={booking.id}
+        lawyerSlug={booking.lawyer.slug}
+        serviceId={booking.serviceId}
+      />
+    </div>
+  );
+}

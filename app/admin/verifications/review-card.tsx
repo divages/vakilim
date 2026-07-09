@@ -15,6 +15,10 @@ export type Application = {
   bio: string;
   languages: string[];
   areas: string[];
+  licenseDocUrl: string | null;
+  licenseDocIsPdf: boolean;
+  idDocUrl: string | null;
+  idDocIsPdf: boolean;
 };
 
 const TYPE_LABELS: Record<Application["type"], string> = {
@@ -95,6 +99,16 @@ export default function ReviewCard({ app }: { app: Application }) {
 
       <p className="mt-3 rounded bg-gray-50 p-3 text-sm">{app.bio}</p>
 
+      <div className="mt-3">
+        <p className="text-xs font-medium uppercase tracking-wide text-slate">
+          Sənədlər
+        </p>
+        <div className="mt-2 flex flex-wrap gap-3">
+          <DocTile label="Lisenziya" url={app.licenseDocUrl} isPdf={app.licenseDocIsPdf} />
+          <DocTile label="Şəxsiyyət vəsiqəsi" url={app.idDocUrl} isPdf={app.idDocIsPdf} />
+        </div>
+      </div>
+
       {app.status === "REJECTED" && app.rejectionReason && (
         <p className="mt-2 text-sm text-red-700">
           Səbəb: {app.rejectionReason}
@@ -156,6 +170,45 @@ export default function ReviewCard({ app }: { app: Application }) {
         )}
       </div>
     </div>
+  );
+}
+
+function DocTile({
+  label,
+  url,
+  isPdf,
+}: {
+  label: string;
+  url: string | null;
+  isPdf: boolean;
+}) {
+  if (!url)
+    return (
+      <span className="rounded border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-slate">
+        {label}: sənəd yoxdur
+      </span>
+    );
+  if (isPdf)
+    return (
+      <a
+        href={url}
+        target="_blank"
+        rel="noreferrer"
+        className="rounded border border-gray-300 px-3 py-2 text-xs font-medium text-navy hover:border-navy"
+      >
+        📄 {label} (PDF)
+      </a>
+    );
+  return (
+    <a href={url} target="_blank" rel="noreferrer" className="block">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={url}
+        alt={label}
+        className="h-24 w-36 rounded border border-gray-200 object-cover hover:border-navy"
+      />
+      <span className="mt-1 block text-center text-xs text-slate">{label}</span>
+    </a>
   );
 }
 

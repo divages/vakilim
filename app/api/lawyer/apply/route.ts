@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
+import { randomBytes } from "crypto";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { slugify, randomSuffix } from "@/lib/slug";
+import { uploadObject, s3Env } from "@/lib/storage";
 
-const bodySchema = z.object({
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const ALLOWED_TYPES: Record<string, string> = {
+  "application/pdf": "pdf",
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+};
+
+const fieldsSchema = z.object({
   fullName: z.string().trim().min(3).max(100),
   type: z.enum(["ADVOCATE", "LICENSED_LAWYER"]),
   licenseNo: z.string().trim().min(2).max(50),
@@ -15,14 +25,45 @@ const bodySchema = z.object({
   practiceAreaIds: z.array(z.string().min(1)).min(1).max(5),
 });
 
+function checkFile(v: FormDataEntryValue | null): { file: File; ext: string } | { error: string } {
+  if (!(v instanceof File) || v.size === 0) return { error: "FILE_REQUIRED" };
+  if (v.size > MAX_FILE_BYTES) return { error: "FILE_TOO_LARGE" };
+  const ext = ALLOWED_TYPES[v.type];
+  if (!ext) return { error: "FILE_TYPE" };
+  return { file: v, ext };
+}
+
 export async function POST(req: Request) {
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });
 
-  const parsed = bodySchema.safeParse(await req.json().catch(() => null));
+  if (!s3Env())
+    return NextResponse.json({ ok: false, error: "SERVER_CONFIG" }, { status: 500 });
+
+  const form = await req.formData().catch(() => null);
+  if (!form)
+    return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
+
+  const parsed = fieldsSchema.safeParse({
+    fullName: form.get("fullName"),
+    type: form.get("type"),
+    licenseNo: form.get("licenseNo"),
+    yearsExperience: form.get("yearsExperience"),
+    city: form.get("city"),
+    bio: form.get("bio"),
+    languages: form.getAll("languages"),
+    practiceAreaIds: form.getAll("practiceAreaIds"),
+  });
   if (!parsed.success)
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
+
+  const licenseDoc = checkFile(form.get("licenseDoc"));
+  if ("error" in licenseDoc)
+    return NextResponse.json({ ok: false, error: licenseDoc.error }, { status: 400 });
+  const idDoc = checkFile(form.get("idDoc"));
+  if ("error" in idDoc)
+    return NextResponse.json({ ok: false, error: idDoc.error }, { status: 400 });
 
   const existing = await prisma.lawyerProfile.findUnique({
     where: { userId: user.id },
@@ -39,6 +80,21 @@ export async function POST(req: Request) {
   if (areas.length !== practiceAreaIds.length)
     return NextResponse.json({ ok: false, error: "INVALID_AREAS" }, { status: 400 });
 
+  const rand = randomBytes(6).toString("hex");
+  const licenseDocKey = `verification/${user.id}/license-${rand}.${licenseDoc.ext}`;
+  const idDocKey = `verification/${user.id}/id-${rand}.${idDoc.ext}`;
+
+  await uploadObject(
+    licenseDocKey,
+    Buffer.from(await licenseDoc.file.arrayBuffer()),
+    licenseDoc.file.type
+  );
+  await uploadObject(
+    idDocKey,
+    Buffer.from(await idDoc.file.arrayBuffer()),
+    idDoc.file.type
+  );
+
   const slug = `${slugify(fullName)}-${randomSuffix()}`;
 
   await prisma.$transaction([
@@ -52,6 +108,8 @@ export async function POST(req: Request) {
         slug,
         type: profile.type,
         licenseNo: profile.licenseNo,
+        licenseDocKey,
+        idDocKey,
         yearsExperience: profile.yearsExperience,
         city: profile.city,
         bio: profile.bio,

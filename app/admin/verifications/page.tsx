@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ReviewCard, { type Application } from "./review-card";
+import { presignRecordingUrl } from "@/lib/storage";
 
 async function loadApplications() {
   const include = {
@@ -23,8 +24,14 @@ async function loadApplications() {
     }),
   ]);
 
-  const toApp = (p: (typeof pending)[number]): Application => ({
+  const toApp = async (p: (typeof pending)[number]): Promise<Application> => ({
     id: p.id,
+    licenseDocUrl: p.licenseDocKey
+      ? await presignRecordingUrl(p.licenseDocKey, 600)
+      : null,
+    licenseDocIsPdf: p.licenseDocKey?.endsWith(".pdf") ?? false,
+    idDocUrl: p.idDocKey ? await presignRecordingUrl(p.idDocKey, 600) : null,
+    idDocIsPdf: p.idDocKey?.endsWith(".pdf") ?? false,
     fullName: p.user.fullName ?? "—",
     phone: p.user.phone ?? "—",
     type: p.type,
@@ -38,7 +45,10 @@ async function loadApplications() {
     areas: p.practiceAreas.map((pa) => pa.practiceArea.nameAz),
   });
 
-  return { pending: pending.map(toApp), decided: decided.map(toApp) };
+  return {
+    pending: await Promise.all(pending.map(toApp)),
+    decided: await Promise.all(decided.map(toApp)),
+  };
 }
 
 export default async function VerificationsPage() {

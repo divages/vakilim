@@ -120,6 +120,8 @@ model LawyerProfile {
   rejectionReason    String?
   reviewedAt         DateTime?
   licenseNo          String?
+  licenseDocKey      String?
+  idDocKey           String?
   bio                String?
   yearsExperience    Int?
   city               String               @default("Bakı")
@@ -183,6 +185,7 @@ model Booking {
   endAt         DateTime
   status        BookingStatus @default(PENDING_PAYMENT)
   activeSlotKey String?       @default("A")
+  rescheduledCount Int        @default(0)
   payment       Payment?
   session       ConsultSession?
   messages      Message[]

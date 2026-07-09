@@ -9,6 +9,10 @@ const ERRORS: Record<string, string> = {
   ALREADY_APPLIED: "Siz artıq müraciət etmisiniz.",
   INVALID_AREAS: "Seçilmiş fəaliyyət sahələri düzgün deyil.",
   INVALID_BODY: "Bütün sahələri düzgün doldurun.",
+  FILE_REQUIRED: "Hər iki sənədi (lisenziya və şəxsiyyət vəsiqəsi) yükləyin.",
+  FILE_TOO_LARGE: "Fayl 10 MB-dan böyük ola bilməz.",
+  FILE_TYPE: "Yalnız PDF, JPG, PNG və WEBP faylları qəbul olunur.",
+  SERVER_CONFIG: "Fayl anbarı konfiqurasiya olunmayıb.",
   DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
 };
 
@@ -33,6 +37,8 @@ export default function ApplyForm({
   const [bio, setBio] = useState("");
   const [languages, setLanguages] = useState<string[]>(["az"]);
   const [areaIds, setAreaIds] = useState<string[]>([]);
+  const [licenseDoc, setLicenseDoc] = useState<File | null>(null);
+  const [idDoc, setIdDoc] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -49,6 +55,8 @@ export default function ApplyForm({
     if (languages.length === 0) return "Ən azı bir dil seçin.";
     if (areaIds.length === 0) return "Ən azı bir fəaliyyət sahəsi seçin.";
     if (areaIds.length > 5) return "Ən çoxu 5 fəaliyyət sahəsi seçilə bilər.";
+    if (!licenseDoc) return "Lisenziya / vəsiqə sənədini yükləyin.";
+    if (!idDoc) return "Şəxsiyyət vəsiqəsinin skanını yükləyin.";
     return null;
   }
 
@@ -61,19 +69,20 @@ export default function ApplyForm({
     setBusy(true);
     setError(null);
     try {
+      const fd = new FormData();
+      fd.set("fullName", fullName);
+      fd.set("type", type);
+      fd.set("licenseNo", licenseNo);
+      fd.set("yearsExperience", yearsExperience);
+      fd.set("city", city);
+      fd.set("bio", bio);
+      for (const l of languages) fd.append("languages", l);
+      for (const a of areaIds) fd.append("practiceAreaIds", a);
+      if (licenseDoc) fd.set("licenseDoc", licenseDoc);
+      if (idDoc) fd.set("idDoc", idDoc);
       const res = await fetch("/api/lawyer/apply", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName,
-          type,
-          licenseNo,
-          yearsExperience: Number(yearsExperience),
-          city,
-          bio,
-          languages,
-          practiceAreaIds: areaIds,
-        }),
+        body: fd,
       });
       const data = await res.json();
       if (!res.ok) {
@@ -219,6 +228,43 @@ export default function ApplyForm({
               {a.nameAz}
             </label>
           ))}
+        </div>
+      </div>
+
+      <div>
+        <span className={labelCls}>Təsdiqedici sənədlər</span>
+        <p className="mt-1 text-xs text-slate">
+          Yalnız yoxlama üçün istifadə olunur, ictimai profildə görünmür.
+        </p>
+        <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
+            <span className="font-medium text-navy">
+              📎 Lisenziya / vəsiqə
+            </span>
+            <span className="mt-1 block truncate text-xs text-slate">
+              {licenseDoc ? licenseDoc.name : "PDF və ya şəkil seçin"}
+            </span>
+            <input
+              type="file"
+              className="hidden"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              onChange={(e) => setLicenseDoc(e.target.files?.[0] ?? null)}
+            />
+          </label>
+          <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
+            <span className="font-medium text-navy">
+              📎 Şəxsiyyət vəsiqəsi
+            </span>
+            <span className="mt-1 block truncate text-xs text-slate">
+              {idDoc ? idDoc.name : "PDF və ya şəkil seçin"}
+            </span>
+            <input
+              type="file"
+              className="hidden"
+              accept=".pdf,.jpg,.jpeg,.png,.webp"
+              onChange={(e) => setIdDoc(e.target.files?.[0] ?? null)}
+            />
+          </label>
         </div>
       </div>
 

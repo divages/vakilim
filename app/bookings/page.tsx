@@ -7,6 +7,7 @@ import { cancellationRefund } from "@/lib/policy";
 import { completePastBookings } from "@/lib/bookings";
 import { isJoinable } from "@/lib/call-window";
 import { canOpenDispute } from "@/lib/disputes";
+import { canReschedule } from "@/lib/reschedule";
 import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
 import CancelButton from "./cancel-button";
 
@@ -160,6 +161,19 @@ export default async function BookingsPage() {
                         ? "Mübahisə həll olunub"
                         : "Mübahisə baxılır"}
                     </span>
+                  )}
+                  {canReschedule(
+                    b.status,
+                    b.startAt,
+                    b.rescheduledCount,
+                    now
+                  ) && (
+                    <Link
+                      href={`/reschedule/${b.id}`}
+                      className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+                    >
+                      Vaxtı dəyiş
+                    </Link>
                   )}
                   {cancellable && (
                     <CancelButton
