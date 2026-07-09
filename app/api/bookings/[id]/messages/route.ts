@@ -42,6 +42,12 @@ export async function GET(
   if (!booking || !isConversationVisible(booking.status))
     return NextResponse.json({ ok: false, error: "NOT_FOUND" }, { status: 404 });
 
+  // Opening the thread marks the other side's messages as read.
+  await prisma.message.updateMany({
+    where: { bookingId: id, readAt: null, NOT: { senderId: user.id } },
+    data: { readAt: new Date() },
+  });
+
   const messages = await prisma.message.findMany({
     where: { bookingId: id },
     orderBy: { createdAt: "asc" },

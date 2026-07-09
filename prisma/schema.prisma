@@ -239,11 +239,13 @@ model Message {
   body           String
   attachmentKey  String?
   attachmentName String?
+  readAt         DateTime?
   flagged        Boolean  @default(false)
   flagReasons    String[] @default([])
   createdAt      DateTime @default(now())
 
   @@index([bookingId, createdAt])
+  @@index([bookingId, readAt])
   @@index([flagged, createdAt])
 }
 

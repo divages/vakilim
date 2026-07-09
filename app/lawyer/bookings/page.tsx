@@ -53,6 +53,20 @@ export default async function LawyerBookingsPage() {
     include: { client: { select: { fullName: true, phone: true } } },
   });
 
+
+  const unreadRows = await prisma.message.groupBy({
+    by: ["bookingId"],
+    where: {
+      bookingId: { in: bookings.map((b) => b.id) },
+      readAt: null,
+      NOT: { senderId: user.id },
+    },
+    _count: { _all: true },
+  });
+  const unreadByBooking = new Map(
+    unreadRows.map((r) => [r.bookingId, r._count._all])
+  );
+
   const requested = bookings.filter((b) => b.status === "REQUESTED");
   const upcoming = bookings.filter(
     (b) => b.status === "CONFIRMED" && b.startAt > now
@@ -104,6 +118,11 @@ export default async function LawyerBookingsPage() {
             className="mt-3 ml-2 inline-block rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
           >
             Yazışma
+            {(unreadByBooking.get(b.id) ?? 0) > 0 && (
+              <span className="ml-2 rounded-full bg-emerald px-1.5 text-xs font-bold text-navy-dark">
+                {unreadByBooking.get(b.id)}
+              </span>
+            )}
           </Link>
         )}
         {actions && <DecisionButtons bookingId={b.id} />}

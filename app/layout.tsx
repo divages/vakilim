@@ -78,6 +78,12 @@ export default async function RootLayout({
                   >
                     Şablonlar
                   </Link>
+                  <Link
+                    href="/admin/reviews"
+                    className="text-white/80 hover:text-white"
+                  >
+                    Rəylər
+                  </Link>
                 </>
               ) : user?.role === "LAWYER" ? (
                 <Link
@@ -128,8 +134,19 @@ export default async function RootLayout({
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-gray-200">
-          <div className="mx-auto w-full max-w-5xl px-4 py-6 text-sm">
-            © {new Date().getFullYear()} Vakilim.az
+          <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm">
+            <span>© {new Date().getFullYear()} Vakilim.az</span>
+            <span className="flex gap-4">
+              <Link href="/terms" className="text-slate hover:text-navy">
+                Şərtlər
+              </Link>
+              <Link href="/privacy" className="text-slate hover:text-navy">
+                Məxfilik
+              </Link>
+              <Link href="/refund-policy" className="text-slate hover:text-navy">
+                Geri qaytarma
+              </Link>
+            </span>
           </div>
         </footer>
         {process.env.NEXT_PUBLIC_GA_ID && (

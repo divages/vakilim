@@ -187,6 +187,12 @@ export default async function LawyerProfilePage({
                   </div>
                 )}
                 {r.text && <p className="mt-2 text-sm">{r.text}</p>}
+                {r.lawyerReply && (
+                  <p className="mt-2 rounded border-l-2 border-navy/30 bg-gray-50 p-2 text-sm">
+                    <b className="text-navy">Vəkilin cavabı:</b>{" "}
+                    {r.lawyerReply}
+                  </p>
+                )}
               </div>
             ))}
           </div>

@@ -1,0 +1,46 @@
+export const metadata = { title: "Məxfilik siyasəti — Vakilim.az" };
+
+export default function PrivacyPage() {
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
+      <h1 className="text-2xl font-bold text-navy">Məxfilik siyasəti</h1>
+      <p className="mt-3 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+        LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.
+      </p>
+
+      <h2 className="mt-8 text-lg font-semibold text-navy">Topladığımız məlumatlar</h2>
+      <p className="mt-2">
+        Telefon nömrəsi, ad, istəyə görə e-poçt; vəkillər üçün əlavə olaraq
+        lisenziya və şəxsiyyət sənədləri (yalnız yoxlama üçün, ictimai
+        görünmür). Görüş və sifariş tarixçəsi, yazışmalar, rəylər. Sənəd
+        sifarişlərində daxil etdiyiniz cavablar bazada{" "}
+        <b>şifrələnmiş şəkildə</b> saxlanılır. Görüş yazıları razılıq
+        əsasında aparılır və 30 gün sonra silinir.
+      </p>
+
+      <h2 className="mt-6 text-lg font-semibold text-navy">İstifadə məqsədləri</h2>
+      <p className="mt-2">
+        Xidmətin göstərilməsi (görüşlərin təşkili, ödənişlər, sənəd
+        yaradılması), təhlükəsizlik və mübahisələrin həlli, bildirişlər
+        (görüş xatırlatmaları və status dəyişiklikləri), anonim statistik
+        təhlil.
+      </p>
+
+      <h2 className="mt-6 text-lg font-semibold text-navy">Üçüncü tərəflər</h2>
+      <p className="mt-2">
+        Hazırkı demo mühitində infrastruktur xidmətləri: Vercel (hostinq),
+        Neon (verilənlər bazası), Cloudflare R2 (fayl anbarı), LiveKit
+        (video), Google Analytics (statistika). İstehsal mühiti Azərbaycan
+        ərazisindəki serverlərə köçürüləcək. Məlumatlarınız reklam məqsədilə
+        satılmır.
+      </p>
+
+      <h2 className="mt-6 text-lg font-semibold text-navy">Hüquqlarınız</h2>
+      <p className="mt-2">
+        Məlumatlarınıza baxmaq, düzəltmək və hesabınızın silinməsini tələb
+        etmək hüququnuz var. Müraciət üçün: info@vakilim.az
+        (yerləşdirilməmiş).
+      </p>
+    </div>
+  );
+}

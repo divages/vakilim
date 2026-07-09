@@ -52,6 +52,20 @@ export default async function BookingsPage() {
     },
   });
 
+
+  const unreadRows = await prisma.message.groupBy({
+    by: ["bookingId"],
+    where: {
+      bookingId: { in: bookings.map((b) => b.id) },
+      readAt: null,
+      NOT: { senderId: user.id },
+    },
+    _count: { _all: true },
+  });
+  const unreadByBooking = new Map(
+    unreadRows.map((r) => [r.bookingId, r._count._all])
+  );
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="text-2xl font-bold text-navy">Görüşlərim</h1>
@@ -119,6 +133,11 @@ export default async function BookingsPage() {
                       className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
                       Yazışma
+                      {(unreadByBooking.get(b.id) ?? 0) > 0 && (
+                        <span className="ml-2 rounded-full bg-emerald px-1.5 text-xs font-bold text-navy-dark">
+                          {unreadByBooking.get(b.id)}
+                        </span>
+                      )}
                     </Link>
                   )}
                   {b.status === "CONFIRMED" &&
