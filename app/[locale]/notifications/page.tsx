@@ -38,7 +38,7 @@ export default async function NotificationsPage({
       <h1 className="text-2xl font-bold text-navy">{t("notif.title")}</h1>
 
       {notifications.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("notif.empty")}
         </p>
       ) : (
@@ -81,7 +81,7 @@ export default async function NotificationsPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

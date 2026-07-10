@@ -30,7 +30,7 @@ export default async function AdminTemplatesPage() {
         {templates.map((t) => (
           <div
             key={t.id}
-            className="flex items-center justify-between gap-3 rounded border border-gray-200 p-4"
+            className="flex items-center justify-between gap-3 rounded-2xl border border-gray-100 shadow-sm p-4"
           >
             <div>
               <p className="font-medium text-navy">

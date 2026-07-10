@@ -58,7 +58,7 @@ export default async function TemplateDetailPage({
     <div className="mx-auto max-w-2xl px-4 py-12">
       <div className="flex items-start justify-between gap-4">
         <h1 className="text-2xl font-bold text-navy">{template.title}</h1>
-        <span className="rounded bg-navy/5 px-3 py-1.5 text-sm font-semibold text-navy">
+        <span className="rounded-xl bg-navy/5 px-3 py-1.5 text-sm font-semibold text-navy">
           {template.priceQepik === 0 ? tr("common.free") : formatAzn(template.priceQepik)}
         </span>
       </div>
@@ -73,7 +73,7 @@ export default async function TemplateDetailPage({
         ))}
       </ul>
 
-      <div className="mt-6 rounded border border-gray-200 bg-gray-50 p-3 text-xs leading-relaxed text-slate">
+      <div className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-3 text-xs leading-relaxed text-slate">
         {tr("tplDetail.licenseNote")}
       </div>
 
@@ -96,7 +96,7 @@ export default async function TemplateDetailPage({
 
       <Link
         href={`/templates/${template.slug}/fill`}
-        className="mt-6 inline-block w-full rounded bg-navy py-3 text-center font-medium text-white hover:bg-navy-dark"
+        className="mt-6 inline-block w-full rounded-xl bg-navy py-3 text-center font-medium text-white hover:bg-navy-dark"
       >
         {tr("tplDetail.start")}
       </Link>

@@ -68,14 +68,14 @@ export default function DisputeForm({ bookingId }: { bookingId: string }) {
         onChange={(e) => setDescription(e.target.value)}
         rows={5}
         placeholder={t("dispute.ph")}
-        className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+        className="w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
       />
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button
         disabled={busy || description.trim().length < 10}
-        className="w-full rounded bg-red-600 py-2.5 font-medium text-white hover:bg-red-700 disabled:opacity-50"
+        className="w-full rounded-xl bg-red-600 py-2.5 font-medium text-white hover:bg-red-700 disabled:opacity-50"
       >
         {busy ? t("common.sending") : t("dispute.submit")}
       </button>

@@ -96,14 +96,14 @@ export default function ReviewForm({ bookingId }: { bookingId: string }) {
         onChange={(e) => setText(e.target.value)}
         rows={4}
         placeholder={t("review.ph")}
-        className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+        className="w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
       />
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button
         disabled={busy}
-        className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? t("common.sending") : t("review.submit")}
       </button>

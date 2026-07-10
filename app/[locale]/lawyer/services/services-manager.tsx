@@ -89,7 +89,7 @@ export default function ServicesManager({ services }: { services: Service[] }) {
   return (
     <div className="mt-8">
       <form
-        className="rounded border border-gray-200 p-4"
+        className="rounded-2xl border border-gray-100 shadow-sm p-4"
         onSubmit={(e) => {
           e.preventDefault();
           add();
@@ -105,7 +105,7 @@ export default function ServicesManager({ services }: { services: Service[] }) {
               id="stype"
               value={type}
               onChange={(e) => setType(e.target.value as Service["type"])}
-              className="mt-1 w-full rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 w-full rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
             >
               {(["VIDEO", "AUDIO", "WRITTEN", "DOC_REVIEW"] as Service["type"][]).map((t) => (
                 <option key={t} value={t}>
@@ -123,7 +123,7 @@ export default function ServicesManager({ services }: { services: Service[] }) {
               value={durationMin}
               onChange={(e) => setDurationMin(e.target.value)}
               disabled={!isCall}
-              className="mt-1 w-full rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy disabled:bg-gray-100 disabled:text-gray-400"
+              className="mt-1 w-full rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy disabled:bg-gray-100 disabled:text-gray-400"
             >
               {DURATIONS.map((d) => (
                 <option key={d} value={d}>
@@ -144,14 +144,14 @@ export default function ServicesManager({ services }: { services: Service[] }) {
               }
               inputMode="numeric"
               placeholder="50"
-              className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
             />
           </div>
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         <button
           disabled={busy}
-          className="mt-4 rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+          className="mt-4 rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
           {busy ? "…" : tr("common.add")}
         </button>
@@ -159,14 +159,14 @@ export default function ServicesManager({ services }: { services: Service[] }) {
 
       <div className="mt-6 space-y-3">
         {services.length === 0 && (
-          <p className="rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+          <p className="rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
             {tr("svc.empty")}
           </p>
         )}
         {services.map((s) => (
           <div
             key={s.id}
-            className="flex items-center justify-between gap-3 rounded border border-gray-200 p-3"
+            className="flex items-center justify-between gap-3 rounded-2xl border border-gray-100 shadow-sm p-3"
           >
             <div>
               <p className="text-sm font-medium text-navy">
@@ -188,14 +188,14 @@ export default function ServicesManager({ services }: { services: Service[] }) {
               <button
                 onClick={() => toggle(s)}
                 disabled={busy}
-                className="rounded border border-gray-300 px-3 py-1.5 text-xs hover:border-navy disabled:opacity-50"
+                className="rounded-xl border border-gray-100 px-3 py-1.5 text-xs hover:border-navy disabled:opacity-50"
               >
                 {s.active ? "Deaktiv et" : "Aktiv et"}
               </button>
               <button
                 onClick={() => remove(s)}
                 disabled={busy}
-                className="rounded border border-red-300 px-3 py-1.5 text-xs text-red-700 hover:bg-red-50 disabled:opacity-50"
+                className="rounded-xl border border-red-300 px-3 py-1.5 text-xs text-red-700 hover:bg-red-50 disabled:opacity-50"
               >
                 Sil
               </button>

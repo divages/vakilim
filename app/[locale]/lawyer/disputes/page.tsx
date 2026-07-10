@@ -43,7 +43,7 @@ export default async function LawyerDisputesPage() {
       <h1 className="text-2xl font-bold text-navy">{t("dash.dispT")}</h1>
 
       {disputes.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("lawD.empty")}
         </p>
       ) : (
@@ -51,7 +51,7 @@ export default async function LawyerDisputesPage() {
           {disputes.map((d) => {
             const badge = { cls: DSTATUS_CLS[d.status], label: t(`lawD.status.${d.status}`) };
             return (
-              <div key={d.id} className="rounded border border-gray-200 p-4">
+              <div key={d.id} className="rounded-2xl border border-gray-100 shadow-sm p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-sm font-medium text-navy">
@@ -70,7 +70,7 @@ export default async function LawyerDisputesPage() {
                   </span>
                 </div>
 
-                <p className="mt-3 rounded bg-gray-50 p-3 text-sm">
+                <p className="mt-3 rounded-xl bg-gray-50 p-3 text-sm">
                   {d.description}
                 </p>
 
@@ -86,7 +86,7 @@ export default async function LawyerDisputesPage() {
                 )}
 
                 {d.lawyerResponse && (
-                  <p className="mt-3 rounded border border-gray-200 p-3 text-sm">
+                  <p className="mt-3 rounded-2xl border border-gray-100 shadow-sm p-3 text-sm">
                     <b className="text-navy">{t("common.yourReply")}</b> {d.lawyerResponse}
                   </p>
                 )}

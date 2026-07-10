@@ -26,11 +26,11 @@ export default async function PrivacyPage({
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
       <h1 className="text-2xl font-bold text-navy">{t("legal.privacyTitle")}</h1>
-      <p className="mt-3 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+      <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
         {t("legal.draftBanner")}
       </p>
       {locale !== "az" && (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-sm text-slate">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-3 text-sm text-slate">
           {t("legal.officialNote")}
         </p>
       )}

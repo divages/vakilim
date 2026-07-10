@@ -103,7 +103,7 @@ export default function ChatPanel({
 
   return (
     <>
-      <div className="mt-4 flex-1 space-y-2 overflow-y-auto rounded border border-gray-200 p-3">
+      <div className="mt-4 flex-1 space-y-2 overflow-y-auto rounded-2xl border border-gray-100 shadow-sm p-3">
         {messages.length === 0 && (
           <p className="p-4 text-center text-sm text-slate">
             {t("chat.empty")}
@@ -167,7 +167,7 @@ export default function ChatPanel({
             </p>
           )}
           <div className="flex items-center gap-2">
-            <label className="cursor-pointer rounded border border-gray-300 px-3 py-2 text-sm hover:border-navy">
+            <label className="cursor-pointer rounded-xl border border-gray-100 px-3 py-2 text-sm hover:border-navy">
               📎
               <input
                 type="file"
@@ -180,11 +180,11 @@ export default function ChatPanel({
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder={t("chat.ph")}
-              className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+              className="w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
             />
             <button
               disabled={busy || (!body.trim() && !file)}
-              className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+              className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
             >
               {busy ? "…" : t("chat.send")}
             </button>

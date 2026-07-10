@@ -26,7 +26,7 @@ export default async function DocPayPage({
     <div className="mx-auto max-w-md px-4 py-16">
       <h1 className="text-2xl font-bold text-navy">{t("common.payTitle")}</h1>
 
-      <div className="mt-6 rounded border border-gray-200 p-4 text-sm">
+      <div className="mt-6 rounded-2xl border border-gray-100 shadow-sm p-4 text-sm">
         <p className="font-medium text-navy">
           {order.templateVersion.template.title}
         </p>
@@ -36,7 +36,7 @@ export default async function DocPayPage({
         </p>
       </div>
 
-      <div className="mt-4 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
+      <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
         {t("common.testPayNotice")}
       </div>
 

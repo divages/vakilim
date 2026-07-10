@@ -87,9 +87,9 @@ export default function Wizard({
         <p className="text-xs text-slate">
           {t("wizard.progress", { i: step + 1, n: fields.length })}
         </p>
-        <div className="mt-1 h-1 w-full rounded bg-gray-100">
+        <div className="mt-1 h-1 w-full rounded-full bg-gray-100">
           <div
-            className="h-1 rounded bg-emerald"
+            className="h-1 rounded-xl bg-emerald"
             style={{ width: `${(step / fields.length) * 100}%` }}
           />
         </div>
@@ -161,12 +161,12 @@ export default function Wizard({
                   setStepError(null);
                   setStep((s) => s - 1);
                 }}
-                className="rounded border border-gray-300 px-4 py-2.5 text-sm font-medium text-navy hover:border-navy"
+                className="rounded-xl border border-gray-100 px-4 py-2.5 text-sm font-medium text-navy hover:border-navy"
               >
                 {t("wizard.back")}
               </button>
             )}
-            <button className="flex-1 rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark">
+            <button className="flex-1 rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark">
               {step === fields.length - 1 ? t("wizard.toReview") : t("wizard.next")}
             </button>
           </div>
@@ -180,7 +180,7 @@ export default function Wizard({
       <h2 className="text-sm font-medium uppercase tracking-wide text-slate">
         {t("wizard.reviewTitle")}
       </h2>
-      <dl className="mt-3 divide-y divide-gray-100 rounded border border-gray-200 text-sm">
+      <dl className="mt-3 divide-y divide-gray-100 rounded-2xl border border-gray-100 shadow-sm text-sm">
         {fields.map((f, i) => (
           <div key={f.key} className="flex items-start justify-between gap-3 px-3 py-2">
             <dt className="text-slate">{f.labelAz}</dt>
@@ -215,7 +215,7 @@ export default function Wizard({
       <button
         onClick={submit}
         disabled={!license || busy}
-        className="mt-4 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="mt-4 w-full rounded-xl bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? t("wizard.busy") : free ? t("wizard.submitFree") : t("wizard.submitPaid")}
       </button>

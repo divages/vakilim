@@ -12,14 +12,14 @@ export default function LanguageSwitcher() {
     <span className="flex items-center gap-1 text-xs">
       {routing.locales.map((l, i) => (
         <span key={l} className="flex items-center gap-1">
-          {i > 0 && <span className="text-white/30">|</span>}
+          {i > 0 && <span className="text-slate-600/30">|</span>}
           <Link
             href={pathname}
             locale={l}
             className={
               l === locale
-                ? "font-bold text-white"
-                : "text-white/60 hover:text-white"
+                ? "font-bold text-slate-600"
+                : "text-slate-600/60 hover:text-slate-600"
             }
           >
             {l.toUpperCase()}

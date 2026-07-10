@@ -70,13 +70,13 @@ export default async function AvailabilityPage() {
         {t("avail.preview", { d: previewDuration })}
       </h2>
       {byDay.size === 0 ? (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
           {t("avail.previewEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-3">
           {[...byDay.entries()].map(([dateIso, day]) => (
-            <div key={dateIso} className="rounded border border-gray-200 p-3">
+            <div key={dateIso} className="rounded-2xl border border-gray-100 shadow-sm p-3">
               <p className="text-sm font-medium text-navy">
                 {t(`common.wd.${day.weekday}`)} · {dateIso}
               </p>
@@ -84,7 +84,7 @@ export default async function AvailabilityPage() {
                 {day.labels.map((l) => (
                   <span
                     key={l}
-                    className="rounded border border-gray-300 px-2 py-1 text-xs"
+                    className="rounded-xl border border-gray-100 px-2 py-1 text-xs"
                   >
                     {l}
                   </span>

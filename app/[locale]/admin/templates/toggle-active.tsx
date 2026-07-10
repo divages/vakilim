@@ -31,7 +31,7 @@ export default function ToggleActive({
     <button
       onClick={toggle}
       disabled={busy}
-      className="rounded border border-gray-300 px-3 py-1.5 text-xs hover:border-navy disabled:opacity-50"
+      className="rounded-xl border border-gray-100 px-3 py-1.5 text-xs hover:border-navy disabled:opacity-50"
     >
       {active ? t("admT.deactivate") : t("admT.activate")}
     </button>

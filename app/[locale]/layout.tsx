@@ -58,50 +58,50 @@ export default async function LocaleLayout({
       <body className={`${inter.className} flex min-h-screen flex-col`} suppressHydrationWarning>
         <LocaleSync locale={locale} loggedIn={!!user} />
         <NextIntlClientProvider>
-          <header className="bg-navy text-white">
+          <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/80 backdrop-blur">
             <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-4">
-              <Link href="/" className="text-xl font-bold tracking-tight">
+              <Link href="/" className="text-xl font-bold tracking-tight text-navy">
                 Vakilim<span className="text-emerald">.az</span>
               </Link>
               <nav className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
-                <Link href="/lawyers" className="text-white/80 hover:text-white">
+                <Link href="/lawyers" className="font-medium text-slate-600 hover:text-navy">
                   {t("lawyers")}
                 </Link>
-                <Link href="/templates" className="text-white/80 hover:text-white">
+                <Link href="/templates" className="font-medium text-slate-600 hover:text-navy">
                   {t("documents")}
                 </Link>
                 {user?.role === "CLIENT" && (
-                  <Link href="/bookings" className="text-white/80 hover:text-white">
+                  <Link href="/bookings" className="font-medium text-slate-600 hover:text-navy">
                     {t("myBookings")}
                   </Link>
                 )}
                 {user?.role === "ADMIN" ? (
                   <>
-                    <Link href="/admin/verifications" className="text-white/80 hover:text-white">
+                    <Link href="/admin/verifications" className="font-medium text-slate-600 hover:text-navy">
                       {t("admVer")}
                     </Link>
-                    <Link href="/admin/recordings" className="text-white/80 hover:text-white">
+                    <Link href="/admin/recordings" className="font-medium text-slate-600 hover:text-navy">
                       {t("admRec")}
                     </Link>
-                    <Link href="/admin/flags" className="text-white/80 hover:text-white">
+                    <Link href="/admin/flags" className="font-medium text-slate-600 hover:text-navy">
                       {t("admFlags")}
                     </Link>
-                    <Link href="/admin/disputes" className="text-white/80 hover:text-white">
+                    <Link href="/admin/disputes" className="font-medium text-slate-600 hover:text-navy">
                       {t("admDisp")}
                     </Link>
-                    <Link href="/admin/templates" className="text-white/80 hover:text-white">
+                    <Link href="/admin/templates" className="font-medium text-slate-600 hover:text-navy">
                       {t("admTpl")}
                     </Link>
-                    <Link href="/admin/reviews" className="text-white/80 hover:text-white">
+                    <Link href="/admin/reviews" className="font-medium text-slate-600 hover:text-navy">
                       {t("admRev")}
                     </Link>
                   </>
                 ) : user?.role === "LAWYER" ? (
-                  <Link href="/lawyer/dashboard" className="text-white/80 hover:text-white">
+                  <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                     {t("lawyerPanel")}
                   </Link>
                 ) : (
-                  <Link href="/lawyer/apply" className="text-white/80 hover:text-white">
+                  <Link href="/lawyer/apply" className="font-medium text-slate-600 hover:text-navy">
                     {t("forLawyers")}
                   </Link>
                 )}
@@ -109,16 +109,16 @@ export default async function LocaleLayout({
                   <>
                     <Link
                       href="/notifications"
-                      className="relative text-white/80 hover:text-white"
+                      className="relative font-medium text-slate-600 hover:text-navy"
                     >
                       🔔
                       {unread > 0 && (
-                        <span className="absolute -right-2 -top-1 rounded-full bg-emerald px-1.5 text-[10px] font-bold text-navy-dark">
+                        <span className="absolute -right-2 -top-1 rounded-full bg-emerald px-1.5 text-[10px] font-bold text-white">
                           {unread}
                         </span>
                       )}
                     </Link>
-                    <Link href="/settings" className="text-white/80 hover:text-white">
+                    <Link href="/settings" className="font-medium text-slate-600 hover:text-navy">
                       {user.fullName || user.phone}
                     </Link>
                     <LogoutButton />
@@ -126,7 +126,7 @@ export default async function LocaleLayout({
                 ) : (
                   <Link
                     href="/login"
-                    className="rounded bg-emerald px-4 py-2 font-medium text-navy-dark hover:opacity-90"
+                    className="rounded-full bg-navy px-5 py-2 font-medium text-white hover:opacity-90"
                   >
                     {t("login")}
                   </Link>
@@ -136,7 +136,7 @@ export default async function LocaleLayout({
             </div>
           </header>
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-gray-200">
+          <footer className="border-t border-gray-100 bg-gray-50">
             <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm">
               <span>© {new Date().getFullYear()} Vakilim.az</span>
               <span className="flex gap-4">

@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { formatAzn } from "@/lib/money";
 import { getCurrentUser } from "@/lib/auth";
 import BookingWidget from "./booking-widget";
+import Avatar from "@/components/avatar";
 
 async function loadProfile(slug: string) {
   return prisma.lawyerProfile.findFirst({
@@ -87,22 +88,29 @@ export default async function LawyerProfilePage({
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-navy">
-            {profile.user.fullName ?? "—"}
-          </h1>
-          <p className="mt-1 text-sm">{t(`common.lawyerTypeFull.${profile.type}`)}</p>
+      <div className="flex items-start gap-6">
+        <Avatar
+          name={profile.user.fullName ?? "—"}
+          profileId={profile.id}
+          hasPhoto={!!profile.photoKey}
+          size="lg"
+        />
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-3xl font-extrabold tracking-tight text-navy">
+              {profile.user.fullName ?? "—"}
+            </h1>
+            <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+              {t("profile.verified")} ✓
+            </span>
+          </div>
+          <p className="mt-1 text-sm text-slate">{t(`common.lawyerTypeFull.${profile.type}`)}</p>
+          <p className="mt-1 text-sm text-slate">
+            {profile.city} · {t("directory.years", { y: profile.yearsExperience ?? 0 })} ·{" "}
+            {profile.languages.map((l) => t(`common.langName.${l}`)).join(", ")}
+          </p>
         </div>
-        <span className="rounded bg-emerald/15 px-2 py-1 text-xs font-medium text-navy">
-          {t("profile.verified")} ✓
-        </span>
       </div>
-
-      <p className="mt-4 text-sm">
-        {profile.city} · {t("directory.years", { y: profile.yearsExperience ?? 0 })} ·{" "}
-        {profile.languages.map((l) => t(`common.langName.${l}`)).join(", ")}
-      </p>
 
       <div className="mt-4 flex flex-wrap gap-2">
         {profile.practiceAreas.map((pa) => (
@@ -127,7 +135,7 @@ export default async function LawyerProfilePage({
           <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
             {t("profile.services")}
           </h2>
-          <div className="mt-2 divide-y divide-gray-100 rounded border border-gray-200">
+          <div className="mt-2 divide-y divide-gray-100 rounded-2xl border border-gray-100 shadow-sm">
             {profile.services.map((s) => (
               <div
                 key={s.id}
@@ -158,7 +166,7 @@ export default async function LawyerProfilePage({
           </h2>
           <div className="mt-2 space-y-3">
             {profile.reviews.map((r) => (
-              <div key={r.id} className="rounded border border-gray-200 p-3">
+              <div key={r.id} className="rounded-2xl border border-gray-100 shadow-sm p-3">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-medium text-navy">
                     {(r.booking.client.fullName ?? t("common.client")).split(" ")[0]}

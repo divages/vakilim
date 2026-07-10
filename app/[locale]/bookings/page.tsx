@@ -77,7 +77,7 @@ export default async function BookingsPage({
       <h1 className="text-2xl font-bold text-navy">{t("bookings.title")}</h1>
 
       {bookings.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("bookings.empty")}{" "}
           <Link href="/lawyers" className="text-emerald underline">
             {t("bookings.pick")}
@@ -96,7 +96,7 @@ export default async function BookingsPage({
               : { pct: 0 as const, refundQepik: 0 };
 
             return (
-              <div key={b.id} className="rounded border border-gray-200 p-4">
+              <div key={b.id} className="rounded-2xl border border-gray-100 shadow-sm p-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <Link
@@ -136,7 +136,7 @@ export default async function BookingsPage({
                   ) && (
                     <Link
                       href={`/chat/${b.id}`}
-                      className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+                      className="rounded-xl border border-gray-100 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
                       {t("bookings.chat")}
                       {(unreadByBooking.get(b.id) ?? 0) > 0 && (
@@ -150,7 +150,7 @@ export default async function BookingsPage({
                     isJoinable(b.startAt, b.endAt, now) && (
                       <Link
                         href={`/call/${b.id}`}
-                        className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
+                        className="rounded-xl bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
                       >
                         {t("bookings.join")}
                       </Link>
@@ -158,7 +158,7 @@ export default async function BookingsPage({
                   {b.status === "PENDING_PAYMENT" && (
                     <Link
                       href={`/pay/${b.id}`}
-                      className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                      className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                     >
                       {t("documents.completePay")}
                     </Link>
@@ -166,7 +166,7 @@ export default async function BookingsPage({
                   {b.status === "COMPLETED" && b.payment && !b.review && (
                     <Link
                       href={`/review/${b.id}`}
-                      className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+                      className="rounded-xl border border-gray-100 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
                       {t("bookings.review")}
                     </Link>
@@ -175,13 +175,13 @@ export default async function BookingsPage({
                     canOpenDispute(b.status, b.endAt, now) && (
                       <Link
                         href={`/dispute/${b.id}`}
-                        className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
+                        className="rounded-xl border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
                       >
                         Problem bildir
                       </Link>
                     )}
                   {b.dispute && (
-                    <span className="rounded bg-navy/10 px-3 py-2 text-xs font-medium text-navy">
+                    <span className="rounded-xl bg-navy/10 px-3 py-2 text-xs font-medium text-navy">
                       {b.dispute.status === "RESOLVED"
                         ? t("bookings.disputeResolved")
                         : t("bookings.disputeOpen")}
@@ -195,7 +195,7 @@ export default async function BookingsPage({
                   ) && (
                     <Link
                       href={`/reschedule/${b.id}`}
-                      className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+                      className="rounded-xl border border-gray-100 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
                       {t("bookings.reschedule")}
                     </Link>
@@ -220,7 +220,7 @@ export default async function BookingsPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

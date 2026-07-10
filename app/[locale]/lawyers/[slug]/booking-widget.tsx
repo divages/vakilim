@@ -98,7 +98,7 @@ export default function BookingWidget({
   if (services.length === 0) return null;
 
   return (
-    <div className="mt-10 rounded border border-gray-200 p-4">
+    <div className="mt-10 rounded-2xl border border-gray-100 shadow-sm p-4">
       <h2 className="text-sm font-medium uppercase tracking-wide text-slate">
         {t("widget.title")}
       </h2>
@@ -111,7 +111,7 @@ export default function BookingWidget({
           id="bw-service"
           value={serviceId}
           onChange={(e) => setServiceId(e.target.value)}
-          className="mt-1 w-full rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+          className="mt-1 w-full rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
         >
           {services.map((s) => (
             <option key={s.id} value={s.id}>
@@ -126,7 +126,7 @@ export default function BookingWidget({
         <p className="mt-4 text-sm text-slate">{t("common.loadingSlots")}</p>
       )}
       {days !== null && days.length === 0 && (
-        <p className="mt-4 rounded bg-gray-50 p-3 text-sm">
+        <p className="mt-4 rounded-xl bg-gray-50 p-3 text-sm">
           {t("common.noSlots")}
         </p>
       )}
@@ -165,7 +165,7 @@ export default function BookingWidget({
       )}
 
       {picked && service && (
-        <div className="mt-4 rounded bg-navy/5 p-3 text-sm">
+        <div className="mt-4 rounded-xl bg-navy/5 p-3 text-sm">
           <p>
             <b className="text-navy">{t(`common.serviceType.${service.type}`)}</b> ·{" "}
             {picked.dateIso} · {picked.label} · {service.durationMin} {t("common.min")}
@@ -188,7 +188,7 @@ export default function BookingWidget({
       <button
         onClick={book}
         disabled={!picked || busy}
-        className="mt-4 w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="mt-4 w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? "…" : loggedIn ? t("widget.continue") : t("widget.loginContinue")}
       </button>

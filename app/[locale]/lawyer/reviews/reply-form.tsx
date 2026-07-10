@@ -51,12 +51,12 @@ export default function ReplyForm({ reviewId }: { reviewId: string }) {
         onChange={(e) => setText(e.target.value)}
         rows={2}
         placeholder={t("lawR.ph")}
-        className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+        className="w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
       />
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
       <button
         disabled={busy || text.trim().length < 5}
-        className="mt-2 rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="mt-2 rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? "…" : t("lawR.send")}
       </button>

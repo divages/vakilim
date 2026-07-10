@@ -115,6 +115,26 @@ export async function POST(req: Request) {
     idDoc.file.type
   );
 
+  let photoKey: string | null = null;
+  const photoFile = form.get("photo");
+  if (photoFile instanceof File && photoFile.size > 0) {
+    if (
+      photoFile.size > 5 * 1024 * 1024 ||
+      !/\.(jpe?g|png|webp)$/i.test(photoFile.name)
+    )
+      return NextResponse.json(
+        { ok: false, error: "FILE_TYPE" },
+        { status: 400 }
+      );
+    const pext = photoFile.name.split(".").pop()!.toLowerCase();
+    photoKey = `avatars/${user.id}-${rand}.${pext}`;
+    await uploadObject(
+      photoKey,
+      Buffer.from(await photoFile.arrayBuffer()),
+      photoFile.type
+    );
+  }
+
   const slug = `${slugify(fullName)}-${randomSuffix()}`;
 
   await prisma.$transaction([
@@ -126,6 +146,7 @@ export async function POST(req: Request) {
       data: {
         userId: user.id,
         slug,
+        photoKey,
         type: profile.type,
         licenseNo: profile.licenseNo,
         licenseDocKey,

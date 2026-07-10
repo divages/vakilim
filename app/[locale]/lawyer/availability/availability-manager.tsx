@@ -89,7 +89,7 @@ export default function AvailabilityManager({
 
   return (
     <div className="mt-8 space-y-6">
-      <div className="rounded border border-gray-200 p-4">
+      <div className="rounded-2xl border border-gray-100 shadow-sm p-4">
         <p className="text-sm font-medium text-navy">{t("avail.mode")}</p>
         <div className="mt-3 space-y-2 text-sm">
           <label className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export default function AvailabilityManager({
               id="buffer"
               value={bufferMin}
               onChange={(e) => setBufferMin(e.target.value)}
-              className="mt-1 rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
             >
               {[0, 5, 10, 15].map((b) => (
                 <option key={b} value={b}>
@@ -132,7 +132,7 @@ export default function AvailabilityManager({
           <button
             onClick={saveSettings}
             disabled={busy}
-            className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+            className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
           >
             Yadda saxla
           </button>
@@ -140,7 +140,7 @@ export default function AvailabilityManager({
         </div>
       </div>
 
-      <div className="rounded border border-gray-200 p-4">
+      <div className="rounded-2xl border border-gray-100 shadow-sm p-4">
         <p className="text-sm font-medium text-navy">{t("avail.weekly")}</p>
 
         <div className="mt-3 space-y-2">
@@ -157,7 +157,7 @@ export default function AvailabilityManager({
                   {dayRules.map((r) => (
                     <div
                       key={r.id}
-                      className="flex items-center justify-between rounded border border-gray-200 px-3 py-2"
+                      className="flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm px-3 py-2"
                     >
                       <span>
                         {fmtMin(r.startMin)} – {fmtMin(r.endMin)}
@@ -165,7 +165,7 @@ export default function AvailabilityManager({
                       <button
                         onClick={() => removeRule(r.id)}
                         disabled={busy}
-                        className="rounded border border-red-300 px-2 py-1 text-xs text-red-700 hover:bg-red-50 disabled:opacity-50"
+                        className="rounded-xl border border-red-300 px-2 py-1 text-xs text-red-700 hover:bg-red-50 disabled:opacity-50"
                       >
                         Sil
                       </button>
@@ -192,7 +192,7 @@ export default function AvailabilityManager({
               id="wd"
               value={weekday}
               onChange={(e) => setWeekday(e.target.value)}
-              className="mt-1 rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
             >
               {WEEKDAY_ORDER.map((wd) => (
                 <option key={wd} value={wd}>
@@ -211,7 +211,7 @@ export default function AvailabilityManager({
               step={300}
               value={start}
               onChange={(e) => setStart(e.target.value)}
-              className="mt-1 rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
             />
           </div>
           <div>
@@ -224,12 +224,12 @@ export default function AvailabilityManager({
               step={300}
               value={end}
               onChange={(e) => setEnd(e.target.value)}
-              className="mt-1 rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+              className="mt-1 rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
             />
           </div>
           <button
             disabled={busy}
-            className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+            className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
           >
             {t("common.add")}
           </button>

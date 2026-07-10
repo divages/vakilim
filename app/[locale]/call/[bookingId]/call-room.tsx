@@ -60,14 +60,14 @@ export default function CallRoom({
         <h1 className="text-xl font-bold text-navy">
           {t("call.with", { name: otherName })} · {durationMin} {t("common.min")}
         </h1>
-        <div className="mt-6 rounded border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed">
+        <div className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm leading-relaxed">
           {t("call.consent")}
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         <button
           onClick={joinWithConsent}
           disabled={busy}
-          className="mt-6 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+          className="mt-6 w-full rounded-xl bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
           {busy ? t("call.joining") : t("call.agreeJoin")}
         </button>

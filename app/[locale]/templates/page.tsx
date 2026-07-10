@@ -54,7 +54,7 @@ export default async function TemplatesPage() {
               <Link
                 key={t.id}
                 href={`/templates/${t.slug}`}
-                className="rounded border border-gray-200 p-4 transition hover:border-navy"
+                className="rounded-2xl border border-gray-100 shadow-sm p-4 transition hover:border-navy"
               >
                 <div className="flex items-start justify-between gap-3">
                   <p className="font-semibold text-navy">{t.title}</p>
@@ -85,11 +85,11 @@ export default async function TemplatesPage() {
               <Link
                 key={t.id}
                 href={`/templates/${t.slug}`}
-                className="rounded border border-gray-200 p-4 transition hover:border-navy"
+                className="rounded-2xl border border-gray-100 shadow-sm p-4 transition hover:border-navy"
               >
                 <div className="flex items-start justify-between gap-3">
                   <p className="font-semibold text-navy">{t.title}</p>
-                  <span className="rounded bg-navy/5 px-2 py-1 text-xs font-medium text-navy">
+                  <span className="rounded-xl bg-navy/5 px-2 py-1 text-xs font-medium text-navy">
                     {tr(`common.langName.${t.locale}`)}
                   </span>
                 </div>

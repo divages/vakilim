@@ -119,6 +119,7 @@ model LawyerProfile {
   type               LawyerType
   verificationStatus VerificationStatus   @default(PENDING)
   slug               String?              @unique
+  photoKey      String?
   rejectionReason    String?
   reviewedAt         DateTime?
   licenseNo          String?

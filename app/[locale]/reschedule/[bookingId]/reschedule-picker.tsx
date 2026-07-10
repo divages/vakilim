@@ -80,7 +80,7 @@ export default function ReschedulePicker({
     <div className="mt-6">
       {days === null && <p className="text-sm text-slate">{t("common.loadingSlots")}</p>}
       {days !== null && days.length === 0 && (
-        <p className="rounded bg-gray-50 p-3 text-sm">
+        <p className="rounded-xl bg-gray-50 p-3 text-sm">
           {t("common.noSlots")}
         </p>
       )}
@@ -119,7 +119,7 @@ export default function ReschedulePicker({
       )}
 
       {picked && (
-        <p className="mt-4 rounded bg-navy/5 p-3 text-sm">
+        <p className="mt-4 rounded-xl bg-navy/5 p-3 text-sm">
           {t("reschedule.newTime")}{" "}
           <b className="text-navy">
             {picked.dateIso} · {picked.label}
@@ -132,7 +132,7 @@ export default function ReschedulePicker({
       <button
         onClick={confirm}
         disabled={!picked || busy}
-        className="mt-4 w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="mt-4 w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? "…" : t("bookings.reschedule")}
       </button>

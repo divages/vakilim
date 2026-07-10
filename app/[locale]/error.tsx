@@ -10,7 +10,7 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
       <p className="mt-3 text-sm text-slate">{t("sys.errBody")}</p>
       <button
         onClick={reset}
-        className="mt-8 rounded bg-navy px-5 py-2.5 text-sm font-medium text-white"
+        className="mt-8 rounded-xl bg-navy px-5 py-2.5 text-sm font-medium text-white"
       >
         {t("sys.retry")}
       </button>

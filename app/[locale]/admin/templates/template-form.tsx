@@ -74,7 +74,7 @@ export default function TemplateForm() {
 
   return (
     <form
-      className="mt-3 space-y-4 rounded border border-gray-200 p-4"
+      className="mt-3 space-y-4 rounded-2xl border border-gray-100 shadow-sm p-4"
       onSubmit={(e) => {
         e.preventDefault();
         submit();
@@ -123,7 +123,7 @@ export default function TemplateForm() {
         <textarea value={fieldsJson} onChange={(e) => setFieldsJson(e.target.value)} rows={8} className={`${input} font-mono text-xs`} />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <button disabled={busy} className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50">
+      <button disabled={busy} className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50">
         {busy ? "…" : t("chat.send")}
       </button>
     </form>

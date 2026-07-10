@@ -1,13 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0f2c59;
+  --color-navy: #0F2A43;
   --color-navy-dark: #0a1f3f;
   --color-slate: #4a5568;
-  --color-emerald: #10b981;
+  --color-emerald: #10B981;
+  --color-teal: #14B8A6;
 }
 
 body {
   background: #ffffff;
   color: var(--color-slate);
+}
+
+@layer base {
+  body { @apply antialiased text-slate-800; }
+  input:focus, select:focus, textarea:focus { border-color: #10B981; outline: none; }
+  h1 { letter-spacing: -0.02em; }
 }

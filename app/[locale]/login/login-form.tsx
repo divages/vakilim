@@ -87,7 +87,7 @@ export default function LoginForm({ next }: { next: string }) {
         <label htmlFor="phone" className="block text-sm font-medium text-navy">
           {t("login.phoneLabel")}
         </label>
-        <div className="flex rounded border border-gray-300 focus-within:border-navy">
+        <div className="flex rounded-xl border border-gray-100 focus-within:border-navy">
           <span className="flex items-center border-r border-gray-300 bg-gray-50 px-3">
             +994
           </span>
@@ -104,7 +104,7 @@ export default function LoginForm({ next }: { next: string }) {
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button
           disabled={busy}
-          className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+          className="w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
           {busy ? t("login.sending") : t("login.sendCode")}
         </button>
@@ -124,7 +124,7 @@ export default function LoginForm({ next }: { next: string }) {
         {t.rich("login.sentTo", { phone: () => <b className="text-navy">{phone}</b> })}
       </p>
       {devCode && (
-        <p className="rounded border border-amber-200 bg-amber-50 p-2 text-center text-sm text-amber-800">
+        <p className="rounded-xl border border-amber-200 bg-amber-50 p-2 text-center text-sm text-amber-800">
           {t("login.demoCode")} <b className="tracking-widest">{devCode}</b>
         </p>
       )}
@@ -134,12 +134,12 @@ export default function LoginForm({ next }: { next: string }) {
         placeholder={t("login.codePh")}
         inputMode="numeric"
         autoFocus
-        className="w-full rounded border border-gray-300 px-3 py-2 text-center text-lg tracking-widest outline-none focus:border-navy"
+        className="w-full rounded-xl border border-gray-100 px-3 py-2 text-center text-lg tracking-widest outline-none focus:border-navy"
       />
       {error && <p className="text-sm text-red-600">{error}</p>}
       <button
         disabled={busy || code.length !== 6}
-        className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? t("login.checking") : t("login.verify")}
       </button>

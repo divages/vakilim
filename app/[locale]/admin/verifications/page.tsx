@@ -68,7 +68,7 @@ export default async function VerificationsPage() {
         {t("admV.pending", { n: pending.length })}
       </h2>
       {pending.length === 0 ? (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
           {t("admV.pendingEmpty")}
         </p>
       ) : (
@@ -83,7 +83,7 @@ export default async function VerificationsPage() {
         {t("admV.recent")}
       </h2>
       {decided.length === 0 ? (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
           {t("admV.recentEmpty")}
         </p>
       ) : (

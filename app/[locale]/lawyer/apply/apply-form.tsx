@@ -36,6 +36,7 @@ export default function ApplyForm({
   const [areaIds, setAreaIds] = useState<string[]>([]);
   const [licenseDoc, setLicenseDoc] = useState<File | null>(null);
   const [idDoc, setIdDoc] = useState<File | null>(null);
+  const [photo, setPhoto] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -57,6 +58,11 @@ export default function ApplyForm({
     if (areaIds.length > 5) return t("apply.eAreasMax");
     if (!licenseDoc) return t("apply.eLicDoc");
     if (!idDoc) return t("apply.eIdDoc");
+    if (
+      photo &&
+      (photo.size > 5 * 1024 * 1024 || !/\.(jpe?g|png|webp)$/i.test(photo.name))
+    )
+      return t("apply.ePhoto");
     return null;
   }
 
@@ -81,6 +87,7 @@ export default function ApplyForm({
       for (const l of languages) fd.append("languages", l);
       for (const a of areaIds) fd.append("practiceAreaIds", a);
       if (licenseDoc) fd.set("licenseDoc", licenseDoc);
+      if (photo) fd.set("photo", photo);
       if (idDoc) fd.set("idDoc", idDoc);
       const res = await fetch("/api/lawyer/apply", {
         method: "POST",
@@ -250,7 +257,7 @@ export default function ApplyForm({
           {t("apply.docsNote")}
         </p>
         <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
+          <label className="cursor-pointer rounded-xl border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
             <span className="font-medium text-navy">
               📎 {t("apply.licDoc")}
             </span>
@@ -264,7 +271,7 @@ export default function ApplyForm({
               onChange={(e) => setLicenseDoc(e.target.files?.[0] ?? null)}
             />
           </label>
-          <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
+          <label className="cursor-pointer rounded-xl border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
             <span className="font-medium text-navy">
               📎 {t("apply.idDoc")}
             </span>
@@ -281,11 +288,28 @@ export default function ApplyForm({
         </div>
       </div>
 
+      <div>
+        <span className={labelCls}>{t("apply.photo")}</span>
+        <p className="mt-1 text-xs text-slate">{t("apply.photoNote")}</p>
+        <label className="mt-2 block cursor-pointer rounded-xl border border-dashed border-gray-300 p-3 text-sm hover:border-navy sm:max-w-xs">
+          <span className="font-medium text-navy">📷 {t("apply.photo")}</span>
+          <span className="mt-1 block truncate text-xs text-slate">
+            {photo ? photo.name : "JPG / PNG / WEBP"}
+          </span>
+          <input
+            type="file"
+            className="hidden"
+            accept=".jpg,.jpeg,.png,.webp"
+            onChange={(e) => setPhoto(e.target.files?.[0] ?? null)}
+          />
+        </label>
+      </div>
+
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button
         disabled={busy}
-        className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? t("common.sending") : t("apply.submit")}
       </button>

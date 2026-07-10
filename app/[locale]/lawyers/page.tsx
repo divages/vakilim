@@ -4,6 +4,7 @@ import { formatAzn } from "@/lib/money";
 import { slugify } from "@/lib/slug";
 import { rankLawyers, type SortMode } from "@/lib/ranking";
 import { getTranslations } from "next-intl/server";
+import Avatar from "@/components/avatar";
 
 export const metadata = {
   title: "Vəkillər — Vakilim.az",
@@ -108,6 +109,7 @@ export default async function LawyersPage({
         languages: p.languages,
         bio: p.bioAz ?? p.bioRu ?? p.bioEn ?? "",
         areas: p.practiceAreas.map((pa) => pa.practiceArea.nameAz),
+        photoKey: p.photoKey,
         ratingAvg,
         reviewCount: p.reviews.length,
         completedCount: p._count.bookings,
@@ -152,7 +154,7 @@ export default async function LawyersPage({
             name="q"
             defaultValue={q ?? ""}
             placeholder={t("directory.searchPh")}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+            className="mt-1 w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
           />
         </div>
         <div>
@@ -209,7 +211,7 @@ export default async function LawyersPage({
             <option value="price">{t("directory.sortPrice")}</option>
           </select>
         </div>
-        <button className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">
+        <button className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">
           {t("directory.submit")}
         </button>
       </form>
@@ -242,7 +244,7 @@ export default async function LawyersPage({
       </p>
 
       {ranked.length === 0 ? (
-        <p className="mt-4 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-4 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("directory.empty")}
         </p>
       ) : (
@@ -251,44 +253,50 @@ export default async function LawyersPage({
             <Link
               key={c.id}
               href={`/lawyers/${c.slug}`}
-              className="rounded border border-gray-200 p-4 transition hover:border-navy"
+              className="flex gap-5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:shadow-md"
             >
-              <div className="flex items-start justify-between gap-3">
-                <p className="font-semibold text-navy">{c.name}</p>
-                <span className="rounded bg-navy/5 px-2 py-1 text-xs font-medium text-navy">
-                  {t(`common.lawyerType.${c.type}`)}
-                </span>
-              </div>
-              <p className="mt-1 text-sm">
-                {c.city} · {t("directory.years", { y: c.yearsExperience })} ·{" "}
-                {c.languages.map((l) => l.toUpperCase()).join(", ")}
-              </p>
-              <p className="mt-1 text-sm">
-                {c.ratingAvg !== null ? (
-                  <span className="text-amber-500">
-                    ★ {c.ratingAvg.toFixed(1)}{" "}
-                    <span className="text-slate">{t("directory.reviewsCount", { c: c.reviewCount })}</span>
-                  </span>
-                ) : (
-                  <span className="text-slate">{t("directory.noReviews")}</span>
-                )}
-                {c.completedCount > 0 && (
-                  <span className="text-slate">
-                    {" "}
-                    {t("directory.meetings", { c: c.completedCount })}
-                  </span>
-                )}
-              </p>
-              <p className="mt-2 text-sm text-slate">
-                {c.bio.slice(0, 140)}
-                {c.bio.length > 140 ? "…" : ""}
-              </p>
-              <p className="mt-3 text-xs text-slate">{c.areas.join(" · ")}</p>
-              {c.minPriceQepik !== null && (
-                <p className="mt-2 text-sm font-semibold text-navy">
-                  {t("directory.from", { price: formatAzn(c.minPriceQepik) })}
+              <Avatar name={c.name} profileId={c.id} hasPhoto={!!c.photoKey} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="font-bold text-navy">{c.name}</p>
+                  {c.minPriceQepik !== null && (
+                    <span className="whitespace-nowrap font-bold text-navy">
+                      {t("directory.from", { price: formatAzn(c.minPriceQepik) })}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-0.5 text-sm text-slate">
+                  {t(`common.lawyerType.${c.type}`)} · {c.city} ·{" "}
+                  {t("directory.years", { y: c.yearsExperience })} ·{" "}
+                  {c.languages.map((l) => l.toUpperCase()).join(", ")}
                 </p>
-              )}
+                <p className="mt-1 text-sm">
+                  {c.ratingAvg !== null ? (
+                    <span className="font-semibold text-emerald">
+                      ★ {c.ratingAvg.toFixed(1)}{" "}
+                      <span className="font-normal text-slate">
+                        {t("directory.reviewsCount", { c: c.reviewCount })}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="text-slate">{t("directory.noReviews")}</span>
+                  )}
+                  {c.completedCount > 0 && (
+                    <span className="text-slate"> {t("directory.meetings", { c: c.completedCount })}</span>
+                  )}
+                </p>
+                <p className="mt-2 text-sm text-slate">
+                  {c.bio.slice(0, 140)}
+                  {c.bio.length > 140 ? "…" : ""}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {c.areas.map((a) => (
+                    <span key={a} className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-slate-600">
+                      {a}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </Link>
           ))}
         </div>

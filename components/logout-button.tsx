@@ -19,7 +19,7 @@ export default function LogoutButton() {
     <button
       onClick={logout}
       disabled={busy}
-      className="rounded border border-white/30 px-3 py-1.5 hover:bg-white/10 disabled:opacity-50"
+      className="rounded border border-gray-200 px-3 py-1.5 hover:bg-white/10 disabled:opacity-50"
     >
       {t("nav.logout")}
     </button>

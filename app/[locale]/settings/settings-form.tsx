@@ -91,7 +91,7 @@ export default function SettingsForm({
       {saved && <p className="text-sm text-emerald">{t("common.savedTick")}</p>}
       <button
         disabled={busy}
-        className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="w-full rounded-xl bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? "…" : t("sett.save")}
       </button>

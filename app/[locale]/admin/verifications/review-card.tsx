@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 export type Application = {
   id: string;
   fullName: string;
+  photoKey: string | null;
   phone: string;
   type: "ADVOCATE" | "LICENSED_LAWYER";
   status: "PENDING" | "APPROVED" | "REJECTED";
@@ -74,9 +75,17 @@ export default function ReviewCard({ app }: { app: Application }) {
   const badge = { cls: STATUS_CLS[app.status], label: t(`admV.status.${app.status}`) };
 
   return (
-    <div className="rounded border border-gray-200 p-4">
+    <div className="rounded-2xl border border-gray-100 shadow-sm p-4">
       <div className="flex items-start justify-between gap-4">
         <div>
+          {app.photoKey && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={`/api/avatars/${app.id}`}
+              alt=""
+              className="mb-2 h-12 w-12 rounded-full object-cover ring-2 ring-emerald-100"
+            />
+          )}
           <p className="font-medium text-navy">{app.fullName}</p>
           <p className="text-sm">{app.phone}</p>
         </div>
@@ -94,7 +103,7 @@ export default function ReviewCard({ app }: { app: Application }) {
         <Row k={t("dash.rowAreas")} v={app.areas.join(", ")} />
       </dl>
 
-      <p className="mt-3 rounded bg-gray-50 p-3 text-sm">{app.bio}</p>
+      <p className="mt-3 rounded-xl bg-gray-50 p-3 text-sm">{app.bio}</p>
 
       <div className="mt-3">
         <p className="text-xs font-medium uppercase tracking-wide text-slate">
@@ -118,7 +127,7 @@ export default function ReviewCard({ app }: { app: Application }) {
           onChange={(e) => setReason(e.target.value)}
           rows={2}
           placeholder={t("admV.reasonPh")}
-          className="mt-3 w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
+          className="mt-3 w-full rounded-xl border border-gray-100 px-3 py-2 text-sm outline-none focus:border-navy"
           autoFocus
         />
       )}
@@ -131,14 +140,14 @@ export default function ReviewCard({ app }: { app: Application }) {
             <button
               onClick={() => decide("APPROVE")}
               disabled={busy || app.status === "APPROVED"}
-              className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
+              className="rounded-xl bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
             >
               {busy ? "…" : t("login.verify")}
             </button>
             <button
               onClick={() => setRejecting(true)}
               disabled={busy || app.status === "REJECTED"}
-              className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
+              className="rounded-xl border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
             >
               {t("admV.reject")}
             </button>
@@ -148,7 +157,7 @@ export default function ReviewCard({ app }: { app: Application }) {
             <button
               onClick={() => decide("REJECT")}
               disabled={busy}
-              className="rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+              className="rounded-xl bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
             >
               {busy ? "…" : t("admV.confirmReject")}
             </button>
@@ -159,7 +168,7 @@ export default function ReviewCard({ app }: { app: Application }) {
                 setError(null);
               }}
               disabled={busy}
-              className="rounded border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50 disabled:opacity-50"
+              className="rounded-xl border border-gray-100 px-4 py-2 text-sm hover:bg-gray-50 disabled:opacity-50"
             >
               {t("admV.cancel")}
             </button>
@@ -182,7 +191,7 @@ function DocTile({
   const t = useTranslations();
   if (!url)
     return (
-      <span className="rounded border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-slate">
+      <span className="rounded-2xl border border-gray-100 bg-gray-50 px-3 py-2 text-xs text-slate">
         {label}: {t("admV.noDoc")}
       </span>
     );
@@ -192,7 +201,7 @@ function DocTile({
         href={url}
         target="_blank"
         rel="noreferrer"
-        className="rounded border border-gray-300 px-3 py-2 text-xs font-medium text-navy hover:border-navy"
+        className="rounded-xl border border-gray-100 px-3 py-2 text-xs font-medium text-navy hover:border-navy"
       >
         📄 {label} (PDF)
       </a>
@@ -203,7 +212,7 @@ function DocTile({
       <img
         src={url}
         alt={label}
-        className="h-24 w-36 rounded border border-gray-200 object-cover hover:border-navy"
+        className="h-24 w-36 rounded-2xl border border-gray-100 shadow-sm object-cover hover:border-navy"
       />
       <span className="mt-1 block text-center text-xs text-slate">{label}</span>
     </a>

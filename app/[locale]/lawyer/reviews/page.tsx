@@ -43,13 +43,13 @@ export default async function LawyerReviewsPage({
       </p>
 
       {reviews.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("directory.noReviews")}
         </p>
       ) : (
         <div className="mt-6 space-y-3">
           {reviews.map((r) => (
-            <div key={r.id} className="rounded border border-gray-200 p-4">
+            <div key={r.id} className="rounded-2xl border border-gray-100 shadow-sm p-4">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-navy">
                   {(r.booking.client.fullName ?? t("common.client")).split(" ")[0]}
@@ -85,7 +85,7 @@ export default async function LawyerReviewsPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

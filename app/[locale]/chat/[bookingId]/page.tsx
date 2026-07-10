@@ -60,7 +60,7 @@ export default async function ChatPage({
       </div>
 
       {!writable && (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-xs">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-3 text-xs">
           {t("chat.closed", { h: FOLLOW_UP_HOURS })}
         </p>
       )}

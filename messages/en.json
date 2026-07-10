@@ -24,7 +24,16 @@
     "subtitle": "Verified advocates and legal professionals online — choose the right one for you.",
     "searchPlaceholder": "Name or keyword…",
     "search": "Search",
-    "allLawyers": "Browse all lawyers"
+    "allLawyers": "Browse all lawyers",
+    "stat1t": "Verified professionals",
+    "stat1b": "Licenses and identity documents are verified.",
+    "stat2t": "Secure payment",
+    "stat2b": "Funds reach the lawyer after the service.",
+    "stat3t": "Document verification code",
+    "stat3b": "Every document carries a unique verification code.",
+    "tplT": "Ready legal documents",
+    "tplB": "Answer questions — the system builds your document as a PDF.",
+    "tplCta": "Browse catalog"
   },
   "common": {
     "free": "Free",
@@ -302,7 +311,10 @@
       "SERVER_CONFIG": "File storage is not configured.",
       "DEFAULT": "Something went wrong. Try again shortly.",
       "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
-    }
+    },
+    "photo": "Profile photo (optional)",
+    "photoNote": "Square photos look best. JPG/PNG, max 5 MB.",
+    "ePhoto": "Photo must be JPG/PNG and under 5 MB."
   },
   "dash": {
     "title": "Lawyer panel",

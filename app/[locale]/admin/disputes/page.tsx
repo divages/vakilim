@@ -69,7 +69,7 @@ export default async function AdminDisputesPage({
       <h1 className="text-2xl font-bold text-navy">{t("dash.dispT")}</h1>
 
       {rows.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("lawD.empty")}
         </p>
       ) : (
@@ -102,7 +102,7 @@ export default async function AdminDisputesPage({
                     </p>
                   )}
                 </div>
-                <span className="rounded bg-navy/10 px-2 py-1 text-xs font-medium text-navy">
+                <span className="rounded-xl bg-navy/10 px-2 py-1 text-xs font-medium text-navy">
                   {d.status === "RESOLVED"
                     ? (d.resolution ? t(`admD.res.${d.resolution}`) : t("lawD.status.RESOLVED"))
                     : d.status === "RESPONDED"
@@ -111,11 +111,11 @@ export default async function AdminDisputesPage({
                 </span>
               </div>
 
-              <p className="mt-3 rounded bg-gray-50 p-3 text-sm">
+              <p className="mt-3 rounded-xl bg-gray-50 p-3 text-sm">
                 <b className="text-navy">{t("common.client")}:</b> {d.description}
               </p>
               {d.lawyerResponse && (
-                <p className="mt-2 rounded bg-gray-50 p-3 text-sm">
+                <p className="mt-2 rounded-xl bg-gray-50 p-3 text-sm">
                   <b className="text-navy">{t("common.lawyer")}:</b> {d.lawyerResponse}
                 </p>
               )}
@@ -126,7 +126,7 @@ export default async function AdminDisputesPage({
                     href={recordingUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded border border-gray-300 px-3 py-1.5 text-navy hover:border-navy"
+                    className="rounded-xl border border-gray-100 px-3 py-1.5 text-navy hover:border-navy"
                   >
                     🎥 {t("admD.rec")}
                   </a>
@@ -134,7 +134,7 @@ export default async function AdminDisputesPage({
               </div>
 
               {d.booking.messages.length > 0 && (
-                <div className="mt-3 rounded border border-gray-100 p-3">
+                <div className="mt-3 rounded-2xl border border-gray-100 p-3">
                   <p className="text-xs font-medium uppercase tracking-wide text-slate">
                     {t("admD.lastChat")}
                   </p>
@@ -170,7 +170,7 @@ export default async function AdminDisputesPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

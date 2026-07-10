@@ -67,7 +67,7 @@ export default function ResolveControls({
         <button
           onClick={() => resolve("FULL_REFUND")}
           disabled={busy || remainingQepik <= 0}
-          className="rounded bg-emerald px-3 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
+          className="rounded-xl bg-emerald px-3 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
         >
           {t("admD.full")}
         </button>
@@ -79,12 +79,12 @@ export default function ResolveControls({
             }
             placeholder="₼"
             inputMode="decimal"
-            className="w-20 rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
+            className="w-20 rounded-xl border border-gray-100 px-2 py-2 text-sm outline-none focus:border-navy"
           />
           <button
             onClick={() => resolve("PARTIAL_REFUND")}
             disabled={busy || !partialAzn || remainingQepik <= 0}
-            className="rounded border border-gray-300 px-3 py-2 text-sm font-medium text-navy hover:border-navy disabled:opacity-40"
+            className="rounded-xl border border-gray-100 px-3 py-2 text-sm font-medium text-navy hover:border-navy disabled:opacity-40"
           >
             {t("admD.partial")}
           </button>
@@ -92,7 +92,7 @@ export default function ResolveControls({
         <button
           onClick={() => resolve("DISMISSED")}
           disabled={busy}
-          className="rounded border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
+          className="rounded-xl border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
         >
           {t("admD.dismiss")}
         </button>

@@ -24,7 +24,16 @@
     "subtitle": "Yoxlanılmış vəkillər və hüquqşünaslarla tanış olun və sizə uyğununu seçin.",
     "searchPlaceholder": "Ad, sahə və ya açar söz…",
     "search": "Axtar",
-    "allLawyers": "Bütün vəkillərə bax"
+    "allLawyers": "Bütün vəkillərə bax",
+    "stat1t": "Yoxlanılmış mütəxəssislər",
+    "stat1b": "Lisenziya və şəxsiyyət sənədləri yoxlanılır.",
+    "stat2t": "Təhlükəsiz ödəniş",
+    "stat2b": "Məbləğ xidmətdən sonra vəkilə ötürülür.",
+    "stat3t": "Sənəd yoxlama kodu",
+    "stat3b": "Hər sənədin unikal təsdiq kodu var.",
+    "tplT": "Hazır hüquqi sənədlər",
+    "tplB": "Suallara cavab verin — sistem sənədi PDF kimi hazırlayır.",
+    "tplCta": "Kataloqa keç"
   },
   "common": {
     "free": "Pulsuz",
@@ -302,7 +311,10 @@
       "SERVER_CONFIG": "Fayl anbarı konfiqurasiya olunmayıb.",
       "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
       "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
-    }
+    },
+    "photo": "Profil şəkli (istəyə görə)",
+    "photoNote": "Kvadrat şəkil daha yaxşı görünür. JPG/PNG, maks. 5 MB.",
+    "ePhoto": "Şəkil JPG/PNG olmalı və 5 MB-dan kiçik olmalıdır."
   },
   "dash": {
     "title": "Vəkil paneli",

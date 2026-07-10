@@ -22,34 +22,29 @@ export default async function LawyerDashboardPage() {
       <h1 className="text-2xl font-bold text-navy">{t("dash.title")}</h1>
 
       {status === "PENDING" && (
-        <div className="mt-6 rounded border border-amber-200 bg-amber-50 p-4">
-          <p className="font-medium text-amber-800">{t("dash.pendingT")}</p>
-          <p className="mt-1 text-sm text-amber-800">
-            {t("dash.pendingBody")}
-          </p>
+        <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">
+          <p className="font-bold text-amber-800">{t("dash.pendingT")}</p>
+          <p className="mt-1 text-sm text-amber-800/80">{t("dash.pendingBody")}</p>
         </div>
       )}
 
       {status === "APPROVED" && (
-        <div className="mt-6 rounded border border-emerald/30 bg-emerald/10 p-4">
-          <p className="font-medium text-navy">{t("dash.okT")}</p>
-          <p className="mt-1 text-sm">
-            {t("dash.okBody")}
-          </p>
+        <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 p-6 text-white shadow-lg shadow-emerald-200">
+          <p className="font-bold">{t("dash.okT")}</p>
+          <p className="mt-1 text-sm text-emerald-50">{t("dash.okBody")}</p>
         </div>
       )}
 
       {status === "REJECTED" && (
-        <div className="mt-6 rounded border border-red-200 bg-red-50 p-4">
-          <p className="font-medium text-red-700">{t("dash.rejT")}</p>
-          <p className="mt-1 text-sm text-red-700">
-            {profile.rejectionReason ??
-              t("dash.rejBody")}
+        <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-6">
+          <p className="font-bold text-red-700">{t("dash.rejT")}</p>
+          <p className="mt-1 text-sm text-red-700/80">
+            {profile.rejectionReason ?? t("dash.rejBody")}
           </p>
         </div>
       )}
 
-      <div className="mt-6 flex items-center justify-between rounded border border-gray-200 p-4">
+      <div className="mt-6 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
         <div>
           <p className="text-sm font-medium text-navy">{t("dash.svcT")}</p>
           <p className="mt-1 text-sm">
@@ -58,13 +53,13 @@ export default async function LawyerDashboardPage() {
         </div>
         <Link
           href="/lawyer/services"
-          className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+          className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
         >
           {t("common.manage")}
         </Link>
       </div>
 
-      <div className="mt-3 flex items-center justify-between rounded border border-gray-200 p-4">
+      <div className="mt-3 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
         <div>
           <p className="text-sm font-medium text-navy">{t("dash.availT")}</p>
           <p className="mt-1 text-sm">
@@ -73,13 +68,13 @@ export default async function LawyerDashboardPage() {
         </div>
         <Link
           href="/lawyer/availability"
-          className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+          className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
         >
           {t("common.manage")}
         </Link>
       </div>
 
-      <div className="mt-3 flex items-center justify-between rounded border border-gray-200 p-4">
+      <div className="mt-3 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
         <div>
           <p className="text-sm font-medium text-navy">{t("dash.bookT")}</p>
           <p className="mt-1 text-sm">
@@ -88,13 +83,13 @@ export default async function LawyerDashboardPage() {
         </div>
         <Link
           href="/lawyer/bookings"
-          className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+          className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
         >
           {t("common.view")}
         </Link>
       </div>
 
-      <div className="mt-3 flex items-center justify-between rounded border border-gray-200 p-4">
+      <div className="mt-3 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
         <div>
           <p className="text-sm font-medium text-navy">{t("dash.dispT")}</p>
           <p className="mt-1 text-sm">
@@ -103,13 +98,13 @@ export default async function LawyerDashboardPage() {
         </div>
         <Link
           href="/lawyer/disputes"
-          className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+          className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
         >
           {t("common.view")}
         </Link>
       </div>
 
-      <div className="mt-3 flex items-center justify-between rounded border border-gray-200 p-4">
+      <div className="mt-3 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
         <div>
           <p className="text-sm font-medium text-navy">{t("dash.revT")}</p>
           <p className="mt-1 text-sm">
@@ -118,14 +113,14 @@ export default async function LawyerDashboardPage() {
         </div>
         <Link
           href="/lawyer/reviews"
-          className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+          className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
         >
           {t("common.view")}
         </Link>
       </div>
 
-      <div className="mt-8 rounded border border-gray-200">
-        <div className="border-b border-gray-200 px-4 py-3 text-sm font-medium text-navy">
+      <div className="mt-8 rounded-2xl border border-gray-100 shadow-sm">
+        <div className="border-b border-gray-100 px-4 py-3 text-sm font-medium text-navy">
           {t("dash.sent")}
         </div>
         <dl className="divide-y divide-gray-100 text-sm">

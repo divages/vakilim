@@ -48,9 +48,9 @@ export default async function VerifyPage({
           name="code"
           defaultValue={normalized ?? ""}
           placeholder="VKL-XXXX-XXXX"
-          className="w-full rounded border border-gray-300 px-3 py-2 text-sm uppercase tracking-wider outline-none focus:border-navy"
+          className="w-full rounded-xl border border-gray-100 px-3 py-2 text-sm uppercase tracking-wider outline-none focus:border-navy"
         />
-        <button className="rounded bg-navy px-5 py-2 text-sm font-medium text-white hover:bg-navy-dark">
+        <button className="rounded-xl bg-navy px-5 py-2 text-sm font-medium text-white hover:bg-navy-dark">
           {t("verify.check")}
         </button>
       </form>

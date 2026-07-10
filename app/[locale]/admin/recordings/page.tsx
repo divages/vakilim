@@ -61,7 +61,7 @@ export default async function AdminRecordingsPage({
       </p>
 
       {rows.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("admRec.empty")}
         </p>
       ) : (
@@ -69,7 +69,7 @@ export default async function AdminRecordingsPage({
           {rows.map((r) => (
             <div
               key={r.id}
-              className="flex items-center justify-between gap-3 rounded border border-gray-200 p-4"
+              className="flex items-center justify-between gap-3 rounded-2xl border border-gray-100 shadow-sm p-4"
             >
               <div>
                 <p className="text-sm font-medium text-navy">
@@ -86,7 +86,7 @@ export default async function AdminRecordingsPage({
                   href={r.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                  className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                 >
                   {t("admRec.watch")}
                 </a>
@@ -101,7 +101,7 @@ export default async function AdminRecordingsPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

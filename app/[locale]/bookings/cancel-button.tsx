@@ -52,7 +52,7 @@ export default function CancelButton({
       <button
         onClick={cancel}
         disabled={busy}
-        className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
+        className="rounded-xl border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
       >
         {busy ? "…" : t("cancel.btn", { refund: refundLabel })}
       </button>

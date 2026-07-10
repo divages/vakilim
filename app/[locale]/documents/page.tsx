@@ -34,7 +34,7 @@ export default async function DocumentsPage({
       <h1 className="text-2xl font-bold text-navy">{t("documents.title")}</h1>
 
       {orders.length === 0 ? (
-        <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
+        <p className="mt-6 rounded-2xl border border-gray-100 bg-gray-50 p-6 text-sm">
           {t("documents.empty")}{" "}
           <Link href="/templates" className="text-emerald underline">
             {t("documents.pick")}
@@ -44,7 +44,7 @@ export default async function DocumentsPage({
       ) : (
         <div className="mt-6 space-y-3">
           {orders.map((o) => (
-            <div key={o.id} className="rounded border border-gray-200 p-4">
+            <div key={o.id} className="rounded-2xl border border-gray-100 shadow-sm p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="font-medium text-navy">
@@ -65,21 +65,21 @@ export default async function DocumentsPage({
                 {o.status === "PAID" ? (
                   <a
                     href={`/api/doc-orders/${o.id}/download`}
-                    className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                    className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                   >
                     {t("documents.download")}
                   </a>
                 ) : (
                   <Link
                     href={`/doc-pay/${o.id}`}
-                    className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
+                    className="rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                   >
                     {t("documents.completePay")}
                   </Link>
                 )}
                 <Link
                   href={`/verify?code=${o.docUid}`}
-                  className="rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+                  className="rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
                 >
                   {t("documents.verifyPage")}
                 </Link>
@@ -92,7 +92,7 @@ export default async function DocumentsPage({
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

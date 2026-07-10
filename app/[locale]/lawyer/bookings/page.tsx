@@ -86,7 +86,7 @@ function when(d: Date): string {
   const Card = ({ b, actions }: { b: (typeof bookings)[number]; actions?: boolean }) => {
     const badge = { cls: STATUS_CLS[b.status] ?? STATUS_CLS.CONFIRMED, label: t(`lawB.status.${b.status}`) };
     return (
-      <div className="rounded border border-gray-200 p-4">
+      <div className="rounded-2xl border border-gray-100 shadow-sm p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-medium text-navy">
@@ -114,7 +114,7 @@ function when(d: Date): string {
         {b.status === "CONFIRMED" && isJoinable(b.startAt, b.endAt, now) && (
           <Link
             href={`/call/${b.id}`}
-            className="mt-3 inline-block rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
+            className="mt-3 inline-block rounded-xl bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
           >
             {t("bookings.join")}
           </Link>
@@ -122,7 +122,7 @@ function when(d: Date): string {
         {["REQUESTED", "CONFIRMED", "COMPLETED"].includes(b.status) && (
           <Link
             href={`/chat/${b.id}`}
-            className="mt-3 ml-2 inline-block rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+            className="mt-3 ml-2 inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
           >
             {t("bookings.chat")}
             {(unreadByBooking.get(b.id) ?? 0) > 0 && (
@@ -145,7 +145,7 @@ function when(d: Date): string {
         {t("lawB.reqSection", { n: requested.length })}
       </h2>
       {requested.length === 0 ? (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
           {t("lawB.reqEmpty")}
         </p>
       ) : (
@@ -160,7 +160,7 @@ function when(d: Date): string {
         {t("lawB.upSection", { n: upcoming.length })}
       </h2>
       {upcoming.length === 0 ? (
-        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
+        <p className="mt-3 rounded-2xl border border-gray-100 bg-gray-50 p-4 text-sm">
           {t("lawB.upEmpty")}
         </p>
       ) : (
@@ -187,7 +187,7 @@ function when(d: Date): string {
         <div className="mt-6 text-center">
           <Link
             href={`?page=${page + 1}`}
-            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+            className="inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm text-navy hover:border-navy"
           >
             {t("common.more")}
           </Link>

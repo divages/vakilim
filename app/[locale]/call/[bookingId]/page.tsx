@@ -98,7 +98,7 @@ async function Notice({
       <p className="mt-3 text-sm">{children}</p>
       <Link
         href={backHref}
-        className="mt-8 inline-block rounded bg-navy px-5 py-2.5 text-sm font-medium text-white hover:bg-navy-dark"
+        className="mt-8 inline-block rounded-xl bg-navy px-5 py-2.5 text-sm font-medium text-white hover:bg-navy-dark"
       >
         {t("call.back")}
       </Link>

@@ -51,14 +51,14 @@ export default function DecisionButtons({ bookingId }: { bookingId: string }) {
         <button
           onClick={() => decide("ACCEPT")}
           disabled={busy}
-          className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-50"
+          className="rounded-xl bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-50"
         >
           {busy ? "…" : t("lawB.accept")}
         </button>
         <button
           onClick={() => decide("DECLINE")}
           disabled={busy}
-          className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
+          className="rounded-xl border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
         >
           {t("lawB.decline")}
         </button>

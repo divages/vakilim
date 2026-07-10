@@ -40,7 +40,7 @@ export default function DocPayButton({ orderId }: { orderId: string }) {
       <button
         onClick={pay}
         disabled={busy}
-        className="mt-4 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
+        className="mt-4 w-full rounded-xl bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
         {busy ? t("docPay.generating") : t("common.payTest")}
       </button>
