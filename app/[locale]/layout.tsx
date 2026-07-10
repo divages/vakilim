@@ -42,7 +42,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${inter.className} flex min-h-screen flex-col`}>
+      <body className={`${inter.className} flex min-h-screen flex-col`} suppressHydrationWarning>
         <NextIntlClientProvider>
           <header className="bg-navy text-white">
             <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-4">
