@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function LoginForm({ next }: { next: string }) {
   const t = useTranslations();
+  const locale = useLocale();
   const ERRORS: Record<string, string> = {
     INVALID_PHONE: t("login.errors.INVALID_PHONE"),
     TOO_MANY_REQUESTS: t("login.errors.TOO_MANY_REQUESTS"),
@@ -34,7 +35,7 @@ export default function LoginForm({ next }: { next: string }) {
       const res = await fetch("/api/auth/request-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone }),
+        body: JSON.stringify({ phone, locale }),
       });
       const data = await res.json();
       if (!res.ok) {

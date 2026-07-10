@@ -3,9 +3,12 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { normalizeAzPhone } from "@/lib/phone";
 import { generateOtp, hashOtp } from "@/lib/auth";
-import { sendOtpSms } from "@/lib/sms";
+import { sendOtp } from "@/lib/otp-transport";
 
-const bodySchema = z.object({ phone: z.string().min(7).max(20) });
+const bodySchema = z.object({
+  phone: z.string().min(7).max(20),
+  locale: z.enum(["az", "ru", "en"]).optional().default("az"),
+});
 const OTP_TTL_MIN = 5;
 const MAX_CODES = 3;
 const WINDOW_MIN = 15;
@@ -34,7 +37,7 @@ export async function POST(req: Request) {
       expiresAt: new Date(Date.now() + OTP_TTL_MIN * 60 * 1000),
     },
   });
-  await sendOtpSms(phone, code);
+  await sendOtp(phone, code, parsed.data.locale);
 
   // Demo mode: surface the code to the client so visitors can log in
   // without server-log access. Never enable in real production.
