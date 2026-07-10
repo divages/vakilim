@@ -340,7 +340,11 @@
     "sent": "Göndərilmiş məlumatlar",
     "rowStatus": "Status",
     "rowYears": "Təcrübə",
-    "rowAreas": "Sahələr"
+    "rowAreas": "Sahələr",
+    "statMeet": "Bu ay görüşlər",
+    "statEarn": "Bu ay gəlir",
+    "statRating": "Reytinq",
+    "earnLink": "Ətraflı →"
   },
   "svc": {
     "subtitle": "Burada təyin etdiyiniz aktiv xidmətlər ictimai profilinizdə görünür.",
@@ -745,5 +749,16 @@
   "cal": {
     "summary": "{name} ilə hüquqi məsləhət — Vakilim.az",
     "desc": "Görüşə qoşulmaq üçün linkə keçin. Qoşulma görüşdən 10 dəqiqə əvvəl açılır."
+  },
+  "earn": {
+    "title": "Gəlirlər",
+    "back": "Panelə qayıt",
+    "colMonth": "Ay",
+    "colMeet": "Görüşlər",
+    "colGross": "Ümumi",
+    "colRef": "Geri qaytarma",
+    "colNet": "Xalis",
+    "detail": "Bu ayın görüşləri",
+    "empty": "Bu ay tamamlanmış görüş yoxdur."
   }
 }

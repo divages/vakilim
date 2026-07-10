@@ -340,7 +340,11 @@
     "sent": "Submitted details",
     "rowStatus": "Status",
     "rowYears": "Experience",
-    "rowAreas": "Areas"
+    "rowAreas": "Areas",
+    "statMeet": "Meetings this month",
+    "statEarn": "Earnings this month",
+    "statRating": "Rating",
+    "earnLink": "Details →"
   },
   "svc": {
     "subtitle": "Active services you set here appear on your public profile.",
@@ -745,5 +749,16 @@
   "cal": {
     "summary": "Legal consultation with {name} — Vakilim.az",
     "desc": "Open the link to join. Joining opens 10 minutes before the meeting."
+  },
+  "earn": {
+    "title": "Earnings",
+    "back": "Back to panel",
+    "colMonth": "Month",
+    "colMeet": "Meetings",
+    "colGross": "Gross",
+    "colRef": "Refunds",
+    "colNet": "Net",
+    "detail": "This month's meetings",
+    "empty": "No completed meetings this month."
   }
 }

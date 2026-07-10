@@ -1,8 +1,9 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getTranslations } from "next-intl/server";
+import { formatAzn } from "@/lib/money";
 
 export default async function LawyerDashboardPage() {
   const t = await getTranslations();
@@ -16,6 +17,43 @@ export default async function LawyerDashboardPage() {
   if (!profile) redirect("/lawyer/apply");
 
   const status = profile.verificationStatus;
+
+  const bakuNow = new Date(Date.now() + 4 * 3600_000);
+  const monthStart = new Date(
+    Date.UTC(bakuNow.getUTCFullYear(), bakuNow.getUTCMonth(), 1) -
+      4 * 3600_000
+  );
+  const completed =
+    status === "APPROVED"
+      ? await prisma.booking.findMany({
+          where: {
+            lawyerId: profile.id,
+            status: "COMPLETED",
+            startAt: { gte: monthStart },
+          },
+          select: { id: true, priceQepik: true },
+        })
+      : [];
+  const refunds =
+    completed.length > 0
+      ? await prisma.dispute.findMany({
+          where: {
+            bookingId: { in: completed.map((b) => b.id) },
+            refundQepik: { gt: 0 },
+          },
+          select: { refundQepik: true },
+        })
+      : [];
+  const ratingAgg =
+    status === "APPROVED"
+      ? await prisma.review.aggregate({
+          where: { lawyerId: profile.id, hidden: false },
+          _avg: { stars: true },
+          _count: true,
+        })
+      : null;
+  const gross = completed.reduce((a, b) => a + b.priceQepik, 0);
+  const net = gross - refunds.reduce((a, r) => a + (r.refundQepik ?? 0), 0);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
@@ -42,6 +80,32 @@ export default async function LawyerDashboardPage() {
             {profile.rejectionReason ?? t("dash.rejBody")}
           </p>
         </div>
+      )}
+
+      {status === "APPROVED" && (
+        <>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase text-slate">{t("dash.statMeet")}</p>
+              <p className="mt-1 text-2xl font-extrabold text-navy">{completed.length}</p>
+            </div>
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase text-slate">{t("dash.statEarn")}</p>
+              <p className="mt-1 text-2xl font-extrabold text-navy">{formatAzn(net)}</p>
+            </div>
+            <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase text-slate">{t("dash.statRating")}</p>
+              <p className="mt-1 text-2xl font-extrabold text-emerald">
+                {ratingAgg && ratingAgg._count > 0 ? `★ ${(ratingAgg._avg.stars ?? 0).toFixed(1)}` : "—"}
+              </p>
+            </div>
+          </div>
+          <p className="mt-2 text-right">
+            <Link href="/lawyer/earnings" className="text-sm font-medium text-emerald hover:underline">
+              {t("dash.earnLink")}
+            </Link>
+          </p>
+        </>
       )}
 
       <div className="mt-6 flex items-center justify-between rounded-2xl border border-gray-100 shadow-sm p-4">
