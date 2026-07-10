@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canReview } from "@/lib/disputes";
 import { notifyUser } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const ALLOWED_TAGS = ["clear", "on_time", "solved", "professional"] as const;
 
@@ -17,6 +18,11 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "review", 5, 10 * 60_000))
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
   const { id } = await params;
   const user = await getCurrentUser();
   if (!user)

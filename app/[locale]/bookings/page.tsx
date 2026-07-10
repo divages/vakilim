@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -11,6 +10,7 @@ import { canReschedule } from "@/lib/reschedule";
 import { getTranslations } from "next-intl/server";
 import { bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
 import CancelButton from "./cancel-button";
+import { Link } from "@/i18n/navigation";
 
 const STATUS_CLS: Record<string, string> = {
   PENDING_PAYMENT: "bg-gray-100 text-gray-700",
@@ -28,7 +28,14 @@ function bakuTimeLabel(d: Date): string {
   return fmtMin(Math.round((d.getTime() - dayStart) / 60_000));
 }
 
-export default async function BookingsPage() {
+export default async function BookingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const sp = await searchParams;
+  const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
+  const skip = (page - 1) * 30;
   const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/bookings");
@@ -45,7 +52,11 @@ export default async function BookingsPage() {
       review: { select: { id: true } },
       dispute: { select: { status: true } },
     },
+    skip,
+    take: 30 + 1,
   });
+  const hasMore = bookings.length > 30;
+  if (hasMore) bookings.pop();
 
 
   const unreadRows = await prisma.message.groupBy({
@@ -203,6 +214,16 @@ export default async function BookingsPage() {
               </div>
             );
           })}
+        </div>
+      )}
+      {hasMore && (
+        <div className="mt-6 text-center">
+          <Link
+            href={`?page=${page + 1}`}
+            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+          >
+            {t("common.more")}
+          </Link>
         </div>
       )}
     </div>

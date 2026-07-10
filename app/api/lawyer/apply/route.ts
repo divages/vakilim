@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { slugify, randomSuffix } from "@/lib/slug";
 import { uploadObject, s3Env } from "@/lib/storage";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const ALLOWED_TYPES: Record<string, string> = {
@@ -46,6 +47,11 @@ function checkFile(v: FormDataEntryValue | null): { file: File; ext: string } | 
 }
 
 export async function POST(req: Request) {
+  if (!checkRateLimit(req, "apply", 3, 60 * 60_000))
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });

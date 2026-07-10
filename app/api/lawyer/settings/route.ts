@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({
   bookingMode: z.enum(["INSTANT", "REQUEST"]),
@@ -11,6 +12,11 @@ const bodySchema = z.object({
 });
 
 export async function PATCH(req: Request) {
+  if (!checkRateLimit(req, "settings", 10, 10 * 60_000))
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });

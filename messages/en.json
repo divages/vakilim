@@ -84,7 +84,8 @@
     "sending": "Sending…",
     "savedTick": "Saved ✓",
     "yourReply": "Your reply:",
-    "phone": "Phone"
+    "phone": "Phone",
+    "more": "Show more"
   },
   "directory": {
     "title": "Lawyers",
@@ -299,7 +300,8 @@
       "FILE_TOO_LARGE": "Files must be under 10 MB.",
       "FILE_TYPE": "Only PDF, JPG, PNG and WEBP files are accepted.",
       "SERVER_CONFIG": "File storage is not configured.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "dash": {
@@ -420,7 +422,8 @@
       "ALREADY_REPLIED": "You already replied to this review.",
       "INVALID_BODY": "Reply must be 5–500 characters.",
       "NOT_FOUND": "Review not found.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "call": {
@@ -460,7 +463,8 @@
       "FILE_TOO_LARGE": "Files must be under 10 MB.",
       "FILE_TYPE": "Only PDF, images and DOCX can be sent.",
       "SERVER_CONFIG": "File storage is not configured.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "dispute": {
@@ -478,7 +482,8 @@
       "ALREADY_OPEN": "A complaint is already open for this meeting.",
       "WINDOW_CLOSED": "The complaint window (72h) has closed.",
       "INVALID_BODY": "Describe the complaint in at least 10 characters.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "review": {
@@ -491,7 +496,8 @@
       "NOT_ELIGIBLE": "You can't review this meeting.",
       "ALREADY_REVIEWED": "You already reviewed this meeting.",
       "INVALID_BODY": "Pick a star rating.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "notif": {
@@ -507,7 +513,8 @@
       "UNAUTHORIZED": "Session expired. Sign in again.",
       "EMAIL_TAKEN": "This email is used by another account.",
       "INVALID_BODY": "Name must be 3+ characters and the email valid.",
-      "DEFAULT": "Something went wrong. Try again shortly."
+      "DEFAULT": "Something went wrong. Try again shortly.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
     }
   },
   "admV": {
@@ -707,5 +714,13 @@
     "refundTitle": "Cancellation & refund policy",
     "draftBanner": "DRAFT — this text takes effect after legal review.",
     "officialNote": "The authoritative version of this document is in Azerbaijani; a translation will follow legal review."
+  },
+  "sys": {
+    "errTitle": "Something went wrong",
+    "errBody": "An unexpected problem occurred. Try again — if it persists, come back shortly.",
+    "retry": "Try again",
+    "nfTitle": "Page not found",
+    "nfBody": "This page doesn't exist or has moved.",
+    "goHome": "Back to home"
   }
 }

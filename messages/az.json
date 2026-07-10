@@ -84,7 +84,8 @@
     "sending": "Göndərilir…",
     "savedTick": "Yadda saxlanıldı ✓",
     "yourReply": "Cavabınız:",
-    "phone": "Telefon"
+    "phone": "Telefon",
+    "more": "Daha çox göstər"
   },
   "directory": {
     "title": "Vəkillər",
@@ -299,7 +300,8 @@
       "FILE_TOO_LARGE": "Fayl 10 MB-dan böyük ola bilməz.",
       "FILE_TYPE": "Yalnız PDF, JPG, PNG və WEBP faylları qəbul olunur.",
       "SERVER_CONFIG": "Fayl anbarı konfiqurasiya olunmayıb.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "dash": {
@@ -420,7 +422,8 @@
       "ALREADY_REPLIED": "Bu rəyə artıq cavab yazmısınız.",
       "INVALID_BODY": "Cavab 5–500 simvol olmalıdır.",
       "NOT_FOUND": "Rəy tapılmadı.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "call": {
@@ -460,7 +463,8 @@
       "FILE_TOO_LARGE": "Fayl 10 MB-dan böyük ola bilməz.",
       "FILE_TYPE": "Yalnız PDF, şəkil və DOCX faylları göndərilə bilər.",
       "SERVER_CONFIG": "Fayl anbarı konfiqurasiya olunmayıb.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "dispute": {
@@ -478,7 +482,8 @@
       "ALREADY_OPEN": "Bu görüş üçün artıq şikayət açılıb.",
       "WINDOW_CLOSED": "Şikayət müddəti (72 saat) bitib.",
       "INVALID_BODY": "Şikayəti ən azı 10 simvolla təsvir edin.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "review": {
@@ -491,7 +496,8 @@
       "NOT_ELIGIBLE": "Bu görüş üçün rəy yazmaq mümkün deyil.",
       "ALREADY_REVIEWED": "Bu görüş üçün artıq rəy yazmısınız.",
       "INVALID_BODY": "Ulduz sayını seçin.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "notif": {
@@ -507,7 +513,8 @@
       "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
       "EMAIL_TAKEN": "Bu e-poçt başqa hesabda istifadə olunur.",
       "INVALID_BODY": "Ad ən azı 3 simvol, e-poçt düzgün formatda olmalıdır.",
-      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
     }
   },
   "admV": {
@@ -707,5 +714,13 @@
     "refundTitle": "Ləğv və geri qaytarma siyasəti",
     "draftBanner": "LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.",
     "officialNote": "Bu sənədin rəsmi mətni Azərbaycan dilindədir; tərcümə hüquqi rəydən sonra əlavə olunacaq."
+  },
+  "sys": {
+    "errTitle": "Xəta baş verdi",
+    "errBody": "Gözlənilməz problem yarandı. Yenidən cəhd edin — problem davam edərsə, bir azdan qayıdın.",
+    "retry": "Yenidən cəhd et",
+    "nfTitle": "Səhifə tapılmadı",
+    "nfBody": "Axtardığınız səhifə mövcud deyil və ya köçürülüb.",
+    "goHome": "Ana səhifəyə qayıt"
   }
 }

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -8,6 +7,7 @@ import DecisionButtons from "./decision-buttons";
 import { completePastBookings } from "@/lib/bookings";
 import { isJoinable } from "@/lib/call-window";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 const STATUS_CLS: Record<string, string> = {
   REQUESTED: "bg-amber-100 text-amber-800",
@@ -24,7 +24,14 @@ function bakuTimeLabel(d: Date): string {
 }
 
 
-export default async function LawyerBookingsPage() {
+export default async function LawyerBookingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const sp = await searchParams;
+  const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
+  const skip = (page - 1) * 60;
   const t = await getTranslations();
 function when(d: Date): string {
   const iso = bakuDateIso(d);
@@ -47,7 +54,11 @@ function when(d: Date): string {
     where: { lawyerId: profile.id },
     orderBy: { startAt: "asc" },
     include: { client: { select: { fullName: true, phone: true } } },
+    skip,
+    take: 60 + 1,
   });
+  const hasMore = bookings.length > 60;
+  if (hasMore) bookings.pop();
 
 
   const unreadRows = await prisma.message.groupBy({
@@ -171,6 +182,16 @@ function when(d: Date): string {
             ))}
           </div>
         </>
+      )}
+      {hasMore && (
+        <div className="mt-6 text-center">
+          <Link
+            href={`?page=${page + 1}`}
+            className="inline-block rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
+          >
+            {t("common.more")}
+          </Link>
+        </div>
       )}
     </div>
   );

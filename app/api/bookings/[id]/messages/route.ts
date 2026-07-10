@@ -6,6 +6,7 @@ import { canMessage, isConversationVisible } from "@/lib/messaging";
 import { detectContactInfo } from "@/lib/moderation";
 import { uploadObject, s3Env } from "@/lib/storage";
 import { notifyNewMessageThrottled } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const MAX_BODY = 2000;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
@@ -80,6 +81,11 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "chat-msg", 60, 10 * 60_000))
+    return NextResponse.json(
+      { ok: false, error: "TOO_MANY_REQUESTS" },
+      { status: 429 }
+    );
   const { id } = await params;
   const user = await getCurrentUser();
   if (!user)

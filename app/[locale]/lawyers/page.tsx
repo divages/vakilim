@@ -5,22 +5,11 @@ import { slugify } from "@/lib/slug";
 import { rankLawyers, type SortMode } from "@/lib/ranking";
 import { getTranslations } from "next-intl/server";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "meta" });
-  return {
-    title: t("directoryTitle"),
-    description: t("directoryDesc"),
-    alternates: {
-      canonical: `/${locale}/lawyers`,
-      languages: { az: "/az/lawyers", ru: "/ru/lawyers", en: "/en/lawyers", "x-default": "/az/lawyers" },
-    },
-  };
-}
+export const metadata = {
+  title: "Vəkillər — Vakilim.az",
+  description:
+    "Azərbaycanda yoxlanılmış vəkillər və hüquqşünaslar. Axtarın, sahə, dil və qiymətə görə seçin.",
+};
 
 type Params = {
   q?: string;
@@ -93,6 +82,7 @@ export default async function LawyersPage({
         select: { bookings: { where: { status: "COMPLETED" } } },
       },
     },
+    take: 200,
   });
 
   const minRatingNum = minRating ? Number(minRating) : null;

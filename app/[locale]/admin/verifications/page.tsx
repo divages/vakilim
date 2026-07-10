@@ -16,12 +16,13 @@ async function loadApplications() {
       where: { verificationStatus: "PENDING" },
       include,
       orderBy: { createdAt: "asc" },
+    take: 100,
     }),
     prisma.lawyerProfile.findMany({
       where: { verificationStatus: { not: "PENDING" } },
       include,
       orderBy: { reviewedAt: "desc" },
-      take: 10,
+    take: 20,
     }),
   ]);
 
