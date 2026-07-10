@@ -727,7 +727,8 @@
     "termsTitle": "İstifadə şərtləri — Vakilim.az",
     "privacyTitle": "Məxfilik siyasəti — Vakilim.az",
     "refundTitle": "Geri qaytarma siyasəti — Vakilim.az",
-    "intakeTitle": "AI hüquqi köməkçi — Vakilim.az"
+    "intakeTitle": "AI hüquqi köməkçi — Vakilim.az",
+    "signupTitle": "Qeydiyyat — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -781,6 +782,93 @@
       "INVALID_BODY": "Probleminizi ən azı 20 simvolla təsvir edin.",
       "AI_UNAVAILABLE": "Köməkçi hazırda əlçatan deyil — bir azdan yenidən cəhd edin.",
       "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
+    }
+  },
+  "login2": {
+    "title": "Daxil ol",
+    "google": "Google ilə davam et",
+    "or": "və ya",
+    "email": "E-poçt",
+    "password": "Şifrə",
+    "showPw": "Şifrəni göstər",
+    "forgot": "Şifrəni unutmusunuz?",
+    "submit": "Daxil ol",
+    "checking": "Yoxlanılır…",
+    "usePhone": "Telefon kodu ilə daxil ol",
+    "useEmail": "E-poçt ilə daxil ol",
+    "noAccount": "Hesabınız yoxdur?",
+    "signup": "Qeydiyyat",
+    "phone": "Telefon",
+    "phoneHint": "İstənilən ölkə kodu ilə: +994, +7, +90…",
+    "sendCode": "Kod göndər",
+    "sending": "Göndərilir…",
+    "codeSent": "{phone} nömrəsinə kod göndərildi.",
+    "code": "SMS/WhatsApp kodu",
+    "changePhone": "Nömrəni dəyiş",
+    "errors": {
+      "INVALID_CREDENTIALS": "E-poçt və ya şifrə yanlışdır.",
+      "EMAIL_NOT_VERIFIED": "Əvvəlcə e-poçtunuzu təsdiqləyin — qutunuza baxın.",
+      "TOO_MANY_REQUESTS": "Çox cəhd — bir neçə dəqiqə sonra yenidən yoxlayın.",
+      "INVALID_PHONE": "Nömrə düzgün deyil.",
+      "INVALID_CODE": "Kod yanlış və ya vaxtı keçib.",
+      "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
+    },
+    "verifyFailed": "Təsdiq keçidi etibarsız və ya vaxtı keçib — yenidən qeydiyyatdan keçin və ya şifrə bərpasından istifadə edin."
+  },
+  "signup": {
+    "title": "Qeydiyyat",
+    "subtitle": "Bir dəqiqəyə hesab yaradın.",
+    "google": "Google ilə qeydiyyat",
+    "name": "Ad, soyad",
+    "phone": "Telefon",
+    "optional": "istəyə görə",
+    "pwHint": "Ən azı 8 simvol.",
+    "agree": "Qəbul edirəm:",
+    "creating": "Yaradılır…",
+    "submit": "Hesab yarat",
+    "haveAccount": "Artıq hesabınız var?",
+    "doneT": "Qutunuza baxın",
+    "doneB": "{email} ünvanına təsdiq keçidi göndərdik. Keçidə kliklədikdən sonra daxil olacaqsınız.",
+    "errors": {
+      "EMAIL_TAKEN": "Bu e-poçt artıq qeydiyyatdadır — daxil olun.",
+      "PHONE_TAKEN": "Bu nömrə artıq qeydiyyatdadır.",
+      "INVALID_PHONE": "Nömrə düzgün deyil.",
+      "INVALID_BODY": "Sahələri yoxlayın.",
+      "TOO_MANY_REQUESTS": "Çox cəhd — sonra yenidən yoxlayın.",
+      "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
+    }
+  },
+  "reset": {
+    "title": "Şifrə bərpası",
+    "subtitle": "E-poçtunuzu yazın — bərpa keçidi göndərək.",
+    "send": "Keçid göndər",
+    "sentT": "Göndərildi",
+    "sentB": "Əgər bu e-poçt qeydiyyatdadırsa, bərpa keçidi qutunuzdadır.",
+    "newT": "Yeni şifrə",
+    "save": "Yadda saxla",
+    "doneT": "Şifrə yeniləndi",
+    "doneB": "Bütün cihazlardan çıxış edildi — yeni şifrə ilə daxil olun.",
+    "errors": {
+      "INVALID_TOKEN": "Keçid etibarsız və ya vaxtı keçib — yenidən sorğu göndərin.",
+      "DEFAULT": "Xəta baş verdi."
+    }
+  },
+  "sett2": {
+    "title": "Giriş üsulları",
+    "email": "E-poçt",
+    "verified": "Təsdiqlənib",
+    "unverified": "Təsdiqlənməyib",
+    "pwSet": "Şifrə təyin et",
+    "pwChange": "Şifrəni dəyiş",
+    "current": "Cari şifrə",
+    "newPw": "Yeni şifrə",
+    "save": "Yadda saxla",
+    "saved": "Yadda saxlanıldı ✓",
+    "googleSoon": "Google ilə giriş tezliklə əlavə olunacaq.",
+    "errors": {
+      "WRONG_PASSWORD": "Cari şifrə yanlışdır.",
+      "TOO_MANY_REQUESTS": "Çox cəhd — sonra yenidən yoxlayın.",
+      "DEFAULT": "Xəta baş verdi."
     }
   }
 }

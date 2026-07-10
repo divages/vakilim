@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import SettingsForm from "./settings-form";
 import { getTranslations } from "next-intl/server";
+import SettingsSecurity from "./settings-security";
 
 export default async function SettingsPage() {
   const t = await getTranslations();
@@ -18,6 +19,11 @@ export default async function SettingsPage() {
         defaultFullName={user.fullName ?? ""}
         defaultEmail={user.email ?? ""}
         phone={user.phone ?? ""}
+      />
+      <SettingsSecurity
+        email={user.email}
+        emailVerified={!!user.emailVerifiedAt}
+        hasPassword={!!user.passwordHash}
       />
     </div>
   );

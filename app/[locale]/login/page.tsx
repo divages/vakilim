@@ -1,12 +1,5 @@
-import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/auth";
-import LoginForm from "./login-form";
 import { getTranslations } from "next-intl/server";
-
-function safePath(next: string | undefined): string {
-  if (next && next.startsWith("/") && !next.startsWith("//")) return next;
-  return "/";
-}
+import LoginForm from "./login-form";
 
 export async function generateMetadata({
   params,
@@ -25,25 +18,20 @@ export async function generateMetadata({
   };
 }
 
+function safePath(v: string | undefined): string {
+  if (!v || !v.startsWith("/") || v.startsWith("//")) return "/";
+  return v;
+}
+
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string }>;
+  searchParams: Promise<{ next?: string; verify?: string }>;
 }) {
-  const t = await getTranslations();
-  const { next } = await searchParams;
-  const target = safePath(next);
-
-  const user = await getCurrentUser();
-  if (user) redirect(target);
-
+  const sp = await searchParams;
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
-      <h1 className="text-2xl font-bold text-navy">{t("login.title")}</h1>
-      <p className="mt-2 text-sm">
-        {t("login.subtitle")}
-      </p>
-      <LoginForm next={target} />
+    <div className="mx-auto max-w-sm px-4 py-14">
+      <LoginForm next={safePath(sp.next)} verifyFailed={sp.verify === "failed"} />
     </div>
   );
 }

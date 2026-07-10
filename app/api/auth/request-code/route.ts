@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { normalizeAzPhone } from "@/lib/phone";
+import { normalizePhone } from "@/lib/phone-intl";
 import { generateOtp, hashOtp } from "@/lib/auth";
 import { sendOtp } from "@/lib/otp-transport";
 
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   if (!parsed.success)
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
 
-  const phone = normalizeAzPhone(parsed.data.phone);
+  const phone = normalizePhone(parsed.data.phone);
   if (!phone)
     return NextResponse.json({ ok: false, error: "INVALID_PHONE" }, { status: 400 });
 

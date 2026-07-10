@@ -727,7 +727,8 @@
     "termsTitle": "Terms of use — Vakilim.az",
     "privacyTitle": "Privacy policy — Vakilim.az",
     "refundTitle": "Refund policy — Vakilim.az",
-    "intakeTitle": "AI legal assistant — Vakilim.az"
+    "intakeTitle": "AI legal assistant — Vakilim.az",
+    "signupTitle": "Sign up — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -781,6 +782,93 @@
       "INVALID_BODY": "Describe your problem in at least 20 characters.",
       "AI_UNAVAILABLE": "The assistant is unavailable right now — try again shortly.",
       "DEFAULT": "Something went wrong. Try again."
+    }
+  },
+  "login2": {
+    "title": "Sign in",
+    "google": "Continue with Google",
+    "or": "or",
+    "email": "Email",
+    "password": "Password",
+    "showPw": "Show password",
+    "forgot": "Forgot password?",
+    "submit": "Sign in",
+    "checking": "Checking…",
+    "usePhone": "Sign in with phone code",
+    "useEmail": "Sign in with email",
+    "noAccount": "No account?",
+    "signup": "Sign up",
+    "phone": "Phone",
+    "phoneHint": "Any country code: +994, +7, +90…",
+    "sendCode": "Send code",
+    "sending": "Sending…",
+    "codeSent": "A code was sent to {phone}.",
+    "code": "SMS/WhatsApp code",
+    "changePhone": "Change number",
+    "errors": {
+      "INVALID_CREDENTIALS": "Incorrect email or password.",
+      "EMAIL_NOT_VERIFIED": "Please verify your email first — check your inbox.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again shortly.",
+      "INVALID_PHONE": "Invalid phone number.",
+      "INVALID_CODE": "Wrong or expired code.",
+      "DEFAULT": "Something went wrong. Try again."
+    },
+    "verifyFailed": "Verification link invalid or expired — sign up again or use password recovery."
+  },
+  "signup": {
+    "title": "Create account",
+    "subtitle": "Create your account in a minute.",
+    "google": "Sign up with Google",
+    "name": "Full name",
+    "phone": "Phone",
+    "optional": "optional",
+    "pwHint": "At least 8 characters.",
+    "agree": "I accept the",
+    "creating": "Creating…",
+    "submit": "Create account",
+    "haveAccount": "Already have an account?",
+    "doneT": "Check your inbox",
+    "doneB": "We sent a confirmation link to {email}. Click it and you'll be signed in.",
+    "errors": {
+      "EMAIL_TAKEN": "This email is already registered — sign in.",
+      "PHONE_TAKEN": "This phone is already registered.",
+      "INVALID_PHONE": "Invalid phone number.",
+      "INVALID_BODY": "Check the fields.",
+      "TOO_MANY_REQUESTS": "Too many attempts — later.",
+      "DEFAULT": "Something went wrong. Try again."
+    }
+  },
+  "reset": {
+    "title": "Password recovery",
+    "subtitle": "Enter your email — we'll send a link.",
+    "send": "Send link",
+    "sentT": "Sent",
+    "sentB": "If that email is registered, the link is in your inbox.",
+    "newT": "New password",
+    "save": "Save",
+    "doneT": "Password updated",
+    "doneB": "Signed out everywhere — sign in with your new password.",
+    "errors": {
+      "INVALID_TOKEN": "Link invalid or expired — request a new one.",
+      "DEFAULT": "Something went wrong."
+    }
+  },
+  "sett2": {
+    "title": "Sign-in methods",
+    "email": "Email",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "pwSet": "Set a password",
+    "pwChange": "Change password",
+    "current": "Current password",
+    "newPw": "New password",
+    "save": "Save",
+    "saved": "Saved ✓",
+    "googleSoon": "Google sign-in is coming soon.",
+    "errors": {
+      "WRONG_PASSWORD": "Current password is incorrect.",
+      "TOO_MANY_REQUESTS": "Too many attempts — later.",
+      "DEFAULT": "Something went wrong."
     }
   }
 }
