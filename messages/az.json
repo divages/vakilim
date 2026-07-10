@@ -34,7 +34,8 @@
     "stat3b": "Hər sənədin unikal təsdiq kodu var.",
     "tplT": "Hazır hüquqi sənədlər",
     "tplB": "Suallara cavab verin — sistem sənədi PDF kimi hazırlayır.",
-    "tplCta": "Kataloqa keç"
+    "tplCta": "Kataloqa keç",
+    "aiCta": "🤖 Hansı vəkil lazımdır? AI köməkçidən soruşun"
   },
   "common": {
     "free": "Pulsuz",
@@ -725,7 +726,8 @@
     "lawyerNotFound": "Vəkil tapılmadı — Vakilim.az",
     "termsTitle": "İstifadə şərtləri — Vakilim.az",
     "privacyTitle": "Məxfilik siyasəti — Vakilim.az",
-    "refundTitle": "Geri qaytarma siyasəti — Vakilim.az"
+    "refundTitle": "Geri qaytarma siyasəti — Vakilim.az",
+    "intakeTitle": "AI hüquqi köməkçi — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -760,5 +762,25 @@
     "colNet": "Xalis",
     "detail": "Bu ayın görüşləri",
     "empty": "Bu ay tamamlanmış görüş yoxdur."
+  },
+  "intake": {
+    "title": "Hüquqi köməkçi",
+    "subtitle": "Probleminizi öz sözlərinizlə yazın — sistem hüquq sahəsini müəyyən edəcək, uyğun vəkilləri göstərəcək və ilk mesajınızı hazırlayacaq.",
+    "ph": "Məsələn: 3 aydır işəgötürən maaşımı ödəmir…",
+    "submit": "Təhlil et",
+    "analyzing": "Təhlil edilir…",
+    "areaLabel": "Hüquq sahəsi",
+    "questionLabel": "Vəkilə ilk mesajınız",
+    "lawyersLabel": "Uyğun vəkillər",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı ✓",
+    "none": "Bu sahə üzrə vəkil hələ yoxdur — bütün siyahıya baxın:",
+    "disclaimer": "Bu, hüquqi məsləhət deyil — yalnız istiqamətləndirici məlumatdır. Konkret vəziyyətiniz üçün vəkillə məsləhətləşin.",
+    "errors": {
+      "TOO_MANY_REQUESTS": "Çox sorğu göndərildi — bir neçə dəqiqə sonra yenidən cəhd edin.",
+      "INVALID_BODY": "Probleminizi ən azı 20 simvolla təsvir edin.",
+      "AI_UNAVAILABLE": "Köməkçi hazırda əlçatan deyil — bir azdan yenidən cəhd edin.",
+      "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
+    }
   }
 }

@@ -34,7 +34,8 @@
     "stat3b": "Every document carries a unique verification code.",
     "tplT": "Ready legal documents",
     "tplB": "Answer questions — the system builds your document as a PDF.",
-    "tplCta": "Browse catalog"
+    "tplCta": "Browse catalog",
+    "aiCta": "🤖 Not sure which lawyer? Ask the AI assistant"
   },
   "common": {
     "free": "Free",
@@ -725,7 +726,8 @@
     "lawyerNotFound": "Lawyer not found — Vakilim.az",
     "termsTitle": "Terms of use — Vakilim.az",
     "privacyTitle": "Privacy policy — Vakilim.az",
-    "refundTitle": "Refund policy — Vakilim.az"
+    "refundTitle": "Refund policy — Vakilim.az",
+    "intakeTitle": "AI legal assistant — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -760,5 +762,25 @@
     "colNet": "Net",
     "detail": "This month's meetings",
     "empty": "No completed meetings this month."
+  },
+  "intake": {
+    "title": "Legal assistant",
+    "subtitle": "Describe your problem in your own words — we'll identify the practice area, suggest matching lawyers, and draft your first message.",
+    "ph": "For example: my employer hasn't paid me for three months…",
+    "submit": "Analyze",
+    "analyzing": "Analyzing…",
+    "areaLabel": "Practice area",
+    "questionLabel": "Your first message to a lawyer",
+    "lawyersLabel": "Matching lawyers",
+    "copy": "Copy",
+    "copied": "Copied ✓",
+    "none": "No lawyers in this area yet — browse the full list:",
+    "disclaimer": "This is not legal advice — orientation only. Consult a lawyer about your specific situation.",
+    "errors": {
+      "TOO_MANY_REQUESTS": "Too many requests — try again in a few minutes.",
+      "INVALID_BODY": "Describe your problem in at least 20 characters.",
+      "AI_UNAVAILABLE": "The assistant is unavailable right now — try again shortly.",
+      "DEFAULT": "Something went wrong. Try again."
+    }
   }
 }

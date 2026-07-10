@@ -31,6 +31,14 @@ export default async function HomePage() {
         >
           {t("allLawyers")}
         </Link>
+        <div className="mt-6">
+          <Link
+            href="/intake"
+            className="inline-block rounded-xl border border-emerald/40 bg-emerald-50/50 px-6 py-3 text-sm font-semibold text-emerald-700 hover:border-emerald transition"
+          >
+            {t("aiCta")}
+          </Link>
+        </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
