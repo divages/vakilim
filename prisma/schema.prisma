@@ -66,6 +66,7 @@ enum PaymentStatus {
 model User {
   id            String         @id @default(cuid())
   role          UserRole       @default(CLIENT)
+  locale        String         @default("az")
   phone         String?        @unique
   email         String?        @unique
   fullName      String?
@@ -106,6 +107,7 @@ model PracticeArea {
   slug      String               @unique
   nameAz    String
   nameEn    String?
+  nameRu    String?
   sortOrder Int                  @default(0)
   lawyers   LawyerPracticeArea[]
 }
@@ -122,7 +124,9 @@ model LawyerProfile {
   licenseNo          String?
   licenseDocKey      String?
   idDocKey           String?
-  bio                String?
+  bioAz              String?
+  bioRu              String?
+  bioEn              String?
   yearsExperience    Int?
   city               String               @default("Bakı")
   bufferMin          Int                  @default(0)
@@ -305,8 +309,10 @@ model Notification {
 model DocTemplate {
   id            String            @id @default(cuid())
   slug          String            @unique
-  titleAz       String
-  descriptionAz String
+  title         String
+  description   String
+  locale        String            @default("az")
+  familyKey     String?
   category      String
   priceQepik    Int               @default(0)
   active        Boolean           @default(true)

@@ -23,10 +23,14 @@ const fieldSchema = z
 
 const bodySchema = z.object({
   slug: z.string().trim().regex(/^[a-z0-9-]+$/).min(3).max(80),
-  titleAz: z.string().trim().min(3).max(120),
-  descriptionAz: z.string().trim().min(10).max(500),
+  title: z.string().trim().min(3).max(120),
+  description: z.string().trim().min(10).max(500),
   category: z.string().trim().min(2).max(60),
   priceAzn: z.coerce.number().int().min(0).max(10000),
+  locale: z.enum(["az", "ru", "en"]).default("az"),
+  familyKey: z
+    .union([z.string().trim().regex(/^[a-z0-9-]+$/).min(2).max(60), z.literal("")])
+    .optional(),
   bodyText: z.string().min(50).max(20000),
   fieldsJson: z.string().min(2),
 });
@@ -61,17 +65,21 @@ export async function POST(req: Request) {
       { status: 400 }
     );
 
-  const { slug, titleAz, descriptionAz, category, priceAzn, bodyText } = parsed.data;
+  const { slug, title, description, category, priceAzn, bodyText, locale } =
+    parsed.data;
+  const familyKey = parsed.data.familyKey || null;
 
   const template = await prisma.docTemplate.upsert({
     where: { slug },
-    update: { titleAz, descriptionAz, category, priceQepik: priceAzn * 100 },
+    update: { title, description, category, priceQepik: priceAzn * 100, locale, familyKey },
     create: {
       slug,
-      titleAz,
-      descriptionAz,
+      title,
+      description,
       category,
       priceQepik: priceAzn * 100,
+      locale,
+      familyKey,
     },
   });
 

@@ -20,9 +20,21 @@ const fieldsSchema = z.object({
   licenseNo: z.string().trim().min(2).max(50),
   yearsExperience: z.coerce.number().int().min(0).max(60),
   city: z.string().trim().min(2).max(50),
-  bio: z.string().trim().min(20).max(2000),
+  bioAz: z.string().trim().max(2000).optional(),
+  bioRu: z.string().trim().max(2000).optional(),
+  bioEn: z.string().trim().max(2000).optional(),
   languages: z.array(z.enum(["az", "ru", "en"])).min(1),
   practiceAreaIds: z.array(z.string().min(1)).min(1).max(5),
+}).superRefine((d, ctx) => {
+  const map = { az: d.bioAz, ru: d.bioRu, en: d.bioEn } as const;
+  for (const l of d.languages) {
+    if ((map[l] ?? "").trim().length < 20)
+      ctx.addIssue({
+        code: "custom",
+        path: [`bio${l[0].toUpperCase()}${l.slice(1)}`],
+        message: "bio required for claimed language",
+      });
+  }
 });
 
 function checkFile(v: FormDataEntryValue | null): { file: File; ext: string } | { error: string } {
@@ -51,7 +63,9 @@ export async function POST(req: Request) {
     licenseNo: form.get("licenseNo"),
     yearsExperience: form.get("yearsExperience"),
     city: form.get("city"),
-    bio: form.get("bio"),
+    bioAz: form.get("bioAz") ?? undefined,
+    bioRu: form.get("bioRu") ?? undefined,
+    bioEn: form.get("bioEn") ?? undefined,
     languages: form.getAll("languages"),
     practiceAreaIds: form.getAll("practiceAreaIds"),
   });
@@ -71,7 +85,7 @@ export async function POST(req: Request) {
   if (existing)
     return NextResponse.json({ ok: false, error: "ALREADY_APPLIED" }, { status: 409 });
 
-  const { practiceAreaIds, fullName, ...profile } = parsed.data;
+  const { practiceAreaIds, fullName, bioAz, bioRu, bioEn, ...profile } = parsed.data;
 
   const areas = await prisma.practiceArea.findMany({
     where: { id: { in: practiceAreaIds } },
@@ -112,7 +126,9 @@ export async function POST(req: Request) {
         idDocKey,
         yearsExperience: profile.yearsExperience,
         city: profile.city,
-        bio: profile.bio,
+        bioAz: bioAz?.trim() || null,
+        bioRu: bioRu?.trim() || null,
+        bioEn: bioEn?.trim() || null,
         languages: profile.languages,
         practiceAreas: {
           create: practiceAreaIds.map((practiceAreaId) => ({ practiceAreaId })),

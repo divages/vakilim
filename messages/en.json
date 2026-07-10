@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "lawyers": "Lawyers",
+    "documents": "Documents",
+    "myBookings": "My bookings",
+    "lawyerPanel": "Lawyer panel",
+    "forLawyers": "For lawyers",
+    "login": "Sign in"
+  },
+  "footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "refund": "Refund policy"
+  },
+  "home": {
+    "title": "Find your lawyer",
+    "subtitle": "Verified advocates and legal professionals online — choose the right one for you.",
+    "searchPlaceholder": "Name or keyword…",
+    "search": "Search",
+    "allLawyers": "Browse all lawyers"
+  }
+}

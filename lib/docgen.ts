@@ -146,7 +146,7 @@ export async function generateAndStore(orderId: string): Promise<string> {
   );
 
   const pdf = await buildPdf({
-    title: order.templateVersion.template.titleAz,
+    title: order.templateVersion.template.title,
     body,
     docUid: order.docUid,
   });

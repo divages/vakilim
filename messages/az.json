@@ -1,0 +1,22 @@
+{
+  "nav": {
+    "lawyers": "Vəkillər",
+    "documents": "Sənədlər",
+    "myBookings": "Görüşlərim",
+    "lawyerPanel": "Vəkil paneli",
+    "forLawyers": "Vəkillər üçün",
+    "login": "Daxil ol"
+  },
+  "footer": {
+    "terms": "Şərtlər",
+    "privacy": "Məxfilik",
+    "refund": "Geri qaytarma"
+  },
+  "home": {
+    "title": "Vəkilinizi tapın",
+    "subtitle": "Yoxlanılmış vəkillər və hüquqşünaslarla tanış olun və sizə uyğununu seçin.",
+    "searchPlaceholder": "Ad, sahə və ya açar söz…",
+    "search": "Axtar",
+    "allLawyers": "Bütün vəkillərə bax"
+  }
+}

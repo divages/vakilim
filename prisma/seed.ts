@@ -105,8 +105,8 @@ Sənəd №: {{DOC_UID}}`;
 
 async function upsertTemplate(t: {
   slug: string;
-  titleAz: string;
-  descriptionAz: string;
+  title: string;
+  description: string;
   category: string;
   priceQepik: number;
   sortOrder: number;
@@ -116,19 +116,21 @@ async function upsertTemplate(t: {
   const template = await prisma.docTemplate.upsert({
     where: { slug: t.slug },
     update: {
-      titleAz: t.titleAz,
-      descriptionAz: t.descriptionAz,
+      title: t.title,
+      description: t.description,
       category: t.category,
       priceQepik: t.priceQepik,
       sortOrder: t.sortOrder,
+      locale: "az",
     },
     create: {
       slug: t.slug,
-      titleAz: t.titleAz,
-      descriptionAz: t.descriptionAz,
+      title: t.title,
+      description: t.description,
       category: t.category,
       priceQepik: t.priceQepik,
       sortOrder: t.sortOrder,
+      locale: "az",
     },
   });
   await prisma.templateVersion.upsert({
@@ -155,8 +157,8 @@ async function main() {
 
   await upsertTemplate({
     slug: "menzil-icare-muqavilesi",
-    titleAz: "Mənzil icarəsi müqaviləsi",
-    descriptionAz:
+    title: "Mənzil icarəsi müqaviləsi",
+    description:
       "Fiziki şəxslər arasında yaşayış mənzilinin kirayəsi üçün standart müqavilə. Nümunə şablon — istifadədən əvvəl hüquqşünas yoxlaması tövsiyə olunur.",
     category: "Daşınmaz əmlak",
     priceQepik: 1500,
@@ -167,8 +169,8 @@ async function main() {
 
   await upsertTemplate({
     slug: "sikayet-erizesi",
-    titleAz: "Şikayət ərizəsi",
-    descriptionAz:
+    title: "Şikayət ərizəsi",
+    description:
       "İstənilən dövlət qurumuna və ya təşkilata rəsmi şikayət üçün universal ərizə forması.",
     category: "Ərizələr",
     priceQepik: 0,
