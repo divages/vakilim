@@ -118,7 +118,8 @@
     "reviewsCount": "({c} отзывов)",
     "noReviews": "Пока нет отзывов",
     "meetings": "· {c} встреч",
-    "from": "от {price}"
+    "from": "от {price}",
+    "next": "Ближайшее: {when}"
   },
   "profile": {
     "verified": "Проверен",

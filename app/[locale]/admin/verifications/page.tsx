@@ -28,6 +28,7 @@ async function loadApplications() {
 
   const toApp = async (p: (typeof pending)[number]): Promise<Application> => ({
     id: p.id,
+    photoKey: p.photoKey,
     licenseDocUrl: p.licenseDocKey
       ? await presignRecordingUrl(p.licenseDocKey, 600)
       : null,

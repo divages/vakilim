@@ -14,6 +14,7 @@ export async function GET(
   if (!profile?.photoKey || profile.verificationStatus === "REJECTED")
     return new NextResponse(null, { status: 404 });
   const url = await presignRecordingUrl(profile.photoKey, 600);
+  if (!url) return new NextResponse(null, { status: 404 });
   return NextResponse.redirect(url, {
     headers: { "Cache-Control": "private, max-age=300" },
   });

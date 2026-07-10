@@ -118,7 +118,8 @@
     "reviewsCount": "({c} reviews)",
     "noReviews": "No reviews yet",
     "meetings": "· {c} consultations",
-    "from": "from {price}"
+    "from": "from {price}",
+    "next": "Next: {when}"
   },
   "profile": {
     "verified": "Verified",

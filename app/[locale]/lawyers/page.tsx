@@ -5,6 +5,7 @@ import { slugify } from "@/lib/slug";
 import { rankLawyers, type SortMode } from "@/lib/ranking";
 import { getTranslations } from "next-intl/server";
 import Avatar from "@/components/avatar";
+import { generateSlots, bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
 
 export const metadata = {
   title: "Vəkillər — Vakilim.az",
@@ -77,7 +78,7 @@ export default async function LawyersPage({
     include: {
       user: { select: { fullName: true } },
       practiceAreas: { include: { practiceArea: true } },
-      services: { where: { active: true }, select: { priceQepik: true } },
+      services: { where: { active: true }, select: { priceQepik: true, durationMin: true } },
       reviews: { where: { hidden: false }, select: { stars: true } },
       _count: {
         select: { bookings: { where: { status: "COMPLETED" } } },
@@ -99,6 +100,10 @@ export default async function LawyersPage({
         p.services.length > 0
           ? Math.min(...p.services.map((s) => s.priceQepik))
           : null;
+      const cheapest =
+        p.services.length > 0
+          ? p.services.reduce((a, sv) => (sv.priceQepik < a.priceQepik ? sv : a))
+          : null;
       return {
         id: p.id,
         slug: p.slug as string,
@@ -110,6 +115,8 @@ export default async function LawyersPage({
         bio: p.bioAz ?? p.bioRu ?? p.bioEn ?? "",
         areas: p.practiceAreas.map((pa) => pa.practiceArea.nameAz),
         photoKey: p.photoKey,
+        minSvcDuration: cheapest?.durationMin ?? null,
+        bufferMin: p.bufferMin,
         ratingAvg,
         reviewCount: p.reviews.length,
         completedCount: p._count.bookings,
@@ -135,6 +142,55 @@ export default async function LawyersPage({
     "rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy";
 
   const hasFilters = !!(q || area || lang || type || minRating || maxPrice);
+
+  const ids = ranked.map((c) => c.id);
+  const now = new Date();
+  const [allRules, allBusy] =
+    ids.length > 0
+      ? await Promise.all([
+          prisma.availabilityRule.findMany({
+            where: { lawyerId: { in: ids } },
+            select: { lawyerId: true, weekday: true, startMin: true, endMin: true },
+          }),
+          prisma.booking.findMany({
+            where: {
+              lawyerId: { in: ids },
+              status: { in: ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"] },
+              endAt: { gt: now },
+            },
+            select: { lawyerId: true, startAt: true, endAt: true },
+          }),
+        ])
+      : [[], []];
+  const rulesBy = new Map<string, typeof allRules>();
+  for (const r of allRules)
+    (rulesBy.get(r.lawyerId) ?? rulesBy.set(r.lawyerId, []).get(r.lawyerId)!).push(r);
+  const busyBy = new Map<string, typeof allBusy>();
+  for (const b of allBusy)
+    (busyBy.get(b.lawyerId) ?? busyBy.set(b.lawyerId, []).get(b.lawyerId)!).push(b);
+  const nextLabel = new Map<string, string>();
+  for (const c of ranked) {
+    if (!c.minSvcDuration) continue;
+    const slots = generateSlots({
+      rules: rulesBy.get(c.id) ?? [],
+      bufferMin: c.bufferMin,
+      durationMin: c.minSvcDuration,
+      days: 7,
+      now,
+      busy: busyBy.get(c.id) ?? [],
+    });
+    const first = slots[0];
+    if (!first) continue;
+    const d = first.startAt;
+    const dayIso = bakuDateIso(d);
+    const mins = Math.round(
+      (d.getTime() - new Date(`${dayIso}T00:00:00+04:00`).getTime()) / 60_000
+    );
+    nextLabel.set(
+      c.id,
+      `${t(`common.wd.${weekdayOfIso(dayIso)}`)} ${fmtMin(mins)}`
+    );
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
@@ -270,6 +326,13 @@ export default async function LawyersPage({
                   {t("directory.years", { y: c.yearsExperience })} ·{" "}
                   {c.languages.map((l) => l.toUpperCase()).join(", ")}
                 </p>
+                {nextLabel.has(c.id) && (
+                  <p className="mt-1.5">
+                    <span className="inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                      {t("directory.next", { when: nextLabel.get(c.id)! })}
+                    </span>
+                  </p>
+                )}
                 <p className="mt-1 text-sm">
                   {c.ratingAvg !== null ? (
                     <span className="font-semibold text-emerald">

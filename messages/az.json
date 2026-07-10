@@ -118,7 +118,8 @@
     "reviewsCount": "({c} rəy)",
     "noReviews": "Hələ rəy yoxdur",
     "meetings": "· {c} görüş",
-    "from": "{price}-dan"
+    "from": "{price}-dan",
+    "next": "Ən yaxın: {when}"
   },
   "profile": {
     "verified": "Yoxlanılıb",
