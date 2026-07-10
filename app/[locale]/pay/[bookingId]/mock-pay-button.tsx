@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NOT_FOUND: "Sifariş tapılmadı.",
-  ALREADY_PAID: "Bu sifariş artıq ödənilib.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function MockPayButton({ bookingId }: { bookingId: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("pay.errors.UNAUTHORIZED"),
+    NOT_FOUND: t("pay.errors.NOT_FOUND"),
+    ALREADY_PAID: t("pay.errors.ALREADY_PAID"),
+    DEFAULT: t("pay.errors.DEFAULT"),
+  };
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +44,7 @@ export default function MockPayButton({ bookingId }: { bookingId: string }) {
         disabled={busy}
         className="mt-4 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Ödənilir…" : "Ödə (test)"}
+        {busy ? t("pay.paying") : t("common.payTest")}
       </button>
     </>
   );

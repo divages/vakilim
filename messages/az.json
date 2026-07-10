@@ -18,5 +18,235 @@
     "searchPlaceholder": "Ad, sahə və ya açar söz…",
     "search": "Axtar",
     "allLawyers": "Bütün vəkillərə bax"
+  },
+  "common": {
+    "free": "Pulsuz",
+    "min": "dəq",
+    "lawyer": "Vəkil",
+    "client": "Müştəri",
+    "payTitle": "Ödəniş",
+    "payTest": "Ödə (test)",
+    "loadingSlots": "Slotlar yüklənir…",
+    "noSlots": "Yaxın 14 gündə boş slot yoxdur.",
+    "testPayNotice": "Test rejimi — real kart tələb olunmur. Canlı ödənişlər Epoint inteqrasiyası ilə əlavə olunacaq.",
+    "serviceType": {
+      "VIDEO": "Video görüş",
+      "AUDIO": "Səsli zəng",
+      "WRITTEN": "Yazılı cavab",
+      "DOC_REVIEW": "Sənəd yoxlanışı"
+    },
+    "lawyerType": {
+      "ADVOCATE": "Vəkil",
+      "LICENSED_LAWYER": "Hüquqşünas"
+    },
+    "lawyerTypeFull": {
+      "ADVOCATE": "Vəkil (Vəkillər Kollegiyasının üzvü)",
+      "LICENSED_LAWYER": "Hüquqşünas"
+    },
+    "langName": {
+      "az": "Azərbaycan",
+      "ru": "Rus",
+      "en": "İngilis"
+    },
+    "status": {
+      "PENDING_PAYMENT": "Ödəniş gözlənilir",
+      "REQUESTED": "Vəkilin təsdiqi gözlənilir",
+      "CONFIRMED": "Təsdiqlənib",
+      "DECLINED": "Vəkil imtina etdi",
+      "CANCELLED": "Ləğv edilib",
+      "COMPLETED": "Baş tutub"
+    },
+    "tags": {
+      "clear": "Aydın izahat",
+      "on_time": "Vaxtında",
+      "solved": "Problemi həll etdi",
+      "professional": "Peşəkar yanaşma"
+    },
+    "wd": {
+      "0": "Bazar",
+      "1": "Bazar ertəsi",
+      "2": "Çərşənbə axşamı",
+      "3": "Çərşənbə",
+      "4": "Cümə axşamı",
+      "5": "Cümə",
+      "6": "Şənbə"
+    }
+  },
+  "directory": {
+    "title": "Vəkillər",
+    "subtitle": "Yalnız yoxlanılmış və təsdiqlənmiş hüquqçular göstərilir.",
+    "search": "Axtarış",
+    "searchPh": "Ad və ya açar söz…",
+    "lang": "Dil",
+    "type": "Status",
+    "rating": "Reytinq",
+    "maxPrice": "Qiymət (₼-dək)",
+    "sort": "Sıralama",
+    "sortRating": "Reytinq üzrə",
+    "sortExp": "Təcrübə üzrə",
+    "sortPrice": "Ən ucuz",
+    "submit": "Axtar",
+    "all": "Hamısı",
+    "results": "{count} nəticə",
+    "reset": "Filtri sıfırla",
+    "empty": "Bu şərtlərlə vəkil tapılmadı. Axtarışı sadələşdirin və ya filtri sıfırlayın.",
+    "years": "{y} il təcrübə",
+    "reviewsCount": "({c} rəy)",
+    "noReviews": "Hələ rəy yoxdur",
+    "meetings": "· {c} görüş",
+    "from": "{price}-dan"
+  },
+  "profile": {
+    "verified": "Yoxlanılıb",
+    "about": "Haqqında",
+    "services": "Xidmətlər",
+    "reviews": "Rəylər",
+    "reply": "Vəkilin cavabı:"
+  },
+  "widget": {
+    "title": "Onlayn görüş sifariş et",
+    "service": "Xidmət",
+    "price": "Qiymət:",
+    "afterConfirm": "· vəkil təsdiqlədikdən sonra keçərlidir",
+    "continue": "Davam et",
+    "loginContinue": "Daxil ol və davam et",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "SLOT_TAKEN": "Bu slot artıq tutulub — başqasını seçin.",
+      "OWN_SERVICE": "Öz xidmətinizi sifariş edə bilməzsiniz.",
+      "NOT_FOUND": "Xidmət tapılmadı. Səhifəni yeniləyin.",
+      "INVALID_BODY": "Məlumatlar düzgün deyil.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "catalog": {
+    "title": "Sənəd şablonları",
+    "subtitle": "Suallara cavab verin — sistem hüquqi sənədi hazırlayıb sizə PDF kimi təqdim edəcək. Hər sənədin unikal yoxlama kodu olur."
+  },
+  "tplDetail": {
+    "need": "Nələr lazım olacaq ({count} sual)",
+    "licenseNote": "Yaradılan sənəd yalnız daxil etdiyiniz məlumatlarla bağlı iş üçün nəzərdə tutulur, redaktəyə qapalı PDF formatında verilir və unikal yoxlama kodu daşıyır.",
+    "start": "Başla"
+  },
+  "wizard": {
+    "progress": "Sual {i} / {n}",
+    "select": "Seçin…",
+    "back": "Geri",
+    "next": "İrəli",
+    "toReview": "Yoxlamaya keç",
+    "reviewTitle": "Cavablarınızı yoxlayın",
+    "change": "dəyiş",
+    "license": "Razıyam: sənəd yalnız yuxarıda göstərilən məlumatlarla bağlı iş üçün nəzərdə tutulur, başqa işlərdə istifadəsi lisenziya şərtlərinə ziddir. Sənəd hüquqi məsləhəti əvəz etmir.",
+    "busy": "Hazırlanır…",
+    "submitFree": "Sənədi yarat (pulsuz)",
+    "submitPaid": "Ödənişə keç",
+    "reqField": "Bu sahə mütləq doldurulmalıdır.",
+    "numOnly": "Yalnız rəqəm daxil edin.",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NOT_FOUND": "Şablon tapılmadı.",
+      "INVALID_FIELD": "Cavablardan biri düzgün deyil — geri qayıdıb yoxlayın.",
+      "INVALID_BODY": "Məlumatlar düzgün deyil.",
+      "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "docPay": {
+    "docNo": "Sənəd №",
+    "generating": "Sənəd hazırlanır…",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NOT_FOUND": "Sifariş tapılmadı.",
+      "ALREADY_PAID": "Bu sifariş artıq ödənilib.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "documents": {
+    "title": "Sənədlərim",
+    "empty": "Hələ sənədiniz yoxdur.",
+    "pick": "Şablon seçin",
+    "download": "Yüklə (PDF)",
+    "completePay": "Ödənişi tamamla",
+    "verifyPage": "Yoxlama səhifəsi"
+  },
+  "verify": {
+    "title": "Sənəd yoxlaması",
+    "subtitle": "Vakilim.az sənədinin altındakı kodu daxil edin — sənədin platformada yaradıldığını təsdiqləyəcəyik.",
+    "check": "Yoxla",
+    "valid": "Sənəd etibarlıdır",
+    "createdAt": "yaradılıb:",
+    "notFound": "Bu kodla sənəd tapılmadı."
+  },
+  "login": {
+    "title": "Daxil ol",
+    "subtitle": "Telefon nömrənizi daxil edin — SMS ilə təsdiq kodu göndərəcəyik.",
+    "phoneLabel": "Telefon nömrəsi",
+    "sending": "Göndərilir…",
+    "sendCode": "Kod göndər",
+    "sentTo": "Təsdiq kodu <phone></phone> nömrəsinə göndərildi.",
+    "demoCode": "Demo rejimi — təsdiq kodu:",
+    "codePh": "6 rəqəmli kod",
+    "checking": "Yoxlanılır…",
+    "verify": "Təsdiqlə",
+    "changeNumber": "Nömrəni dəyiş",
+    "resend": "Yenidən göndər",
+    "resendIn": "Yenidən göndər ({s}s)",
+    "errors": {
+      "INVALID_PHONE": "Telefon nömrəsi düzgün deyil. Nümunə: 50 123 45 67",
+      "TOO_MANY_REQUESTS": "Həddindən çox cəhd. 15 dəqiqə sonra yenidən yoxlayın.",
+      "CODE_EXPIRED": "Kodun vaxtı bitib. Yeni kod istəyin.",
+      "WRONG_CODE": "Kod yanlışdır. Yenidən cəhd edin.",
+      "TOO_MANY_ATTEMPTS": "Həddindən çox yanlış cəhd. Yeni kod istəyin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "bookings": {
+    "title": "Görüşlərim",
+    "empty": "Hələ görüşünüz yoxdur.",
+    "pick": "Vəkil seçin",
+    "refunded": "Geri qaytarıldı:",
+    "chat": "Yazışma",
+    "join": "Görüşə qoşul",
+    "review": "Rəy yaz",
+    "disputeResolved": "Mübahisə həll olunub",
+    "disputeOpen": "Mübahisə baxılır",
+    "reschedule": "Vaxtı dəyiş",
+    "unpaid": "ödəniş edilməyib"
+  },
+  "cancel": {
+    "confirm": "Görüş ləğv edilsin? Geri qaytarılacaq məbləğ: {refund}",
+    "btn": "Ləğv et · {refund}",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NOT_FOUND": "Sifariş tapılmadı.",
+      "INVALID_STATE": "Bu sifarişin statusu artıq dəyişib. Səhifəni yeniləyin.",
+      "TOO_LATE": "Görüş artıq başlayıb — ləğv etmək mümkün deyil.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "reschedule": {
+    "title": "Görüş vaxtını dəyişin",
+    "current": "hazırkı vaxt:",
+    "rule": "Vaxtı 1 dəfə, görüşə ən azı 24 saat qalmış dəyişmək olar. Ödəniş və yazışma saxlanılır.",
+    "newTime": "Yeni vaxt:",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "SLOT_TAKEN": "Bu slot artıq tutulub — başqasını seçin.",
+      "TOO_LATE": "Görüşə 24 saatdan az qalıb — vaxtı dəyişmək mümkün deyil.",
+      "LIMIT_REACHED": "Vaxtı yalnız 1 dəfə dəyişmək olar.",
+      "NOT_FOUND": "Görüş tapılmadı.",
+      "INVALID_BODY": "Məlumatlar düzgün deyil.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "pay": {
+    "paying": "Ödənilir…",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NOT_FOUND": "Sifariş tapılmadı.",
+      "ALREADY_PAID": "Bu sifariş artıq ödənilib.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
   }
 }

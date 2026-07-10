@@ -18,5 +18,235 @@
     "searchPlaceholder": "Name or keyword…",
     "search": "Search",
     "allLawyers": "Browse all lawyers"
+  },
+  "common": {
+    "free": "Free",
+    "min": "min",
+    "lawyer": "Lawyer",
+    "client": "Client",
+    "payTitle": "Payment",
+    "payTest": "Pay (test)",
+    "loadingSlots": "Loading available slots…",
+    "noSlots": "No free slots in the next 14 days.",
+    "testPayNotice": "Test mode — no real card required. Live payments arrive with the Epoint integration.",
+    "serviceType": {
+      "VIDEO": "Video call",
+      "AUDIO": "Audio call",
+      "WRITTEN": "Written answer",
+      "DOC_REVIEW": "Document review"
+    },
+    "lawyerType": {
+      "ADVOCATE": "Advocate",
+      "LICENSED_LAWYER": "Lawyer"
+    },
+    "lawyerTypeFull": {
+      "ADVOCATE": "Advocate (Bar Association member)",
+      "LICENSED_LAWYER": "Licensed lawyer"
+    },
+    "langName": {
+      "az": "Azerbaijani",
+      "ru": "Russian",
+      "en": "English"
+    },
+    "status": {
+      "PENDING_PAYMENT": "Awaiting payment",
+      "REQUESTED": "Awaiting lawyer approval",
+      "CONFIRMED": "Confirmed",
+      "DECLINED": "Lawyer declined",
+      "CANCELLED": "Cancelled",
+      "COMPLETED": "Completed"
+    },
+    "tags": {
+      "clear": "Clear explanations",
+      "on_time": "On time",
+      "solved": "Solved the problem",
+      "professional": "Professional approach"
+    },
+    "wd": {
+      "0": "Sun",
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat"
+    }
+  },
+  "directory": {
+    "title": "Lawyers",
+    "subtitle": "Only verified and approved professionals are listed.",
+    "search": "Search",
+    "searchPh": "Name or keyword…",
+    "lang": "Language",
+    "type": "Type",
+    "rating": "Rating",
+    "maxPrice": "Price (up to ₼)",
+    "sort": "Sort",
+    "sortRating": "By rating",
+    "sortExp": "By experience",
+    "sortPrice": "Cheapest first",
+    "submit": "Search",
+    "all": "All",
+    "results": "{count} results",
+    "reset": "Reset filters",
+    "empty": "No lawyers match these filters. Simplify the search or reset the filters.",
+    "years": "{y} yrs experience",
+    "reviewsCount": "({c} reviews)",
+    "noReviews": "No reviews yet",
+    "meetings": "· {c} consultations",
+    "from": "from {price}"
+  },
+  "profile": {
+    "verified": "Verified",
+    "about": "About",
+    "services": "Services",
+    "reviews": "Reviews",
+    "reply": "Lawyer's reply:"
+  },
+  "widget": {
+    "title": "Book an online consultation",
+    "service": "Service",
+    "price": "Price:",
+    "afterConfirm": "· valid once the lawyer confirms",
+    "continue": "Continue",
+    "loginContinue": "Sign in and continue",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "SLOT_TAKEN": "That slot was just taken — pick another.",
+      "OWN_SERVICE": "You can't book your own service.",
+      "NOT_FOUND": "Service not found. Refresh the page.",
+      "INVALID_BODY": "Invalid data.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "catalog": {
+    "title": "Document templates",
+    "subtitle": "Answer the questions — the system prepares the legal document and delivers it as a PDF. Every document carries a unique verification code."
+  },
+  "tplDetail": {
+    "need": "What you'll need ({count} questions)",
+    "licenseNote": "The generated document is licensed only for the matter described by your answers, is delivered as an edit-locked PDF, and carries a unique verification code.",
+    "start": "Start"
+  },
+  "wizard": {
+    "progress": "Question {i} / {n}",
+    "select": "Choose…",
+    "back": "Back",
+    "next": "Next",
+    "toReview": "Review answers",
+    "reviewTitle": "Check your answers",
+    "change": "edit",
+    "license": "I agree: the document is intended only for the matter described above; using it in other matters violates the license terms. The document does not replace legal advice.",
+    "busy": "Preparing…",
+    "submitFree": "Create document (free)",
+    "submitPaid": "Proceed to payment",
+    "reqField": "This field is required.",
+    "numOnly": "Numbers only.",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NOT_FOUND": "Template not found.",
+      "INVALID_FIELD": "One answer is invalid — go back and check.",
+      "INVALID_BODY": "Invalid data.",
+      "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "docPay": {
+    "docNo": "Document #",
+    "generating": "Generating document…",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NOT_FOUND": "Order not found.",
+      "ALREADY_PAID": "This order is already paid.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "documents": {
+    "title": "My documents",
+    "empty": "You have no documents yet.",
+    "pick": "Pick a template",
+    "download": "Download (PDF)",
+    "completePay": "Complete payment",
+    "verifyPage": "Verification page"
+  },
+  "verify": {
+    "title": "Document verification",
+    "subtitle": "Enter the code at the bottom of a Vakilim.az document — we'll confirm it was created on the platform.",
+    "check": "Check",
+    "valid": "Document is valid",
+    "createdAt": "created:",
+    "notFound": "No document found for this code."
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Enter your phone number — we'll send a verification code by SMS.",
+    "phoneLabel": "Phone number",
+    "sending": "Sending…",
+    "sendCode": "Send code",
+    "sentTo": "A verification code was sent to <phone></phone>.",
+    "demoCode": "Demo mode — verification code:",
+    "codePh": "6-digit code",
+    "checking": "Checking…",
+    "verify": "Verify",
+    "changeNumber": "Change number",
+    "resend": "Resend",
+    "resendIn": "Resend ({s}s)",
+    "errors": {
+      "INVALID_PHONE": "Invalid phone number. Example: 50 123 45 67",
+      "TOO_MANY_REQUESTS": "Too many attempts. Try again in 15 minutes.",
+      "CODE_EXPIRED": "The code expired. Request a new one.",
+      "WRONG_CODE": "Wrong code. Try again.",
+      "TOO_MANY_ATTEMPTS": "Too many wrong attempts. Request a new code.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "bookings": {
+    "title": "My bookings",
+    "empty": "You have no bookings yet.",
+    "pick": "Find a lawyer",
+    "refunded": "Refunded:",
+    "chat": "Chat",
+    "join": "Join meeting",
+    "review": "Write a review",
+    "disputeResolved": "Dispute resolved",
+    "disputeOpen": "Dispute under review",
+    "reschedule": "Reschedule",
+    "unpaid": "unpaid"
+  },
+  "cancel": {
+    "confirm": "Cancel this meeting? Refund amount: {refund}",
+    "btn": "Cancel · {refund}",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NOT_FOUND": "Order not found.",
+      "INVALID_STATE": "This booking's status changed. Refresh the page.",
+      "TOO_LATE": "The meeting already started — it can't be cancelled.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "reschedule": {
+    "title": "Reschedule the meeting",
+    "current": "current time:",
+    "rule": "You can move the time once, at least 24 hours before the meeting. Payment and chat history are preserved.",
+    "newTime": "New time:",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "SLOT_TAKEN": "That slot was just taken — pick another.",
+      "TOO_LATE": "Less than 24h to the meeting — it can no longer be moved.",
+      "LIMIT_REACHED": "The time can only be changed once.",
+      "NOT_FOUND": "Booking not found.",
+      "INVALID_BODY": "Invalid data.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "pay": {
+    "paying": "Paying…",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NOT_FOUND": "Order not found.",
+      "ALREADY_PAID": "This order is already paid.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
   }
 }

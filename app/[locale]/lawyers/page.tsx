@@ -3,11 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
 import { slugify } from "@/lib/slug";
 import { rankLawyers, type SortMode } from "@/lib/ranking";
-
-const TYPE_LABELS: Record<string, string> = {
-  ADVOCATE: "Vəkil",
-  LICENSED_LAWYER: "Hüquqşünas",
-};
+import { getTranslations } from "next-intl/server";
 
 export const metadata = {
   title: "Vəkillər — Vakilim.az",
@@ -40,6 +36,7 @@ export default async function LawyersPage({
   searchParams: Promise<Params>;
 }) {
   const params = await searchParams;
+  const t = await getTranslations();
   const { q, area, lang, type, minRating, maxPrice } = params;
   const sort: SortMode = (["rating", "experience", "price"] as const).includes(
     params.sort as SortMode
@@ -138,59 +135,59 @@ export default async function LawyersPage({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Vəkillər</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("directory.title")}</h1>
       <p className="mt-2 text-sm">
-        Yalnız yoxlanılmış və təsdiqlənmiş hüquqçular göstərilir.
+        {t("directory.subtitle")}
       </p>
 
       <form method="GET" className="mt-6 flex flex-wrap items-end gap-3">
         {area && <input type="hidden" name="area" value={area} />}
         <div className="min-w-56 flex-1">
           <label htmlFor="q" className="block text-xs text-slate">
-            Axtarış
+            {t("directory.search")}
           </label>
           <input
             id="q"
             name="q"
             defaultValue={q ?? ""}
-            placeholder="Ad və ya açar söz…"
+            placeholder={t("directory.searchPh")}
             className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
           />
         </div>
         <div>
           <label htmlFor="lang" className="block text-xs text-slate">
-            Dil
+            {t("directory.lang")}
           </label>
           <select id="lang" name="lang" defaultValue={lang ?? ""} className={`mt-1 ${select}`}>
-            <option value="">Hamısı</option>
-            <option value="az">Azərbaycan</option>
-            <option value="ru">Rus</option>
-            <option value="en">İngilis</option>
+            <option value="">{t("directory.all")}</option>
+            <option value="az">{t("common.langName.az")}</option>
+            <option value="ru">{t("common.langName.ru")}</option>
+            <option value="en">{t("common.langName.en")}</option>
           </select>
         </div>
         <div>
           <label htmlFor="type" className="block text-xs text-slate">
-            Status
+            {t("directory.type")}
           </label>
           <select id="type" name="type" defaultValue={type ?? ""} className={`mt-1 ${select}`}>
-            <option value="">Hamısı</option>
-            <option value="ADVOCATE">Vəkil</option>
-            <option value="LICENSED_LAWYER">Hüquqşünas</option>
+            <option value="">{t("directory.all")}</option>
+            <option value="ADVOCATE">{t("common.lawyerType.ADVOCATE")}</option>
+            <option value="LICENSED_LAWYER">{t("common.lawyerType.LICENSED_LAWYER")}</option>
           </select>
         </div>
         <div>
           <label htmlFor="minRating" className="block text-xs text-slate">
-            Reytinq
+            {t("directory.rating")}
           </label>
           <select id="minRating" name="minRating" defaultValue={minRating ?? ""} className={`mt-1 ${select}`}>
-            <option value="">Hamısı</option>
+            <option value="">{t("directory.all")}</option>
             <option value="4">4.0+ ★</option>
             <option value="4.5">4.5+ ★</option>
           </select>
         </div>
         <div>
           <label htmlFor="maxPrice" className="block text-xs text-slate">
-            Qiymət (₼-dək)
+            {t("directory.maxPrice")}
           </label>
           <input
             id="maxPrice"
@@ -203,22 +200,22 @@ export default async function LawyersPage({
         </div>
         <div>
           <label htmlFor="sort" className="block text-xs text-slate">
-            Sıralama
+            {t("directory.sort")}
           </label>
           <select id="sort" name="sort" defaultValue={sort} className={`mt-1 ${select}`}>
-            <option value="rating">Reytinq üzrə</option>
-            <option value="experience">Təcrübə üzrə</option>
-            <option value="price">Ən ucuz</option>
+            <option value="rating">{t("directory.sortRating")}</option>
+            <option value="experience">{t("directory.sortExp")}</option>
+            <option value="price">{t("directory.sortPrice")}</option>
           </select>
         </div>
         <button className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark">
-          Axtar
+          {t("directory.submit")}
         </button>
       </form>
 
       <div className="mt-4 flex flex-wrap gap-2">
         <Link href={`/lawyers${qs(params, { area: undefined })}`} className={chip(!area)}>
-          Hamısı
+          {t("directory.all")}
         </Link>
         {areas.map((a) => (
           <Link
@@ -232,12 +229,12 @@ export default async function LawyersPage({
       </div>
 
       <p className="mt-5 text-sm text-slate">
-        {ranked.length} nəticə
+        {t("directory.results", { count: ranked.length })}
         {hasFilters && (
           <>
             {" · "}
             <Link href="/lawyers" className="text-emerald underline">
-              Filtri sıfırla
+              {t("directory.reset")}
             </Link>
           </>
         )}
@@ -245,8 +242,7 @@ export default async function LawyersPage({
 
       {ranked.length === 0 ? (
         <p className="mt-4 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Bu şərtlərlə vəkil tapılmadı. Axtarışı sadələşdirin və ya filtri
-          sıfırlayın.
+          {t("directory.empty")}
         </p>
       ) : (
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -259,26 +255,26 @@ export default async function LawyersPage({
               <div className="flex items-start justify-between gap-3">
                 <p className="font-semibold text-navy">{c.name}</p>
                 <span className="rounded bg-navy/5 px-2 py-1 text-xs font-medium text-navy">
-                  {TYPE_LABELS[c.type]}
+                  {t(`common.lawyerType.${c.type}`)}
                 </span>
               </div>
               <p className="mt-1 text-sm">
-                {c.city} · {c.yearsExperience} il təcrübə ·{" "}
+                {c.city} · {t("directory.years", { y: c.yearsExperience })} ·{" "}
                 {c.languages.map((l) => l.toUpperCase()).join(", ")}
               </p>
               <p className="mt-1 text-sm">
                 {c.ratingAvg !== null ? (
                   <span className="text-amber-500">
                     ★ {c.ratingAvg.toFixed(1)}{" "}
-                    <span className="text-slate">({c.reviewCount} rəy)</span>
+                    <span className="text-slate">{t("directory.reviewsCount", { c: c.reviewCount })}</span>
                   </span>
                 ) : (
-                  <span className="text-slate">Hələ rəy yoxdur</span>
+                  <span className="text-slate">{t("directory.noReviews")}</span>
                 )}
                 {c.completedCount > 0 && (
                   <span className="text-slate">
                     {" "}
-                    · {c.completedCount} görüş
+                    {t("directory.meetings", { c: c.completedCount })}
                   </span>
                 )}
               </p>
@@ -289,7 +285,7 @@ export default async function LawyersPage({
               <p className="mt-3 text-xs text-slate">{c.areas.join(" · ")}</p>
               {c.minPriceQepik !== null && (
                 <p className="mt-2 text-sm font-semibold text-navy">
-                  {formatAzn(c.minPriceQepik)}-dan
+                  {t("directory.from", { price: formatAzn(c.minPriceQepik) })}
                 </p>
               )}
             </Link>

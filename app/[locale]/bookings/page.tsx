@@ -8,23 +8,17 @@ import { completePastBookings } from "@/lib/bookings";
 import { isJoinable } from "@/lib/call-window";
 import { canOpenDispute } from "@/lib/disputes";
 import { canReschedule } from "@/lib/reschedule";
-import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
+import { getTranslations } from "next-intl/server";
+import { bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
 import CancelButton from "./cancel-button";
 
-const SERVICE_LABELS: Record<string, string> = {
-  VIDEO: "Video görüş",
-  AUDIO: "Səsli zəng",
-  WRITTEN: "Yazılı cavab",
-  DOC_REVIEW: "Sənəd yoxlanışı",
-};
-
-const STATUS_BADGES: Record<string, { label: string; cls: string }> = {
-  PENDING_PAYMENT: { label: "Ödəniş gözlənilir", cls: "bg-gray-100 text-gray-700" },
-  REQUESTED: { label: "Vəkilin təsdiqi gözlənilir", cls: "bg-amber-100 text-amber-800" },
-  CONFIRMED: { label: "Təsdiqlənib", cls: "bg-emerald/15 text-navy" },
-  DECLINED: { label: "Vəkil imtina etdi", cls: "bg-red-100 text-red-700" },
-  CANCELLED: { label: "Ləğv edilib", cls: "bg-gray-100 text-gray-500" },
-  COMPLETED: { label: "Baş tutub", cls: "bg-navy/10 text-navy" },
+const STATUS_CLS: Record<string, string> = {
+  PENDING_PAYMENT: "bg-gray-100 text-gray-700",
+  REQUESTED: "bg-amber-100 text-amber-800",
+  CONFIRMED: "bg-emerald/15 text-navy",
+  DECLINED: "bg-red-100 text-red-700",
+  CANCELLED: "bg-gray-100 text-gray-500",
+  COMPLETED: "bg-navy/10 text-navy",
 };
 
 const CANCELLABLE = ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"];
@@ -35,6 +29,7 @@ function bakuTimeLabel(d: Date): string {
 }
 
 export default async function BookingsPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/bookings");
 
@@ -68,20 +63,20 @@ export default async function BookingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Görüşlərim</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("bookings.title")}</h1>
 
       {bookings.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Hələ görüşünüz yoxdur.{" "}
+          {t("bookings.empty")}{" "}
           <Link href="/lawyers" className="text-emerald underline">
-            Vəkil seçin
+            {t("bookings.pick")}
           </Link>
           .
         </p>
       ) : (
         <div className="mt-6 space-y-3">
           {bookings.map((b) => {
-            const badge = STATUS_BADGES[b.status] ?? STATUS_BADGES.CONFIRMED;
+            const badge = { cls: STATUS_CLS[b.status] ?? STATUS_CLS.CONFIRMED, label: t(`common.status.${b.status}`) };
             const dateIso = bakuDateIso(b.startAt);
             const cancellable =
               CANCELLABLE.includes(b.status) && b.startAt > now;
@@ -97,13 +92,13 @@ export default async function BookingsPage() {
                       href={`/lawyers/${b.lawyer.slug}`}
                       className="font-medium text-navy hover:underline"
                     >
-                      {b.lawyer.user.fullName ?? "Vəkil"}
+                      {b.lawyer.user.fullName ?? t("common.lawyer")}
                     </Link>
                     <p className="mt-1 text-sm">
-                      {SERVICE_LABELS[b.serviceType]} · {b.durationMin} dəq
+                      {t(`common.serviceType.${b.serviceType}`)} · {b.durationMin} {t("common.min")}
                     </p>
                     <p className="mt-1 text-sm">
-                      {WEEKDAY_LABELS_AZ[weekdayOfIso(dateIso)]} · {dateIso} ·{" "}
+                      {t(`common.wd.${weekdayOfIso(dateIso)}`)} · {dateIso} ·{" "}
                       {bakuTimeLabel(b.startAt)}
                     </p>
                   </div>
@@ -118,7 +113,7 @@ export default async function BookingsPage() {
                     </p>
                     {b.payment && b.payment.refundedQepik > 0 && (
                       <p className="mt-1 text-xs text-emerald">
-                        Geri qaytarıldı: {formatAzn(b.payment.refundedQepik)}
+                        {t("bookings.refunded")} {formatAzn(b.payment.refundedQepik)}
                       </p>
                     )}
                   </div>
@@ -132,7 +127,7 @@ export default async function BookingsPage() {
                       href={`/chat/${b.id}`}
                       className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
-                      Yazışma
+                      {t("bookings.chat")}
                       {(unreadByBooking.get(b.id) ?? 0) > 0 && (
                         <span className="ml-2 rounded-full bg-emerald px-1.5 text-xs font-bold text-navy-dark">
                           {unreadByBooking.get(b.id)}
@@ -146,7 +141,7 @@ export default async function BookingsPage() {
                         href={`/call/${b.id}`}
                         className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
                       >
-                        Görüşə qoşul
+                        {t("bookings.join")}
                       </Link>
                     )}
                   {b.status === "PENDING_PAYMENT" && (
@@ -154,7 +149,7 @@ export default async function BookingsPage() {
                       href={`/pay/${b.id}`}
                       className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                     >
-                      Ödənişi tamamla
+                      {t("documents.completePay")}
                     </Link>
                   )}
                   {b.status === "COMPLETED" && b.payment && !b.review && (
@@ -162,7 +157,7 @@ export default async function BookingsPage() {
                       href={`/review/${b.id}`}
                       className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
-                      Rəy yaz
+                      {t("bookings.review")}
                     </Link>
                   )}
                   {!b.dispute &&
@@ -177,8 +172,8 @@ export default async function BookingsPage() {
                   {b.dispute && (
                     <span className="rounded bg-navy/10 px-3 py-2 text-xs font-medium text-navy">
                       {b.dispute.status === "RESOLVED"
-                        ? "Mübahisə həll olunub"
-                        : "Mübahisə baxılır"}
+                        ? t("bookings.disputeResolved")
+                        : t("bookings.disputeOpen")}
                     </span>
                   )}
                   {canReschedule(
@@ -191,7 +186,7 @@ export default async function BookingsPage() {
                       href={`/reschedule/${b.id}`}
                       className="rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
                     >
-                      Vaxtı dəyiş
+                      {t("bookings.reschedule")}
                     </Link>
                   )}
                   {cancellable && (
@@ -200,7 +195,7 @@ export default async function BookingsPage() {
                       refundLabel={
                         b.payment
                           ? `${formatAzn(preview.refundQepik)} (${preview.pct}%)`
-                          : "ödəniş edilməyib"
+                          : t("bookings.unpaid")
                       }
                     />
                   )}

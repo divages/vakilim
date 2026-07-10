@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NOT_FOUND: "Sifariş tapılmadı.",
-  INVALID_STATE: "Bu sifarişin statusu artıq dəyişib. Səhifəni yeniləyin.",
-  TOO_LATE: "Görüş artıq başlayıb — ləğv etmək mümkün deyil.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function CancelButton({
   bookingId,
@@ -17,13 +10,21 @@ export default function CancelButton({
   bookingId: string;
   refundLabel: string;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("cancel.errors.UNAUTHORIZED"),
+    NOT_FOUND: t("cancel.errors.NOT_FOUND"),
+    INVALID_STATE: t("cancel.errors.INVALID_STATE"),
+    TOO_LATE: t("cancel.errors.TOO_LATE"),
+    DEFAULT: t("cancel.errors.DEFAULT"),
+  };
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function cancel() {
     if (
       !window.confirm(
-        `Görüş ləğv edilsin? Geri qaytarılacaq məbləğ: ${refundLabel}`
+        t("cancel.confirm", { refund: refundLabel })
       )
     )
       return;
@@ -53,7 +54,7 @@ export default function CancelButton({
         disabled={busy}
         className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
       >
-        {busy ? "…" : `Ləğv et · ${refundLabel}`}
+        {busy ? "…" : t("cancel.btn", { refund: refundLabel })}
       </button>
       {error && <p className="text-sm text-red-600">{error}</p>}
     </>

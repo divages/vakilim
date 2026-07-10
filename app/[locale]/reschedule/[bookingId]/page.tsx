@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { canReschedule } from "@/lib/reschedule";
 import { bakuDateIso, fmtMin } from "@/lib/slots";
 import ReschedulePicker from "./reschedule-picker";
+import { getTranslations } from "next-intl/server";
 
 function bakuTimeLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
@@ -16,6 +17,7 @@ export default async function ReschedulePage({
   params: Promise<{ bookingId: string }>;
 }) {
   const { bookingId } = await params;
+  const t = await getTranslations();
 
   const user = await getCurrentUser();
   if (!user) redirect(`/login?next=/reschedule/${bookingId}`);
@@ -35,16 +37,15 @@ export default async function ReschedulePage({
 
   return (
     <div className="mx-auto max-w-md px-4 py-12">
-      <h1 className="text-xl font-bold text-navy">Görüş vaxtını dəyişin</h1>
+      <h1 className="text-xl font-bold text-navy">{t("reschedule.title")}</h1>
       <p className="mt-2 text-sm">
-        {booking.lawyer.user.fullName ?? "Vəkil"} · hazırkı vaxt:{" "}
+        {booking.lawyer.user.fullName ?? t("common.lawyer")} · {t("reschedule.current")}{" "}
         <b className="text-navy">
           {bakuDateIso(booking.startAt)} · {bakuTimeLabel(booking.startAt)}
         </b>
       </p>
       <p className="mt-1 text-xs text-slate">
-        Vaxtı 1 dəfə, görüşə ən azı 24 saat qalmış dəyişmək olar. Ödəniş və
-        yazışma saxlanılır.
+        {t("reschedule.rule")}
       </p>
       <ReschedulePicker
         bookingId={booking.id}

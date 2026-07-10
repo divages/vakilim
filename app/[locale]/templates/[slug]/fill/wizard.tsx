@@ -2,15 +2,7 @@
 
 import { useState } from "react";
 import { displayValue, type FieldDef } from "@/lib/doc-fields";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NOT_FOUND: "Şablon tapılmadı.",
-  INVALID_FIELD: "Cavablardan biri düzgün deyil — geri qayıdıb yoxlayın.",
-  INVALID_BODY: "Məlumatlar düzgün deyil.",
-  TOO_MANY_REQUESTS: "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function Wizard({
   slug,
@@ -21,6 +13,15 @@ export default function Wizard({
   free: boolean;
   fields: FieldDef[];
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("wizard.errors.UNAUTHORIZED"),
+    NOT_FOUND: t("wizard.errors.NOT_FOUND"),
+    INVALID_FIELD: t("wizard.errors.INVALID_FIELD"),
+    INVALID_BODY: t("wizard.errors.INVALID_BODY"),
+    TOO_MANY_REQUESTS: t("wizard.errors.TOO_MANY_REQUESTS"),
+    DEFAULT: t("wizard.errors.DEFAULT"),
+  };
   const [step, setStep] = useState(0); // fields.length == review screen
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [stepError, setStepError] = useState<string | null>(null);
@@ -33,9 +34,9 @@ export default function Wizard({
 
   function localCheck(f: FieldDef): string | null {
     const v = (answers[f.key] ?? "").trim();
-    if (f.required && !v) return "Bu sahə mütləq doldurulmalıdır.";
+    if (f.required && !v) return t("wizard.reqField");
     if (v && f.type === "number" && !/^\d+([.,]\d+)?$/.test(v))
-      return "Yalnız rəqəm daxil edin.";
+      return t("wizard.numOnly");
     return null;
   }
 
@@ -84,7 +85,7 @@ export default function Wizard({
     return (
       <div className="mt-6">
         <p className="text-xs text-slate">
-          Sual {step + 1} / {fields.length}
+          {t("wizard.progress", { i: step + 1, n: fields.length })}
         </p>
         <div className="mt-1 h-1 w-full rounded bg-gray-100">
           <div
@@ -127,7 +128,7 @@ export default function Wizard({
               }
               className={inputCls}
             >
-              <option value="">Seçin…</option>
+              <option value="">{t("wizard.select")}</option>
               {field.options?.map((o) => (
                 <option key={o.value} value={o.value}>
                   {o.labelAz}
@@ -162,11 +163,11 @@ export default function Wizard({
                 }}
                 className="rounded border border-gray-300 px-4 py-2.5 text-sm font-medium text-navy hover:border-navy"
               >
-                Geri
+                {t("wizard.back")}
               </button>
             )}
             <button className="flex-1 rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark">
-              {step === fields.length - 1 ? "Yoxlamaya keç" : "İrəli"}
+              {step === fields.length - 1 ? t("wizard.toReview") : t("wizard.next")}
             </button>
           </div>
         </form>
@@ -177,7 +178,7 @@ export default function Wizard({
   return (
     <div className="mt-6">
       <h2 className="text-sm font-medium uppercase tracking-wide text-slate">
-        Cavablarınızı yoxlayın
+        {t("wizard.reviewTitle")}
       </h2>
       <dl className="mt-3 divide-y divide-gray-100 rounded border border-gray-200 text-sm">
         {fields.map((f, i) => (
@@ -190,7 +191,7 @@ export default function Wizard({
                 onClick={() => setStep(i)}
                 className="text-xs text-emerald underline"
               >
-                dəyiş
+                {t("wizard.change")}
               </button>
             </dd>
           </div>
@@ -205,9 +206,7 @@ export default function Wizard({
           className="mt-0.5"
         />
         <span>
-          Razıyam: sənəd yalnız yuxarıda göstərilən məlumatlarla bağlı iş üçün
-          nəzərdə tutulur, başqa işlərdə istifadəsi lisenziya şərtlərinə
-          ziddir. Sənəd hüquqi məsləhəti əvəz etmir.
+          {t("wizard.license")}
         </span>
       </label>
 
@@ -218,7 +217,7 @@ export default function Wizard({
         disabled={!license || busy}
         className="mt-4 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Hazırlanır…" : free ? "Sənədi yarat (pulsuz)" : "Ödənişə keç"}
+        {busy ? t("wizard.busy") : free ? t("wizard.submitFree") : t("wizard.submitPaid")}
       </button>
     </div>
   );

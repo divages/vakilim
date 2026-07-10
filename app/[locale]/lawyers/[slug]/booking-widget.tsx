@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { formatAzn } from "@/lib/money";
-import { WEEKDAY_LABELS_AZ } from "@/lib/slots";
+import { useTranslations } from "next-intl";
 
 type CallService = {
   id: string;
@@ -17,21 +17,6 @@ type Day = {
   slots: { label: string; startAt: string }[];
 };
 
-const TYPE_LABELS: Record<CallService["type"], string> = {
-  VIDEO: "Video görüş",
-  AUDIO: "Səsli zəng",
-};
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  SLOT_TAKEN: "Bu slot artıq tutulub — başqasını seçin.",
-  OWN_SERVICE: "Öz xidmətinizi sifariş edə bilməzsiniz.",
-  NOT_FOUND: "Xidmət tapılmadı. Səhifəni yeniləyin.",
-  INVALID_BODY: "Məlumatlar düzgün deyil.",
-  TOO_MANY_REQUESTS: "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
-
 export default function BookingWidget({
   lawyerSlug,
   services,
@@ -43,6 +28,16 @@ export default function BookingWidget({
   loggedIn: boolean;
   bookingMode: "INSTANT" | "REQUEST";
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("widget.errors.UNAUTHORIZED"),
+    SLOT_TAKEN: t("widget.errors.SLOT_TAKEN"),
+    OWN_SERVICE: t("widget.errors.OWN_SERVICE"),
+    NOT_FOUND: t("widget.errors.NOT_FOUND"),
+    INVALID_BODY: t("widget.errors.INVALID_BODY"),
+    TOO_MANY_REQUESTS: t("widget.errors.TOO_MANY_REQUESTS"),
+    DEFAULT: t("widget.errors.DEFAULT"),
+  };
   const [serviceId, setServiceId] = useState(services[0]?.id ?? "");
   const [days, setDays] = useState<Day[] | null>(null);
   const [picked, setPicked] = useState<{
@@ -105,12 +100,12 @@ export default function BookingWidget({
   return (
     <div className="mt-10 rounded border border-gray-200 p-4">
       <h2 className="text-sm font-medium uppercase tracking-wide text-slate">
-        Onlayn görüş sifariş et
+        {t("widget.title")}
       </h2>
 
       <div className="mt-3">
         <label htmlFor="bw-service" className="block text-xs text-slate">
-          Xidmət
+          {t("widget.service")}
         </label>
         <select
           id="bw-service"
@@ -120,7 +115,7 @@ export default function BookingWidget({
         >
           {services.map((s) => (
             <option key={s.id} value={s.id}>
-              {TYPE_LABELS[s.type]} · {s.durationMin} dəq ·{" "}
+              {t(`common.serviceType.${s.type}`)} · {s.durationMin} {t("common.min")} ·{" "}
               {formatAzn(s.priceQepik)}
             </option>
           ))}
@@ -128,11 +123,11 @@ export default function BookingWidget({
       </div>
 
       {days === null && (
-        <p className="mt-4 text-sm text-slate">Slotlar yüklənir…</p>
+        <p className="mt-4 text-sm text-slate">{t("common.loadingSlots")}</p>
       )}
       {days !== null && days.length === 0 && (
         <p className="mt-4 rounded bg-gray-50 p-3 text-sm">
-          Yaxın 14 gündə boş slot yoxdur.
+          {t("common.noSlots")}
         </p>
       )}
 
@@ -141,7 +136,7 @@ export default function BookingWidget({
           {days.map((d) => (
             <div key={d.dateIso}>
               <p className="text-xs font-medium text-navy">
-                {WEEKDAY_LABELS_AZ[d.weekday]} · {d.dateIso}
+                {t(`common.wd.${d.weekday}`)} · {d.dateIso}
               </p>
               <div className="mt-1 flex flex-wrap gap-2">
                 {d.slots.map((s) => {
@@ -172,16 +167,16 @@ export default function BookingWidget({
       {picked && service && (
         <div className="mt-4 rounded bg-navy/5 p-3 text-sm">
           <p>
-            <b className="text-navy">{TYPE_LABELS[service.type]}</b> ·{" "}
-            {picked.dateIso} · {picked.label} · {service.durationMin} dəq
+            <b className="text-navy">{t(`common.serviceType.${service.type}`)}</b> ·{" "}
+            {picked.dateIso} · {picked.label} · {service.durationMin} {t("common.min")}
           </p>
           <p className="mt-1">
-            Qiymət:{" "}
+            {t("widget.price")}{" "}
             <b className="text-navy">{formatAzn(service.priceQepik)}</b>
             {bookingMode === "REQUEST" && (
               <span className="text-slate">
                 {" "}
-                · vəkil təsdiqlədikdən sonra keçərlidir
+                {t("widget.afterConfirm")}
               </span>
             )}
           </p>
@@ -195,7 +190,7 @@ export default function BookingWidget({
         disabled={!picked || busy}
         className="mt-4 w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "…" : loggedIn ? "Davam et" : "Daxil ol və davam et"}
+        {busy ? "…" : loggedIn ? t("widget.continue") : t("widget.loginContinue")}
       </button>
     </div>
   );

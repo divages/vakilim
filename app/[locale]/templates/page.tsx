@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
+import { getTranslations } from "next-intl/server";
 
 export const metadata = {
   title: "Hüquqi sənəd şablonları — Vakilim.az",
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 export default async function TemplatesPage() {
+  const tr = await getTranslations();
   const templates = await prisma.docTemplate.findMany({
     where: { active: true },
     orderBy: [{ category: "asc" }, { sortOrder: "asc" }],
@@ -23,10 +25,9 @@ export default async function TemplatesPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Sənəd şablonları</h1>
+      <h1 className="text-2xl font-bold text-navy">{tr("catalog.title")}</h1>
       <p className="mt-2 text-sm">
-        Suallara cavab verin — sistem hüquqi sənədi hazırlayıb sizə PDF kimi
-        təqdim edəcək. Hər sənədin unikal yoxlama kodu olur.
+        {tr("catalog.subtitle")}
       </p>
 
       {[...byCategory.entries()].map(([category, list]) => (
@@ -50,7 +51,7 @@ export default async function TemplatesPage() {
                         : "bg-navy/5 text-navy"
                     }`}
                   >
-                    {t.priceQepik === 0 ? "Pulsuz" : formatAzn(t.priceQepik)}
+                    {t.priceQepik === 0 ? tr("common.free") : formatAzn(t.priceQepik)}
                   </span>
                 </div>
                 <p className="mt-2 text-sm text-slate">{t.description}</p>

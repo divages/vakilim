@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { getTranslations, getLocale } from "next-intl/server";
+import { intlTag } from "@/lib/locale";
 
 export const metadata = {
   title: "Sənəd yoxlaması — Vakilim.az",
@@ -10,6 +12,8 @@ export default async function VerifyPage({
 }: {
   searchParams: Promise<{ code?: string }>;
 }) {
+  const t = await getTranslations();
+  const locale = await getLocale();
   const { code } = await searchParams;
   const normalized = code?.trim().toUpperCase();
 
@@ -22,10 +26,9 @@ export default async function VerifyPage({
 
   return (
     <div className="mx-auto max-w-md px-4 py-16">
-      <h1 className="text-2xl font-bold text-navy">Sənəd yoxlaması</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("verify.title")}</h1>
       <p className="mt-2 text-sm">
-        Vakilim.az sənədinin altındakı kodu daxil edin — sənədin platformada
-        yaradıldığını təsdiqləyəcəyik.
+        {t("verify.subtitle")}
       </p>
 
       <form method="GET" className="mt-6 flex gap-2">
@@ -36,7 +39,7 @@ export default async function VerifyPage({
           className="w-full rounded border border-gray-300 px-3 py-2 text-sm uppercase tracking-wider outline-none focus:border-navy"
         />
         <button className="rounded bg-navy px-5 py-2 text-sm font-medium text-white hover:bg-navy-dark">
-          Yoxla
+          {t("verify.check")}
         </button>
       </form>
 
@@ -50,20 +53,20 @@ export default async function VerifyPage({
         >
           {order ? (
             <>
-              <p className="font-medium text-navy">✓ Sənəd etibarlıdır</p>
+              <p className="font-medium text-navy">✓ {t("verify.valid")}</p>
               <p className="mt-2 text-sm">
                 {order.templateVersion.template.title}
               </p>
               <p className="mt-1 text-xs text-slate">
-                № {order.docUid} · yaradılıb:{" "}
-                {order.createdAt.toLocaleDateString("az-AZ", {
+                № {order.docUid} · {t("verify.createdAt")}{" "}
+                {order.createdAt.toLocaleDateString(intlTag(locale), {
                   timeZone: "Asia/Baku",
                 })}
               </p>
             </>
           ) : (
             <p className="font-medium text-red-700">
-              Bu kodla sənəd tapılmadı.
+              {t("verify.notFound")}
             </p>
           )}
         </div>

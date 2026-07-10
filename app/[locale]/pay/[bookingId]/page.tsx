@@ -2,15 +2,9 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
+import { getTranslations } from "next-intl/server";
 import { bakuDateIso, fmtMin } from "@/lib/slots";
 import MockPayButton from "./mock-pay-button";
-
-const SERVICE_LABELS: Record<string, string> = {
-  VIDEO: "Video görüş",
-  AUDIO: "Səsli zəng",
-  WRITTEN: "Yazılı cavab",
-  DOC_REVIEW: "Sənəd yoxlanışı",
-};
 
 function bakuTimeLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
@@ -23,6 +17,7 @@ export default async function PayPage({
   params: Promise<{ bookingId: string }>;
 }) {
   const { bookingId } = await params;
+  const t = await getTranslations();
 
   const user = await getCurrentUser();
   if (!user) redirect(`/login?next=/pay/${bookingId}`);
@@ -36,14 +31,14 @@ export default async function PayPage({
 
   return (
     <div className="mx-auto max-w-md px-4 py-16">
-      <h1 className="text-2xl font-bold text-navy">Ödəniş</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("common.payTitle")}</h1>
 
       <div className="mt-6 rounded border border-gray-200 p-4 text-sm">
         <p className="font-medium text-navy">
-          {booking.lawyer.user.fullName ?? "Vəkil"}
+          {booking.lawyer.user.fullName ?? t("common.lawyer")}
         </p>
         <p className="mt-1">
-          {SERVICE_LABELS[booking.serviceType]} · {booking.durationMin} dəq
+          {t(`common.serviceType.${booking.serviceType}`)} · {booking.durationMin} {t("common.min")}
         </p>
         <p className="mt-1">
           {bakuDateIso(booking.startAt)} · {bakuTimeLabel(booking.startAt)}
@@ -54,8 +49,7 @@ export default async function PayPage({
       </div>
 
       <div className="mt-4 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-        Test rejimi — real kart tələb olunmur. Canlı ödənişlər Epoint
-        inteqrasiyası ilə əlavə olunacaq.
+        {t("common.testPayNotice")}
       </div>
 
       <MockPayButton bookingId={booking.id} />

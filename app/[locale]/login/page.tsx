@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import LoginForm from "./login-form";
+import { getTranslations } from "next-intl/server";
 
 function safePath(next: string | undefined): string {
   if (next && next.startsWith("/") && !next.startsWith("//")) return next;
@@ -12,6 +13,7 @@ export default async function LoginPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
+  const t = await getTranslations();
   const { next } = await searchParams;
   const target = safePath(next);
 
@@ -20,9 +22,9 @@ export default async function LoginPage({
 
   return (
     <div className="mx-auto max-w-md px-4 py-16">
-      <h1 className="text-2xl font-bold text-navy">Daxil ol</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("login.title")}</h1>
       <p className="mt-2 text-sm">
-        Telefon nömrənizi daxil edin — SMS ilə təsdiq kodu göndərəcəyik.
+        {t("login.subtitle")}
       </p>
       <LoginForm next={target} />
     </div>

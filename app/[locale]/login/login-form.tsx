@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  INVALID_PHONE: "Telefon nömrəsi düzgün deyil. Nümunə: 50 123 45 67",
-  TOO_MANY_REQUESTS: "Həddindən çox cəhd. 15 dəqiqə sonra yenidən yoxlayın.",
-  CODE_EXPIRED: "Kodun vaxtı bitib. Yeni kod istəyin.",
-  WRONG_CODE: "Kod yanlışdır. Yenidən cəhd edin.",
-  TOO_MANY_ATTEMPTS: "Həddindən çox yanlış cəhd. Yeni kod istəyin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function LoginForm({ next }: { next: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    INVALID_PHONE: t("login.errors.INVALID_PHONE"),
+    TOO_MANY_REQUESTS: t("login.errors.TOO_MANY_REQUESTS"),
+    CODE_EXPIRED: t("login.errors.CODE_EXPIRED"),
+    WRONG_CODE: t("login.errors.WRONG_CODE"),
+    TOO_MANY_ATTEMPTS: t("login.errors.TOO_MANY_ATTEMPTS"),
+    DEFAULT: t("login.errors.DEFAULT"),
+  };
   const [step, setStep] = useState<"phone" | "code">("phone");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
@@ -83,7 +84,7 @@ export default function LoginForm({ next }: { next: string }) {
         }}
       >
         <label htmlFor="phone" className="block text-sm font-medium text-navy">
-          Telefon nömrəsi
+          {t("login.phoneLabel")}
         </label>
         <div className="flex rounded border border-gray-300 focus-within:border-navy">
           <span className="flex items-center border-r border-gray-300 bg-gray-50 px-3">
@@ -104,7 +105,7 @@ export default function LoginForm({ next }: { next: string }) {
           disabled={busy}
           className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
-          {busy ? "Göndərilir…" : "Kod göndər"}
+          {busy ? t("login.sending") : t("login.sendCode")}
         </button>
       </form>
     );
@@ -119,17 +120,17 @@ export default function LoginForm({ next }: { next: string }) {
       }}
     >
       <p className="text-sm">
-        Təsdiq kodu <b className="text-navy">{phone}</b> nömrəsinə göndərildi.
+        {t.rich("login.sentTo", { phone: () => <b className="text-navy">{phone}</b> })}
       </p>
       {devCode && (
         <p className="rounded border border-amber-200 bg-amber-50 p-2 text-center text-sm text-amber-800">
-          Demo rejimi — təsdiq kodu: <b className="tracking-widest">{devCode}</b>
+          {t("login.demoCode")} <b className="tracking-widest">{devCode}</b>
         </p>
       )}
       <input
         value={code}
         onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-        placeholder="6 rəqəmli kod"
+        placeholder={t("login.codePh")}
         inputMode="numeric"
         autoFocus
         className="w-full rounded border border-gray-300 px-3 py-2 text-center text-lg tracking-widest outline-none focus:border-navy"
@@ -139,7 +140,7 @@ export default function LoginForm({ next }: { next: string }) {
         disabled={busy || code.length !== 6}
         className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Yoxlanılır…" : "Təsdiqlə"}
+        {busy ? t("login.checking") : t("login.verify")}
       </button>
       <div className="flex items-center justify-between text-sm">
         <button
@@ -150,7 +151,7 @@ export default function LoginForm({ next }: { next: string }) {
           }}
           className="text-slate underline"
         >
-          Nömrəni dəyiş
+          {t("login.changeNumber")}
         </button>
         <button
           type="button"
@@ -158,7 +159,7 @@ export default function LoginForm({ next }: { next: string }) {
           onClick={requestCode}
           className="text-emerald disabled:text-gray-400"
         >
-          {resendIn > 0 ? `Yenidən göndər (${resendIn}s)` : "Yenidən göndər"}
+          {resendIn > 0 ? t("login.resendIn", { s: resendIn }) : t("login.resend")}
         </button>
       </div>
     </form>

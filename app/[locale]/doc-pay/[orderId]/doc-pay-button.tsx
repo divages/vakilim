@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NOT_FOUND: "Sifariş tapılmadı.",
-  ALREADY_PAID: "Bu sifariş artıq ödənilib.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function DocPayButton({ orderId }: { orderId: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("docPay.errors.UNAUTHORIZED"),
+    NOT_FOUND: t("docPay.errors.NOT_FOUND"),
+    ALREADY_PAID: t("docPay.errors.ALREADY_PAID"),
+    DEFAULT: t("docPay.errors.DEFAULT"),
+  };
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,7 +42,7 @@ export default function DocPayButton({ orderId }: { orderId: string }) {
         disabled={busy}
         className="mt-4 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Sənəd hazırlanır…" : "Ödə (test)"}
+        {busy ? t("docPay.generating") : t("common.payTest")}
       </button>
     </>
   );

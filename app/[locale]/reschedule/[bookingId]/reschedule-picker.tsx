@@ -1,22 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { WEEKDAY_LABELS_AZ } from "@/lib/slots";
+import { useTranslations } from "next-intl";
 
 type Day = {
   dateIso: string;
   weekday: number;
   slots: { label: string; startAt: string }[];
-};
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  SLOT_TAKEN: "Bu slot artıq tutulub — başqasını seçin.",
-  TOO_LATE: "Görüşə 24 saatdan az qalıb — vaxtı dəyişmək mümkün deyil.",
-  LIMIT_REACHED: "Vaxtı yalnız 1 dəfə dəyişmək olar.",
-  NOT_FOUND: "Görüş tapılmadı.",
-  INVALID_BODY: "Məlumatlar düzgün deyil.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
 };
 
 export default function ReschedulePicker({
@@ -28,6 +18,16 @@ export default function ReschedulePicker({
   lawyerSlug: string;
   serviceId: string;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("reschedule.errors.UNAUTHORIZED"),
+    SLOT_TAKEN: t("reschedule.errors.SLOT_TAKEN"),
+    TOO_LATE: t("reschedule.errors.TOO_LATE"),
+    LIMIT_REACHED: t("reschedule.errors.LIMIT_REACHED"),
+    NOT_FOUND: t("reschedule.errors.NOT_FOUND"),
+    INVALID_BODY: t("reschedule.errors.INVALID_BODY"),
+    DEFAULT: t("reschedule.errors.DEFAULT"),
+  };
   const [days, setDays] = useState<Day[] | null>(null);
   const [picked, setPicked] = useState<{ label: string; startAt: string; dateIso: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -78,10 +78,10 @@ export default function ReschedulePicker({
 
   return (
     <div className="mt-6">
-      {days === null && <p className="text-sm text-slate">Slotlar yüklənir…</p>}
+      {days === null && <p className="text-sm text-slate">{t("common.loadingSlots")}</p>}
       {days !== null && days.length === 0 && (
         <p className="rounded bg-gray-50 p-3 text-sm">
-          Yaxın 14 gündə boş slot yoxdur.
+          {t("common.noSlots")}
         </p>
       )}
 
@@ -90,7 +90,7 @@ export default function ReschedulePicker({
           {days.map((d) => (
             <div key={d.dateIso}>
               <p className="text-xs font-medium text-navy">
-                {WEEKDAY_LABELS_AZ[d.weekday]} · {d.dateIso}
+                {t(`common.wd.${d.weekday}`)} · {d.dateIso}
               </p>
               <div className="mt-1 flex flex-wrap gap-2">
                 {d.slots.map((s) => {
@@ -120,7 +120,7 @@ export default function ReschedulePicker({
 
       {picked && (
         <p className="mt-4 rounded bg-navy/5 p-3 text-sm">
-          Yeni vaxt:{" "}
+          {t("reschedule.newTime")}{" "}
           <b className="text-navy">
             {picked.dateIso} · {picked.label}
           </b>
@@ -134,7 +134,7 @@ export default function ReschedulePicker({
         disabled={!picked || busy}
         className="mt-4 w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "…" : "Vaxtı dəyiş"}
+        {busy ? "…" : t("bookings.reschedule")}
       </button>
     </div>
   );

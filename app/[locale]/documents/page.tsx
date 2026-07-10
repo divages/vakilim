@@ -3,8 +3,12 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
+import { getTranslations, getLocale } from "next-intl/server";
+import { intlTag } from "@/lib/locale";
 
 export default async function DocumentsPage() {
+  const t = await getTranslations();
+  const locale = await getLocale();
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/documents");
 
@@ -16,13 +20,13 @@ export default async function DocumentsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Sənədlərim</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("documents.title")}</h1>
 
       {orders.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Hələ sənədiniz yoxdur.{" "}
+          {t("documents.empty")}{" "}
           <Link href="/templates" className="text-emerald underline">
-            Şablon seçin
+            {t("documents.pick")}
           </Link>
           .
         </p>
@@ -37,13 +41,13 @@ export default async function DocumentsPage() {
                   </p>
                   <p className="mt-1 text-xs text-slate">
                     № {o.docUid} ·{" "}
-                    {o.createdAt.toLocaleDateString("az-AZ", {
+                    {o.createdAt.toLocaleDateString(intlTag(locale), {
                       timeZone: "Asia/Baku",
                     })}
                   </p>
                 </div>
                 <p className="text-sm font-semibold text-navy">
-                  {o.priceQepik === 0 ? "Pulsuz" : formatAzn(o.priceQepik)}
+                  {o.priceQepik === 0 ? t("common.free") : formatAzn(o.priceQepik)}
                 </p>
               </div>
               <div className="mt-3 flex flex-wrap gap-3">
@@ -52,21 +56,21 @@ export default async function DocumentsPage() {
                     href={`/api/doc-orders/${o.id}/download`}
                     className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                   >
-                    Yüklə (PDF)
+                    {t("documents.download")}
                   </a>
                 ) : (
                   <Link
                     href={`/doc-pay/${o.id}`}
                     className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                   >
-                    Ödənişi tamamla
+                    {t("documents.completePay")}
                   </Link>
                 )}
                 <Link
                   href={`/verify?code=${o.docUid}`}
                   className="rounded border border-gray-300 px-4 py-2 text-sm text-navy hover:border-navy"
                 >
-                  Yoxlama səhifəsi
+                  {t("documents.verifyPage")}
                 </Link>
               </div>
             </div>
