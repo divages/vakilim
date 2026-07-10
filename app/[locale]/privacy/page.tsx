@@ -1,12 +1,39 @@
-export const metadata = { title: "Məxfilik siyasəti — Vakilim.az" };
+import { getTranslations } from "next-intl/server";
 
-export default function PrivacyPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("privacyTitle"),
+    alternates: {
+      canonical: `/${locale}/privacy`,
+      languages: { az: "/az/privacy", ru: "/ru/privacy", en: "/en/privacy", "x-default": "/az/privacy" },
+    },
+  };
+}
+
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations();
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
-      <h1 className="text-2xl font-bold text-navy">Məxfilik siyasəti</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("legal.privacyTitle")}</h1>
       <p className="mt-3 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-        LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.
+        {t("legal.draftBanner")}
       </p>
+      {locale !== "az" && (
+        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-sm text-slate">
+          {t("legal.officialNote")}
+        </p>
+      )}
 
       <h2 className="mt-8 text-lg font-semibold text-navy">Topladığımız məlumatlar</h2>
       <p className="mt-2">

@@ -1,23 +1,37 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 
-export const metadata = {
-  title: "Hüquqi sənəd şablonları — Vakilim.az",
-  description:
-    "Hazır hüquqi sənədləri suallara cavab verməklə bir neçə dəqiqəyə yaradın.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("catalogTitle"),
+    description: t("catalogDesc"),
+    alternates: {
+      canonical: `/${locale}/templates`,
+      languages: { az: "/az/templates", ru: "/ru/templates", en: "/en/templates", "x-default": "/az/templates" },
+    },
+  };
+}
 
 export default async function TemplatesPage() {
   const tr = await getTranslations();
+  const locale = await getLocale();
   const templates = await prisma.docTemplate.findMany({
     where: { active: true },
     orderBy: [{ category: "asc" }, { sortOrder: "asc" }],
   });
 
   const byCategory = new Map<string, typeof templates>();
-  for (const t of templates) {
+  const mine = templates.filter((t) => t.locale === locale);
+  const others = templates.filter((t) => t.locale !== locale);
+  for (const t of mine) {
     const list = byCategory.get(t.category) ?? [];
     list.push(t);
     byCategory.set(t.category, list);
@@ -60,6 +74,31 @@ export default async function TemplatesPage() {
           </div>
         </div>
       ))}
+
+      {others.length > 0 && (
+        <>
+          <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
+            {tr("catalog.otherLangs")}
+          </h2>
+          <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {others.map((t) => (
+              <Link
+                key={t.id}
+                href={`/templates/${t.slug}`}
+                className="rounded border border-gray-200 p-4 transition hover:border-navy"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <p className="font-semibold text-navy">{t.title}</p>
+                  <span className="rounded bg-navy/5 px-2 py-1 text-xs font-medium text-navy">
+                    {tr(`common.langName.${t.locale}`)}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-slate">{t.description}</p>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -15,11 +15,23 @@ import LocaleSync from "@/components/locale-sync";
 
 const inter = Inter({ subsets: ["latin", "latin-ext", "cyrillic"] });
 
-export const metadata: Metadata = {
-  title: "Vakilim.az — Vəkilinizi tapın",
-  description:
-    "Azərbaycanda yoxlanılmış vəkillər və hüquqşünaslarla onlayn məsləhət.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    metadataBase: new URL("https://vakilim.az"),
+    title: t("siteTitle"),
+    description: t("siteDesc"),
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { az: "/az", ru: "/ru", en: "/en", "x-default": "/az" },
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,

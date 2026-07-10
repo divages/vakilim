@@ -136,12 +136,14 @@
   },
   "catalog": {
     "title": "Document templates",
-    "subtitle": "Answer the questions — the system prepares the legal document and delivers it as a PDF. Every document carries a unique verification code."
+    "subtitle": "Answer the questions — the system prepares the legal document and delivers it as a PDF. Every document carries a unique verification code.",
+    "otherLangs": "In other languages"
   },
   "tplDetail": {
     "need": "What you'll need ({count} questions)",
     "licenseNote": "The generated document is licensed only for the matter described by your answers, is delivered as an edit-locked PDF, and carries a unique verification code.",
-    "start": "Start"
+    "start": "Start",
+    "alsoIn": "This document in other languages:"
   },
   "wizard": {
     "progress": "Question {i} / {n}",
@@ -682,5 +684,28 @@
       "body": "The {hours}h response window closed — a decision can be made."
     },
     "emailLink": "Link"
+  },
+  "meta": {
+    "siteTitle": "Vakilim.az — find your lawyer",
+    "siteDesc": "Online consultations with verified advocates and lawyers in Azerbaijan.",
+    "directoryTitle": "Lawyers — Vakilim.az",
+    "directoryDesc": "Verified advocates and lawyers in Azerbaijan. Search and filter by area, language and price.",
+    "catalogTitle": "Legal document templates — Vakilim.az",
+    "catalogDesc": "Create ready legal documents in minutes by answering questions.",
+    "verifyTitle": "Document verification — Vakilim.az",
+    "verifyDesc": "Confirm a Vakilim.az document's authenticity with its verification code.",
+    "loginTitle": "Sign in — Vakilim.az",
+    "loginDesc": "Sign in with your phone number.",
+    "lawyerNotFound": "Lawyer not found — Vakilim.az",
+    "termsTitle": "Terms of use — Vakilim.az",
+    "privacyTitle": "Privacy policy — Vakilim.az",
+    "refundTitle": "Refund policy — Vakilim.az"
+  },
+  "legal": {
+    "termsTitle": "Terms of use",
+    "privacyTitle": "Privacy policy",
+    "refundTitle": "Cancellation & refund policy",
+    "draftBanner": "DRAFT — this text takes effect after legal review.",
+    "officialNote": "The authoritative version of this document is in Azerbaijani; a translation will follow legal review."
   }
 }

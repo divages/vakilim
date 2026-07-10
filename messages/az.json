@@ -136,12 +136,14 @@
   },
   "catalog": {
     "title": "Sənəd şablonları",
-    "subtitle": "Suallara cavab verin — sistem hüquqi sənədi hazırlayıb sizə PDF kimi təqdim edəcək. Hər sənədin unikal yoxlama kodu olur."
+    "subtitle": "Suallara cavab verin — sistem hüquqi sənədi hazırlayıb sizə PDF kimi təqdim edəcək. Hər sənədin unikal yoxlama kodu olur.",
+    "otherLangs": "Digər dillərdə"
   },
   "tplDetail": {
     "need": "Nələr lazım olacaq ({count} sual)",
     "licenseNote": "Yaradılan sənəd yalnız daxil etdiyiniz məlumatlarla bağlı iş üçün nəzərdə tutulur, redaktəyə qapalı PDF formatında verilir və unikal yoxlama kodu daşıyır.",
-    "start": "Başla"
+    "start": "Başla",
+    "alsoIn": "Bu sənəd digər dillərdə:"
   },
   "wizard": {
     "progress": "Sual {i} / {n}",
@@ -682,5 +684,28 @@
       "body": "{hours} saatlıq cavab müddəti bitib — qərar verilə bilər."
     },
     "emailLink": "Keçid"
+  },
+  "meta": {
+    "siteTitle": "Vakilim.az — Vəkilinizi tapın",
+    "siteDesc": "Azərbaycanda yoxlanılmış vəkillər və hüquqşünaslarla onlayn məsləhət.",
+    "directoryTitle": "Vəkillər — Vakilim.az",
+    "directoryDesc": "Azərbaycanda yoxlanılmış vəkillər və hüquqşünaslar. Axtarın, sahə, dil və qiymətə görə seçin.",
+    "catalogTitle": "Hüquqi sənəd şablonları — Vakilim.az",
+    "catalogDesc": "Hazır hüquqi sənədləri suallara cavab verməklə bir neçə dəqiqəyə yaradın.",
+    "verifyTitle": "Sənəd yoxlaması — Vakilim.az",
+    "verifyDesc": "Vakilim.az sənədinin orijinallığını yoxlama kodu ilə təsdiqləyin.",
+    "loginTitle": "Daxil ol — Vakilim.az",
+    "loginDesc": "Telefon nömrəsi ilə daxil olun.",
+    "lawyerNotFound": "Vəkil tapılmadı — Vakilim.az",
+    "termsTitle": "İstifadə şərtləri — Vakilim.az",
+    "privacyTitle": "Məxfilik siyasəti — Vakilim.az",
+    "refundTitle": "Geri qaytarma siyasəti — Vakilim.az"
+  },
+  "legal": {
+    "termsTitle": "İstifadə şərtləri",
+    "privacyTitle": "Məxfilik siyasəti",
+    "refundTitle": "Ləğv və geri qaytarma siyasəti",
+    "draftBanner": "LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.",
+    "officialNote": "Bu sənədin rəsmi mətni Azərbaycan dilindədir; tərcümə hüquqi rəydən sonra əlavə olunacaq."
   }
 }

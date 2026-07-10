@@ -8,6 +8,23 @@ function safePath(next: string | undefined): string {
   return "/";
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("loginTitle"),
+    description: t("loginDesc"),
+    alternates: {
+      canonical: `/${locale}/login`,
+      languages: { az: "/az/login", ru: "/ru/login", en: "/en/login", "x-default": "/az/login" },
+    },
+  };
+}
+
 export default async function LoginPage({
   searchParams,
 }: {

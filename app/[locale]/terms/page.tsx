@@ -1,12 +1,39 @@
-export const metadata = { title: "İstifadə şərtləri — Vakilim.az" };
+import { getTranslations } from "next-intl/server";
 
-export default function TermsPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("termsTitle"),
+    alternates: {
+      canonical: `/${locale}/terms`,
+      languages: { az: "/az/terms", ru: "/ru/terms", en: "/en/terms", "x-default": "/az/terms" },
+    },
+  };
+}
+
+export default async function TermsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations();
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
-      <h1 className="text-2xl font-bold text-navy">İstifadə şərtləri</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("legal.termsTitle")}</h1>
       <p className="mt-3 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-        LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.
+        {t("legal.draftBanner")}
       </p>
+      {locale !== "az" && (
+        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-sm text-slate">
+          {t("legal.officialNote")}
+        </p>
+      )}
 
       <h2 className="mt-8 text-lg font-semibold text-navy">1. Platforma haqqında</h2>
       <p className="mt-2">

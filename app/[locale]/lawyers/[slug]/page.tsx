@@ -45,12 +45,21 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  const tMeta = await getTranslations({ locale, namespace: "meta" });
   const profile = await loadProfile(slug);
-  if (!profile) return { title: "Vəkil tapılmadı — Vakilim.az" };
+  if (!profile) return { title: tMeta("lawyerNotFound") };
   const name = profile.user.fullName ?? "Vəkil";
   return {
     title: `${name} — Vakilim.az`,
     description: pickBio(profile, locale).slice(0, 160),
+    alternates: {
+      canonical: `/${locale}/lawyers/${slug}`,
+      languages: {
+        az: `/az/lawyers/${slug}`,
+        ru: `/ru/lawyers/${slug}`,
+        en: `/en/lawyers/${slug}`,
+      },
+    },
   };
 }
 

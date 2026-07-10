@@ -2,10 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { getTranslations, getLocale } from "next-intl/server";
 import { intlTag } from "@/lib/locale";
 
-export const metadata = {
-  title: "Sənəd yoxlaması — Vakilim.az",
-  description: "Vakilim.az sənədinin orijinallığını yoxlama kodu ilə təsdiqləyin.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("verifyTitle"),
+    description: t("verifyDesc"),
+    alternates: {
+      canonical: `/${locale}/verify`,
+      languages: { az: "/az/verify", ru: "/ru/verify", en: "/en/verify", "x-default": "/az/verify" },
+    },
+  };
+}
 
 export default async function VerifyPage({
   searchParams,

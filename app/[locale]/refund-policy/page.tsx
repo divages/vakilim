@@ -1,14 +1,41 @@
-export const metadata = { title: "Geri qaytarma siyasəti — Vakilim.az" };
+import { getTranslations } from "next-intl/server";
 
-export default function RefundPolicyPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return {
+    title: t("refundTitle"),
+    alternates: {
+      canonical: `/${locale}/refund-policy`,
+      languages: { az: "/az/refund-policy", ru: "/ru/refund-policy", en: "/en/refund-policy", "x-default": "/az/refund-policy" },
+    },
+  };
+}
+
+export default async function RefundPolicyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations();
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
       <h1 className="text-2xl font-bold text-navy">
-        Ləğv və geri qaytarma siyasəti
+        {t("legal.refundTitle")}
       </h1>
       <p className="mt-3 rounded border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
-        LAYİHƏ — bu mətn hüquqşünas rəyindən sonra qüvvəyə minəcək.
+        {t("legal.draftBanner")}
       </p>
+      {locale !== "az" && (
+        <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-sm text-slate">
+          {t("legal.officialNote")}
+        </p>
+      )}
 
       <h2 className="mt-8 text-lg font-semibold text-navy">
         Müştəri tərəfindən ləğv

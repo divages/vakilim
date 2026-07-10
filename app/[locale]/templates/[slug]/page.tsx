@@ -40,6 +40,18 @@ export default async function TemplateDetailPage({
   const version = template?.versions[0];
   if (!template || !version) notFound();
 
+  const siblings = template.familyKey
+    ? await prisma.docTemplate.findMany({
+        where: {
+          familyKey: template.familyKey,
+          active: true,
+          NOT: { id: template.id },
+        },
+        select: { slug: true, locale: true },
+        orderBy: { locale: "asc" },
+      })
+    : [];
+
   const fields = version.fields as unknown as FieldDef[];
 
   return (
@@ -64,6 +76,23 @@ export default async function TemplateDetailPage({
       <div className="mt-6 rounded border border-gray-200 bg-gray-50 p-3 text-xs leading-relaxed text-slate">
         {tr("tplDetail.licenseNote")}
       </div>
+
+      {siblings.length > 0 && (
+        <p className="mt-4 text-sm">
+          {tr("tplDetail.alsoIn")}{" "}
+          {siblings.map((s, i) => (
+            <span key={s.slug}>
+              {i > 0 && " · "}
+              <Link
+                href={`/templates/${s.slug}`}
+                className="text-emerald underline"
+              >
+                {tr(`common.langName.${s.locale}`)}
+              </Link>
+            </span>
+          ))}
+        </p>
+      )}
 
       <Link
         href={`/templates/${template.slug}/fill`}
