@@ -5,7 +5,8 @@
     "myBookings": "My bookings",
     "lawyerPanel": "Lawyer panel",
     "forLawyers": "For lawyers",
-    "login": "Sign in"
+    "login": "Sign in",
+    "logout": "Sign out"
   },
   "footer": {
     "terms": "Terms",
@@ -70,7 +71,14 @@
       "4": "Thu",
       "5": "Fri",
       "6": "Sat"
-    }
+    },
+    "add": "Add",
+    "manage": "Manage",
+    "view": "View",
+    "sending": "Sending…",
+    "savedTick": "Saved ✓",
+    "yourReply": "Your reply:",
+    "phone": "Phone"
   },
   "directory": {
     "title": "Lawyers",
@@ -246,6 +254,251 @@
       "UNAUTHORIZED": "Session expired. Sign in again.",
       "NOT_FOUND": "Order not found.",
       "ALREADY_PAID": "This order is already paid.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "apply": {
+    "title": "Join as a lawyer",
+    "subtitle": "Once your details are verified, your profile goes live on the platform.",
+    "fullName": "Full name",
+    "licenseNo": "License / certificate no.",
+    "years": "Experience (years)",
+    "city": "City",
+    "langs": "Languages",
+    "areas": "Practice areas (1–5)",
+    "biosTitle": "About you — in each selected language",
+    "biosHelp": "Write a short introduction for each language you claim (min 20 characters) — clients will see your profile in that language.",
+    "docs": "Verification documents",
+    "docsNote": "Used only for verification; never shown on your public profile.",
+    "licDoc": "License / certificate",
+    "idDoc": "ID document",
+    "submit": "Submit application",
+    "eFullName": "Enter your full name.",
+    "eLicense": "Enter your license / certificate number.",
+    "eYears": "Enter years of experience (0 is fine).",
+    "eBio": "Write at least a 20-character introduction for each selected language ({l}).",
+    "eLangs": "Select at least one language.",
+    "eAreas": "Select at least one practice area.",
+    "eAreasMax": "You can select at most 5 areas.",
+    "eLicDoc": "Upload your license / certificate.",
+    "eIdDoc": "Upload a scan of your ID.",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Please sign in again.",
+      "ALREADY_APPLIED": "You have already applied.",
+      "INVALID_AREAS": "Selected practice areas are invalid.",
+      "INVALID_BODY": "Fill in all fields correctly.",
+      "FILE_REQUIRED": "Upload both documents (license and ID).",
+      "FILE_TOO_LARGE": "Files must be under 10 MB.",
+      "FILE_TYPE": "Only PDF, JPG, PNG and WEBP files are accepted.",
+      "SERVER_CONFIG": "File storage is not configured.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "dash": {
+    "title": "Lawyer panel",
+    "pendingT": "Application under review",
+    "pendingBody": "Your documents are being checked. Once approved, your profile goes live.",
+    "okT": "Profile approved",
+    "okBody": "Your profile is live. You'll manage your meetings here.",
+    "rejT": "Application declined",
+    "rejBody": "Contact us for details.",
+    "svcT": "Services & pricing",
+    "svcD": "Set your meeting types and prices.",
+    "availT": "Schedule & availability",
+    "availD": "Set working hours — free slots are generated automatically.",
+    "bookT": "Bookings",
+    "bookD": "Approve requests and track upcoming meetings.",
+    "dispT": "Disputes",
+    "dispD": "Respond to complaints within 2 days.",
+    "revT": "Reviews",
+    "revD": "You can reply once to each client review.",
+    "sent": "Submitted details",
+    "rowStatus": "Status",
+    "rowYears": "Experience",
+    "rowAreas": "Areas"
+  },
+  "svc": {
+    "subtitle": "Active services you set here appear on your public profile.",
+    "new": "New service",
+    "type": "Type",
+    "duration": "Duration",
+    "price": "Price (₼)",
+    "ePrice": "Enter the price in manats (at least 1).",
+    "confirmDel": "Delete this service?",
+    "empty": "You haven't added any services yet.",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NO_PROFILE": "Submit a lawyer application first.",
+      "INVALID_BODY": "Fill in the fields correctly.",
+      "INVALID_DURATION": "Pick a duration for this meeting type.",
+      "TOO_MANY_SERVICES": "Service limit reached.",
+      "NOT_FOUND": "Service not found. Refresh the page.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "avail": {
+    "subtitle": "Set your weekly working hours — the system computes free slots automatically.",
+    "preview": "Preview — next 7 days (for a {d} min meeting)",
+    "previewEmpty": "Add a schedule — free slots will appear here.",
+    "weekly": "Weekly schedule",
+    "empty": "No schedule added yet.",
+    "mode": "Booking mode",
+    "modeReq": "Approval mode — I confirm every meeting myself",
+    "modeInstant": "Instant — free slots are confirmed automatically",
+    "buffer": "Buffer between meetings",
+    "day": "Day",
+    "start": "Start",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NO_PROFILE": "Submit a lawyer application first.",
+      "INVALID_BODY": "Pick a valid interval (at least 15 minutes).",
+      "OVERLAP": "This interval overlaps an existing schedule.",
+      "NOT_FOUND": "Entry not found. Refresh the page.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "lawB": {
+    "reqSection": "Awaiting approval ({n})",
+    "reqEmpty": "No requests awaiting approval.",
+    "upSection": "Upcoming meetings ({n})",
+    "upEmpty": "No upcoming meetings.",
+    "other": "Other",
+    "accept": "Accept",
+    "decline": "Decline",
+    "confirmDecline": "Decline? The client will get a full refund.",
+    "declineNote": "Declining triggers an automatic full refund.",
+    "status": {
+      "REQUESTED": "Awaiting approval",
+      "CONFIRMED": "Confirmed",
+      "DECLINED": "Declined",
+      "CANCELLED": "Client cancelled",
+      "COMPLETED": "Completed",
+      "PENDING_PAYMENT": "Awaiting payment"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NO_PROFILE": "Lawyer profile not found.",
+      "NOT_FOUND": "Booking not found. Refresh the page.",
+      "INVALID_STATE": "This booking's status changed. Refresh the page.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "lawD": {
+    "meeting": "Meeting:",
+    "deadline": "Response deadline:",
+    "empty": "No complaints.",
+    "ph": "Explain what happened…",
+    "send": "Send response",
+    "status": {
+      "OPEN": "Awaiting your response",
+      "RESPONDED": "Awaiting platform decision",
+      "RESOLVED": "Resolved"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "INVALID_STATE": "This dispute's status changed. Refresh the page.",
+      "INVALID_BODY": "Write at least 10 characters.",
+      "NOT_FOUND": "Dispute not found.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "lawR": {
+    "subtitle": "You can reply once per review — replies appear on your public profile.",
+    "hidden": "This review was hidden by moderation.",
+    "ph": "Your reply (written once, cannot be edited)…",
+    "send": "Send reply",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "ALREADY_REPLIED": "You already replied to this review.",
+      "INVALID_BODY": "Reply must be 5–500 characters.",
+      "NOT_FOUND": "Review not found.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "call": {
+    "with": "Meeting with {name}",
+    "consent": "The meeting may be recorded for quality control and dispute resolution. By continuing you consent to this. Camera and microphone access will be requested.",
+    "agreeJoin": "I agree — join",
+    "joining": "Joining…",
+    "endedT": "Meeting ended",
+    "endedB": "This meeting's time is over.",
+    "inactiveT": "Meeting not active",
+    "inactiveB": "This meeting isn't confirmed or was cancelled.",
+    "earlyT": "Too early",
+    "earlyB": "The meeting starts {date} · {time}. Joining opens in {mins} min — refresh this page.",
+    "back": "Back to bookings",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "FORBIDDEN": "You don't have access to this meeting.",
+      "NOT_FOUND": "Meeting not found.",
+      "INVALID_STATE": "Meeting is not active.",
+      "TOO_EARLY": "The meeting hasn't started yet. Try again shortly.",
+      "TOO_LATE": "The meeting time is over.",
+      "CONSENT_REQUIRED": "Consent is required to continue.",
+      "SERVER_CONFIG": "Video isn't configured yet (LiveKit keys missing).",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "chat": {
+    "closed": "Chat is closed — {h}h after the meeting it becomes read-only.",
+    "empty": "No messages yet.",
+    "file": "File",
+    "ph": "Type a message…",
+    "send": "Send",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "READ_ONLY": "The chat window has closed.",
+      "EMPTY": "Can't send an empty message.",
+      "FILE_TOO_LARGE": "Files must be under 10 MB.",
+      "FILE_TYPE": "Only PDF, images and DOCX can be sent.",
+      "SERVER_CONFIG": "File storage is not configured.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "dispute": {
+    "intro": "Describe your complaint about the meeting with {name}. The lawyer has 2 days to respond; the platform decides, and a full or partial refund is possible.",
+    "ph": "Describe what happened…",
+    "submit": "Submit complaint",
+    "reasons": {
+      "no_show": "Lawyer didn't show up",
+      "technical": "Technical problem",
+      "quality": "Service quality",
+      "other": "Other"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "ALREADY_OPEN": "A complaint is already open for this meeting.",
+      "WINDOW_CLOSED": "The complaint window (72h) has closed.",
+      "INVALID_BODY": "Describe the complaint in at least 10 characters.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "review": {
+    "title": "Write a review",
+    "q": "How was your meeting with {name}?",
+    "ph": "Optional: share your impressions…",
+    "submit": "Submit review",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "NOT_ELIGIBLE": "You can't review this meeting.",
+      "ALREADY_REVIEWED": "You already reviewed this meeting.",
+      "INVALID_BODY": "Pick a star rating.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "notif": {
+    "title": "Notifications",
+    "empty": "No notifications yet."
+  },
+  "sett": {
+    "subtitle": "Add an email and notification copies will also be sent there.",
+    "email": "Email (optional)",
+    "emailPh": "name@example.com",
+    "save": "Save",
+    "errors": {
+      "UNAUTHORIZED": "Session expired. Sign in again.",
+      "EMAIL_TAKEN": "This email is used by another account.",
+      "INVALID_BODY": "Name must be 3+ characters and the email valid.",
       "DEFAULT": "Something went wrong. Try again shortly."
     }
   }

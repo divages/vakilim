@@ -5,7 +5,8 @@
     "myBookings": "Görüşlərim",
     "lawyerPanel": "Vəkil paneli",
     "forLawyers": "Vəkillər üçün",
-    "login": "Daxil ol"
+    "login": "Daxil ol",
+    "logout": "Çıxış"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -70,7 +71,14 @@
       "4": "Cümə axşamı",
       "5": "Cümə",
       "6": "Şənbə"
-    }
+    },
+    "add": "Əlavə et",
+    "manage": "İdarə et",
+    "view": "Bax",
+    "sending": "Göndərilir…",
+    "savedTick": "Yadda saxlanıldı ✓",
+    "yourReply": "Cavabınız:",
+    "phone": "Telefon"
   },
   "directory": {
     "title": "Vəkillər",
@@ -246,6 +254,251 @@
       "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
       "NOT_FOUND": "Sifariş tapılmadı.",
       "ALREADY_PAID": "Bu sifariş artıq ödənilib.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "apply": {
+    "title": "Vəkil kimi qoşulun",
+    "subtitle": "Məlumatlarınız yoxlanıldıqdan sonra profiliniz platformada görünəcək.",
+    "fullName": "Ad və soyad",
+    "licenseNo": "Lisenziya / vəsiqə №",
+    "years": "Təcrübə (il)",
+    "city": "Şəhər",
+    "langs": "Dillər",
+    "areas": "Fəaliyyət sahələri (1–5)",
+    "biosTitle": "Haqqınızda — seçdiyiniz hər dildə",
+    "biosHelp": "İddia etdiyiniz hər dil üçün qısa təqdimat yazın (ən azı 20 simvol) — müştərilər profilinizi həmin dildə görəcək.",
+    "docs": "Təsdiqedici sənədlər",
+    "docsNote": "Yalnız yoxlama üçün istifadə olunur, ictimai profildə görünmür.",
+    "licDoc": "Lisenziya / vəsiqə",
+    "idDoc": "Şəxsiyyət vəsiqəsi",
+    "submit": "Müraciəti göndər",
+    "eFullName": "Ad və soyadınızı tam yazın.",
+    "eLicense": "Lisenziya / vəsiqə nömrəsini yazın.",
+    "eYears": "Təcrübə ilini qeyd edin (0 ola bilər).",
+    "eBio": "Seçdiyiniz hər dil üçün ən azı 20 simvolluq təqdimat yazın ({l}).",
+    "eLangs": "Ən azı bir dil seçin.",
+    "eAreas": "Ən azı bir fəaliyyət sahəsi seçin.",
+    "eAreasMax": "Ən çoxu 5 fəaliyyət sahəsi seçilə bilər.",
+    "eLicDoc": "Lisenziya / vəsiqə sənədini yükləyin.",
+    "eIdDoc": "Şəxsiyyət vəsiqəsinin skanını yükləyin.",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Zəhmət olmasa yenidən daxil olun.",
+      "ALREADY_APPLIED": "Siz artıq müraciət etmisiniz.",
+      "INVALID_AREAS": "Seçilmiş fəaliyyət sahələri düzgün deyil.",
+      "INVALID_BODY": "Bütün sahələri düzgün doldurun.",
+      "FILE_REQUIRED": "Hər iki sənədi (lisenziya və şəxsiyyət vəsiqəsi) yükləyin.",
+      "FILE_TOO_LARGE": "Fayl 10 MB-dan böyük ola bilməz.",
+      "FILE_TYPE": "Yalnız PDF, JPG, PNG və WEBP faylları qəbul olunur.",
+      "SERVER_CONFIG": "Fayl anbarı konfiqurasiya olunmayıb.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "dash": {
+    "title": "Vəkil paneli",
+    "pendingT": "Müraciətiniz baxılır",
+    "pendingBody": "Sənədləriniz yoxlanılır. Təsdiqdən sonra profiliniz platformada görünəcək.",
+    "okT": "Profiliniz təsdiqlənib",
+    "okBody": "Profiliniz platformada görünür. Tezliklə burada görüşlərinizi idarə edə biləcəksiniz.",
+    "rejT": "Müraciət rədd edilib",
+    "rejBody": "Ətraflı məlumat üçün bizimlə əlaqə saxlayın.",
+    "svcT": "Xidmətlər və qiymətlər",
+    "svcD": "Görüş növlərinizi və qiymətlərinizi təyin edin.",
+    "availT": "Qrafik və mövcudluq",
+    "availD": "İş saatlarınızı təyin edin — boş slotlar avtomatik yaranır.",
+    "bookT": "Görüşlər",
+    "bookD": "Sifarişləri təsdiqləyin və yaxınlaşan görüşləri izləyin.",
+    "dispT": "Mübahisələr",
+    "dispD": "Şikayətlərə 2 gün ərzində cavab verin.",
+    "revT": "Rəylər",
+    "revD": "Müştəri rəylərinə bir dəfə cavab yaza bilərsiniz.",
+    "sent": "Göndərilmiş məlumatlar",
+    "rowStatus": "Status",
+    "rowYears": "Təcrübə",
+    "rowAreas": "Sahələr"
+  },
+  "svc": {
+    "subtitle": "Burada təyin etdiyiniz aktiv xidmətlər ictimai profilinizdə görünür.",
+    "new": "Yeni xidmət",
+    "type": "Növ",
+    "duration": "Müddət",
+    "price": "Qiymət (₼)",
+    "ePrice": "Qiyməti manatla yazın (ən azı 1).",
+    "confirmDel": "Bu xidmət silinsin?",
+    "empty": "Hələ xidmət əlavə etməmisiniz.",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NO_PROFILE": "Əvvəlcə vəkil müraciəti göndərin.",
+      "INVALID_BODY": "Sahələri düzgün doldurun.",
+      "INVALID_DURATION": "Görüş növü üçün müddət seçin.",
+      "TOO_MANY_SERVICES": "Xidmət sayı limitə çatıb.",
+      "NOT_FOUND": "Xidmət tapılmadı. Səhifəni yeniləyin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "avail": {
+    "subtitle": "Həftəlik iş saatlarınızı təyin edin — sistem boş slotları avtomatik hesablayır.",
+    "preview": "Önizləmə — növbəti 7 gün ({d} dəq görüş üçün)",
+    "previewEmpty": "Qrafik əlavə edin — boş slotlar burada görünəcək.",
+    "weekly": "Həftəlik qrafik",
+    "empty": "Hələ qrafik əlavə edilməyib.",
+    "mode": "Görüş qəbulu",
+    "modeReq": "Təsdiqlə qəbul — hər görüşü özüm təsdiqləyirəm",
+    "modeInstant": "Dərhal təsdiq — boş slotlar avtomatik təsdiqlənir",
+    "buffer": "Görüşlər arası fasilə",
+    "day": "Gün",
+    "start": "Başlanğıc",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NO_PROFILE": "Əvvəlcə vəkil müraciəti göndərin.",
+      "INVALID_BODY": "Vaxt aralığını düzgün seçin (ən azı 15 dəqiqə).",
+      "OVERLAP": "Bu vaxt aralığı mövcud qrafiklə üst-üstə düşür.",
+      "NOT_FOUND": "Qeyd tapılmadı. Səhifəni yeniləyin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "lawB": {
+    "reqSection": "Təsdiq gözləyən ({n})",
+    "reqEmpty": "Təsdiq gözləyən sifariş yoxdur.",
+    "upSection": "Yaxınlaşan görüşlər ({n})",
+    "upEmpty": "Yaxınlaşan görüş yoxdur.",
+    "other": "Digər",
+    "accept": "Qəbul et",
+    "decline": "İmtina et",
+    "confirmDecline": "İmtina edilsin? Müştəriyə ödənişin tam məbləği geri qaytarılacaq.",
+    "declineNote": "İmtina zamanı məbləğ avtomatik geri qaytarılır.",
+    "status": {
+      "REQUESTED": "Təsdiq gözləyir",
+      "CONFIRMED": "Təsdiqlənib",
+      "DECLINED": "İmtina edilib",
+      "CANCELLED": "Müştəri ləğv edib",
+      "COMPLETED": "Baş tutub",
+      "PENDING_PAYMENT": "Ödəniş gözlənilir"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NO_PROFILE": "Vəkil profili tapılmadı.",
+      "NOT_FOUND": "Sifariş tapılmadı. Səhifəni yeniləyin.",
+      "INVALID_STATE": "Bu sifarişin statusu artıq dəyişib. Səhifəni yeniləyin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "lawD": {
+    "meeting": "Görüş:",
+    "deadline": "Cavab müddəti:",
+    "empty": "Şikayət yoxdur.",
+    "ph": "Baş verənlər barədə izahınızı yazın…",
+    "send": "Cavab göndər",
+    "status": {
+      "OPEN": "Cavab gözlənilir",
+      "RESPONDED": "Platformanın qərarı gözlənilir",
+      "RESOLVED": "Həll olunub"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "INVALID_STATE": "Bu şikayətin statusu dəyişib. Səhifəni yeniləyin.",
+      "INVALID_BODY": "Cavabı ən azı 10 simvolla yazın.",
+      "NOT_FOUND": "Şikayət tapılmadı.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "lawR": {
+    "subtitle": "Hər rəyə bir dəfə cavab yaza bilərsiniz — cavab ictimai profilinizdə görünür.",
+    "hidden": "Bu rəy moderasiya ilə gizlədilib.",
+    "ph": "Cavabınız (bir dəfə yazılır, redaktə edilmir)…",
+    "send": "Cavab göndər",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "ALREADY_REPLIED": "Bu rəyə artıq cavab yazmısınız.",
+      "INVALID_BODY": "Cavab 5–500 simvol olmalıdır.",
+      "NOT_FOUND": "Rəy tapılmadı.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "call": {
+    "with": "{name} ilə görüş",
+    "consent": "Görüş keyfiyyətə nəzarət və mübahisələrin həlli məqsədilə qeydə alına bilər. Davam etməklə buna razılıq verirsiniz. Kamera və mikrofonunuza icazə istəniləcək.",
+    "agreeJoin": "Razıyam və qoşul",
+    "joining": "Qoşulur…",
+    "endedT": "Görüş başa çatıb",
+    "endedB": "Bu görüşün vaxtı bitib.",
+    "inactiveT": "Görüş aktiv deyil",
+    "inactiveB": "Bu görüş təsdiqlənməyib və ya ləğv edilib.",
+    "earlyT": "Hələ tezdir",
+    "earlyB": "Görüş {date} · {time}-də başlayır. Qoşulma {mins} dəqiqə sonra açılır — bu səhifəni yeniləyin.",
+    "back": "Görüşlərə qayıt",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "FORBIDDEN": "Bu görüşə giriş icazəniz yoxdur.",
+      "NOT_FOUND": "Görüş tapılmadı.",
+      "INVALID_STATE": "Görüş aktiv deyil.",
+      "TOO_EARLY": "Görüş hələ başlamayıb. Bir az sonra yenidən cəhd edin.",
+      "TOO_LATE": "Görüşün vaxtı bitib.",
+      "CONSENT_REQUIRED": "Davam etmək üçün razılıq tələb olunur.",
+      "SERVER_CONFIG": "Video sistemi hələ qurulmayıb (LiveKit açarları çatışmır).",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "chat": {
+    "closed": "Yazışma bağlıdır — görüş bitdikdən {h} saat sonra yalnız oxumaq mümkündür.",
+    "empty": "Hələ mesaj yoxdur.",
+    "file": "Fayl",
+    "ph": "Mesaj yazın…",
+    "send": "Göndər",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "READ_ONLY": "Yazışma müddəti bitib.",
+      "EMPTY": "Boş mesaj göndərilə bilməz.",
+      "FILE_TOO_LARGE": "Fayl 10 MB-dan böyük ola bilməz.",
+      "FILE_TYPE": "Yalnız PDF, şəkil və DOCX faylları göndərilə bilər.",
+      "SERVER_CONFIG": "Fayl anbarı konfiqurasiya olunmayıb.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "dispute": {
+    "intro": "{name} ilə görüş barədə şikayətinizi yazın. Vəkilin 2 gün cavab müddəti var; qərarı platforma verir və ödənişin tam və ya qismən qaytarılması mümkündür.",
+    "ph": "Nə baş verdiyini təsvir edin…",
+    "submit": "Şikayəti göndər",
+    "reasons": {
+      "no_show": "Vəkil görüşə gəlmədi",
+      "technical": "Texniki problem",
+      "quality": "Xidmət keyfiyyəti",
+      "other": "Digər"
+    },
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "ALREADY_OPEN": "Bu görüş üçün artıq şikayət açılıb.",
+      "WINDOW_CLOSED": "Şikayət müddəti (72 saat) bitib.",
+      "INVALID_BODY": "Şikayəti ən azı 10 simvolla təsvir edin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "review": {
+    "title": "Rəy yazın",
+    "q": "{name} ilə görüşünüz necə keçdi?",
+    "ph": "İstəyə görə: təəssüratınızı yazın…",
+    "submit": "Rəyi göndər",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "NOT_ELIGIBLE": "Bu görüş üçün rəy yazmaq mümkün deyil.",
+      "ALREADY_REVIEWED": "Bu görüş üçün artıq rəy yazmısınız.",
+      "INVALID_BODY": "Ulduz sayını seçin.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "notif": {
+    "title": "Bildirişlər",
+    "empty": "Hələ bildiriş yoxdur."
+  },
+  "sett": {
+    "subtitle": "E-poçt əlavə etsəniz, bildirişlərin surəti e-poçtunuza da göndəriləcək.",
+    "email": "E-poçt (istəyə görə)",
+    "emailPh": "ad@nümunə.az",
+    "save": "Yadda saxla",
+    "errors": {
+      "UNAUTHORIZED": "Sessiya bitib. Yenidən daxil olun.",
+      "EMAIL_TAKEN": "Bu e-poçt başqa hesabda istifadə olunur.",
+      "INVALID_BODY": "Ad ən azı 3 simvol, e-poçt düzgün formatda olmalıdır.",
       "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
     }
   }

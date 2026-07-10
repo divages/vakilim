@@ -3,25 +3,19 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
-import { bakuDateIso, fmtMin, WEEKDAY_LABELS_AZ, weekdayOfIso } from "@/lib/slots";
+import { bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
 import DecisionButtons from "./decision-buttons";
 import { completePastBookings } from "@/lib/bookings";
 import { isJoinable } from "@/lib/call-window";
+import { getTranslations } from "next-intl/server";
 
-const SERVICE_LABELS: Record<string, string> = {
-  VIDEO: "Video görüş",
-  AUDIO: "Səsli zəng",
-  WRITTEN: "Yazılı cavab",
-  DOC_REVIEW: "Sənəd yoxlanışı",
-};
-
-const STATUS_BADGES: Record<string, { label: string; cls: string }> = {
-  REQUESTED: { label: "Təsdiq gözləyir", cls: "bg-amber-100 text-amber-800" },
-  CONFIRMED: { label: "Təsdiqlənib", cls: "bg-emerald/15 text-navy" },
-  DECLINED: { label: "İmtina edilib", cls: "bg-red-100 text-red-700" },
-  CANCELLED: { label: "Müştəri ləğv edib", cls: "bg-gray-100 text-gray-500" },
-  COMPLETED: { label: "Baş tutub", cls: "bg-navy/10 text-navy" },
-  PENDING_PAYMENT: { label: "Ödəniş gözlənilir", cls: "bg-gray-100 text-gray-700" },
+const STATUS_CLS: Record<string, string> = {
+  REQUESTED: "bg-amber-100 text-amber-800",
+  CONFIRMED: "bg-emerald/15 text-navy",
+  DECLINED: "bg-red-100 text-red-700",
+  CANCELLED: "bg-gray-100 text-gray-500",
+  COMPLETED: "bg-navy/10 text-navy",
+  PENDING_PAYMENT: "bg-gray-100 text-gray-700",
 };
 
 function bakuTimeLabel(d: Date): string {
@@ -29,12 +23,14 @@ function bakuTimeLabel(d: Date): string {
   return fmtMin(Math.round((d.getTime() - dayStart) / 60_000));
 }
 
-function when(d: Date): string {
-  const iso = bakuDateIso(d);
-  return `${WEEKDAY_LABELS_AZ[weekdayOfIso(iso)]} · ${iso} · ${bakuTimeLabel(d)}`;
-}
 
 export default async function LawyerBookingsPage() {
+  const t = await getTranslations();
+function when(d: Date): string {
+  const iso = bakuDateIso(d);
+  return `${t(`common.wd.${weekdayOfIso(iso)}`)} · ${iso} · ${bakuTimeLabel(d)}`;
+}
+
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/lawyer/bookings");
 
@@ -77,13 +73,13 @@ export default async function LawyerBookingsPage() {
     .reverse();
 
   const Card = ({ b, actions }: { b: (typeof bookings)[number]; actions?: boolean }) => {
-    const badge = STATUS_BADGES[b.status] ?? STATUS_BADGES.CONFIRMED;
+    const badge = { cls: STATUS_CLS[b.status] ?? STATUS_CLS.CONFIRMED, label: t(`lawB.status.${b.status}`) };
     return (
       <div className="rounded border border-gray-200 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="font-medium text-navy">
-              {b.client.fullName ?? "Müştəri"}
+              {b.client.fullName ?? t("common.client")}
               {b.status === "CONFIRMED" && b.client.phone && (
                 <span className="ml-2 text-sm font-normal text-slate">
                   {b.client.phone}
@@ -91,7 +87,7 @@ export default async function LawyerBookingsPage() {
               )}
             </p>
             <p className="mt-1 text-sm">
-              {SERVICE_LABELS[b.serviceType]} · {b.durationMin} dəq
+              {t(`common.serviceType.${b.serviceType}`)} · {b.durationMin} {t("common.min")}
             </p>
             <p className="mt-1 text-sm">{when(b.startAt)}</p>
           </div>
@@ -109,7 +105,7 @@ export default async function LawyerBookingsPage() {
             href={`/call/${b.id}`}
             className="mt-3 inline-block rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90"
           >
-            Görüşə qoşul
+            {t("bookings.join")}
           </Link>
         )}
         {["REQUESTED", "CONFIRMED", "COMPLETED"].includes(b.status) && (
@@ -117,7 +113,7 @@ export default async function LawyerBookingsPage() {
             href={`/chat/${b.id}`}
             className="mt-3 ml-2 inline-block rounded border border-gray-300 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
           >
-            Yazışma
+            {t("bookings.chat")}
             {(unreadByBooking.get(b.id) ?? 0) > 0 && (
               <span className="ml-2 rounded-full bg-emerald px-1.5 text-xs font-bold text-navy-dark">
                 {unreadByBooking.get(b.id)}
@@ -132,14 +128,14 @@ export default async function LawyerBookingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Görüşlər</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("dash.bookT")}</h1>
 
       <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
-        Təsdiq gözləyən ({requested.length})
+        {t("lawB.reqSection", { n: requested.length })}
       </h2>
       {requested.length === 0 ? (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-          Təsdiq gözləyən sifariş yoxdur.
+          {t("lawB.reqEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-3">
@@ -150,11 +146,11 @@ export default async function LawyerBookingsPage() {
       )}
 
       <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
-        Yaxınlaşan görüşlər ({upcoming.length})
+        {t("lawB.upSection", { n: upcoming.length })}
       </h2>
       {upcoming.length === 0 ? (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-          Yaxınlaşan görüş yoxdur.
+          {t("lawB.upEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-3">
@@ -167,7 +163,7 @@ export default async function LawyerBookingsPage() {
       {rest.length > 0 && (
         <>
           <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
-            Digər
+            {t("lawB.other")}
           </h2>
           <div className="mt-3 space-y-3">
             {rest.map((b) => (

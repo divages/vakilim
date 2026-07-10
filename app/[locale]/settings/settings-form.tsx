@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  EMAIL_TAKEN: "Bu e-poçt başqa hesabda istifadə olunur.",
-  INVALID_BODY: "Ad ən azı 3 simvol, e-poçt düzgün formatda olmalıdır.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function SettingsForm({
   defaultFullName,
@@ -18,6 +12,13 @@ export default function SettingsForm({
   defaultEmail: string;
   phone: string;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("sett.errors.UNAUTHORIZED"),
+    EMAIL_TAKEN: t("sett.errors.EMAIL_TAKEN"),
+    INVALID_BODY: t("sett.errors.INVALID_BODY"),
+    DEFAULT: t("sett.errors.DEFAULT"),
+  };
   const [fullName, setFullName] = useState(defaultFullName);
   const [email, setEmail] = useState(defaultEmail);
   const [error, setError] = useState<string | null>(null);
@@ -59,12 +60,12 @@ export default function SettingsForm({
       }}
     >
       <div>
-        <label className="block text-sm font-medium text-navy">Telefon</label>
+        <label className="block text-sm font-medium text-navy">{t("common.phone")}</label>
         <input value={phone} disabled className={`${inputCls} bg-gray-50 text-gray-400`} />
       </div>
       <div>
         <label htmlFor="fn" className="block text-sm font-medium text-navy">
-          Ad və soyad
+          {t("apply.fullName")}
         </label>
         <input
           id="fn"
@@ -75,24 +76,24 @@ export default function SettingsForm({
       </div>
       <div>
         <label htmlFor="em" className="block text-sm font-medium text-navy">
-          E-poçt (istəyə görə)
+          {t("sett.email")}
         </label>
         <input
           id="em"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="ad@nümunə.az"
+          placeholder={t("sett.emailPh")}
           inputMode="email"
           className={inputCls}
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      {saved && <p className="text-sm text-emerald">Yadda saxlanıldı ✓</p>}
+      {saved && <p className="text-sm text-emerald">{t("common.savedTick")}</p>}
       <button
         disabled={busy}
         className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "…" : "Yadda saxla"}
+        {busy ? "…" : t("sett.save")}
       </button>
     </form>
   );

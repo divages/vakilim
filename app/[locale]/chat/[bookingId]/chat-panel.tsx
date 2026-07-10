@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Msg = {
   id: string;
@@ -9,16 +10,6 @@ type Msg = {
   attachmentName: string | null;
   hasAttachment: boolean;
   createdAt: string;
-};
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  READ_ONLY: "Yazışma müddəti bitib.",
-  EMPTY: "Boş mesaj göndərilə bilməz.",
-  FILE_TOO_LARGE: "Fayl 10 MB-dan böyük ola bilməz.",
-  FILE_TYPE: "Yalnız PDF, şəkil və DOCX faylları göndərilə bilər.",
-  SERVER_CONFIG: "Fayl anbarı konfiqurasiya olunmayıb.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
 };
 
 function timeLabel(iso: string): string {
@@ -39,6 +30,16 @@ export default function ChatPanel({
   meId: string;
   writable: boolean;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("chat.errors.UNAUTHORIZED"),
+    READ_ONLY: t("chat.errors.READ_ONLY"),
+    EMPTY: t("chat.errors.EMPTY"),
+    FILE_TOO_LARGE: t("chat.errors.FILE_TOO_LARGE"),
+    FILE_TYPE: t("chat.errors.FILE_TYPE"),
+    SERVER_CONFIG: t("chat.errors.SERVER_CONFIG"),
+    DEFAULT: t("chat.errors.DEFAULT"),
+  };
   const [messages, setMessages] = useState<Msg[]>([]);
   const [body, setBody] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -105,7 +106,7 @@ export default function ChatPanel({
       <div className="mt-4 flex-1 space-y-2 overflow-y-auto rounded border border-gray-200 p-3">
         {messages.length === 0 && (
           <p className="p-4 text-center text-sm text-slate">
-            Hələ mesaj yoxdur.
+            {t("chat.empty")}
           </p>
         )}
         {messages.map((m) => {
@@ -127,7 +128,7 @@ export default function ChatPanel({
                       mine ? "text-white/90" : "text-navy"
                     }`}
                   >
-                    📎 {m.attachmentName ?? "Fayl"}
+                    📎 {m.attachmentName ?? t("chat.file")}
                   </a>
                 )}
                 <p
@@ -178,14 +179,14 @@ export default function ChatPanel({
             <input
               value={body}
               onChange={(e) => setBody(e.target.value)}
-              placeholder="Mesaj yazın…"
+              placeholder={t("chat.ph")}
               className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
             />
             <button
               disabled={busy || (!body.trim() && !file)}
               className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
             >
-              {busy ? "…" : "Göndər"}
+              {busy ? "…" : t("chat.send")}
             </button>
           </div>
         </form>

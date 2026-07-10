@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NO_PROFILE: "Vəkil profili tapılmadı.",
-  NOT_FOUND: "Sifariş tapılmadı. Səhifəni yeniləyin.",
-  INVALID_STATE: "Bu sifarişin statusu artıq dəyişib. Səhifəni yeniləyin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function DecisionButtons({ bookingId }: { bookingId: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("lawB.errors.UNAUTHORIZED"),
+    NO_PROFILE: t("lawB.errors.NO_PROFILE"),
+    NOT_FOUND: t("lawB.errors.NOT_FOUND"),
+    INVALID_STATE: t("lawB.errors.INVALID_STATE"),
+    DEFAULT: t("lawB.errors.DEFAULT"),
+  };
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +19,7 @@ export default function DecisionButtons({ bookingId }: { bookingId: string }) {
     if (
       action === "DECLINE" &&
       !window.confirm(
-        "İmtina edilsin? Müştəriyə ödənişin tam məbləği geri qaytarılacaq."
+        t("lawB.confirmDecline")
       )
     )
       return;
@@ -52,18 +53,18 @@ export default function DecisionButtons({ bookingId }: { bookingId: string }) {
           disabled={busy}
           className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-50"
         >
-          {busy ? "…" : "Qəbul et"}
+          {busy ? "…" : t("lawB.accept")}
         </button>
         <button
           onClick={() => decide("DECLINE")}
           disabled={busy}
           className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50"
         >
-          İmtina et
+          {t("lawB.decline")}
         </button>
       </div>
       <p className="mt-2 text-xs text-slate">
-        İmtina zamanı məbləğ avtomatik geri qaytarılır.
+        {t("lawB.declineNote")}
       </p>
     </div>
   );

@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { canMessage, isConversationVisible, FOLLOW_UP_HOURS } from "@/lib/messaging";
 import { bakuDateIso, fmtMin } from "@/lib/slots";
 import ChatPanel from "./chat-panel";
+import { getTranslations } from "next-intl/server";
 
 function bakuTimeLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
@@ -16,6 +17,7 @@ export default async function ChatPage({
 }: {
   params: Promise<{ bookingId: string }>;
 }) {
+  const t = await getTranslations();
   const { bookingId } = await params;
 
   const user = await getCurrentUser();
@@ -37,8 +39,8 @@ export default async function ChatPage({
     redirect(isClient ? "/bookings" : "/lawyer/bookings");
 
   const otherName = isClient
-    ? booking.lawyer.user.fullName ?? "Vəkil"
-    : booking.client.fullName ?? "Müştəri";
+    ? booking.lawyer.user.fullName ?? t("common.lawyer")
+    : booking.client.fullName ?? t("common.client");
   const backHref = isClient ? "/bookings" : "/lawyer/bookings";
   const writable = canMessage(booking);
 
@@ -49,7 +51,7 @@ export default async function ChatPage({
           <h1 className="text-lg font-bold text-navy">{otherName}</h1>
           <p className="text-xs text-slate">
             {bakuDateIso(booking.startAt)} · {bakuTimeLabel(booking.startAt)} ·{" "}
-            {booking.durationMin} dəq
+            {booking.durationMin} {t("common.min")}
           </p>
         </div>
         <Link href={backHref} className="text-sm text-slate underline">
@@ -59,8 +61,7 @@ export default async function ChatPage({
 
       {!writable && (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-3 text-xs">
-          Yazışma bağlıdır — görüş bitdikdən {FOLLOW_UP_HOURS} saat sonra yalnız
-          oxumaq mümkündür.
+          {t("chat.closed", { h: FOLLOW_UP_HOURS })}
         </p>
       )}
 

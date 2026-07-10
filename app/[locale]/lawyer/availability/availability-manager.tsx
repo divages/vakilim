@@ -1,19 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { fmtMin, WEEKDAY_LABELS_AZ, WEEKDAY_ORDER } from "@/lib/slots";
+import { fmtMin, WEEKDAY_ORDER } from "@/lib/slots";
+import { useTranslations } from "next-intl";
 
 type Rule = { id: string; weekday: number; startMin: number; endMin: number };
 type Settings = { bookingMode: "INSTANT" | "REQUEST"; bufferMin: number };
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NO_PROFILE: "Əvvəlcə vəkil müraciəti göndərin.",
-  INVALID_BODY: "Vaxt aralığını düzgün seçin (ən azı 15 dəqiqə).",
-  OVERLAP: "Bu vaxt aralığı mövcud qrafiklə üst-üstə düşür.",
-  NOT_FOUND: "Qeyd tapılmadı. Səhifəni yeniləyin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
 
 function toMin(hhmm: string): number {
   const [h, m] = hhmm.split(":").map(Number);
@@ -27,6 +19,15 @@ export default function AvailabilityManager({
   settings: Settings;
   rules: Rule[];
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("avail.errors.UNAUTHORIZED"),
+    NO_PROFILE: t("avail.errors.NO_PROFILE"),
+    INVALID_BODY: t("avail.errors.INVALID_BODY"),
+    OVERLAP: t("avail.errors.OVERLAP"),
+    NOT_FOUND: t("avail.errors.NOT_FOUND"),
+    DEFAULT: t("avail.errors.DEFAULT"),
+  };
   const [bookingMode, setBookingMode] = useState(settings.bookingMode);
   const [bufferMin, setBufferMin] = useState(String(settings.bufferMin));
   const [weekday, setWeekday] = useState("1");
@@ -89,7 +90,7 @@ export default function AvailabilityManager({
   return (
     <div className="mt-8 space-y-6">
       <div className="rounded border border-gray-200 p-4">
-        <p className="text-sm font-medium text-navy">Görüş qəbulu</p>
+        <p className="text-sm font-medium text-navy">{t("avail.mode")}</p>
         <div className="mt-3 space-y-2 text-sm">
           <label className="flex items-center gap-2">
             <input
@@ -98,7 +99,7 @@ export default function AvailabilityManager({
               checked={bookingMode === "REQUEST"}
               onChange={() => setBookingMode("REQUEST")}
             />
-            Təsdiqlə qəbul — hər görüşü özüm təsdiqləyirəm
+            {t("avail.modeReq")}
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -107,13 +108,13 @@ export default function AvailabilityManager({
               checked={bookingMode === "INSTANT"}
               onChange={() => setBookingMode("INSTANT")}
             />
-            Dərhal təsdiq — boş slotlar avtomatik təsdiqlənir
+            {t("avail.modeInstant")}
           </label>
         </div>
         <div className="mt-4 flex items-end gap-3">
           <div>
             <label htmlFor="buffer" className="block text-xs text-slate">
-              Görüşlər arası fasilə
+              {t("avail.buffer")}
             </label>
             <select
               id="buffer"
@@ -123,7 +124,7 @@ export default function AvailabilityManager({
             >
               {[0, 5, 10, 15].map((b) => (
                 <option key={b} value={b}>
-                  {b} dəq
+                  {b} {t("common.min")}
                 </option>
               ))}
             </select>
@@ -135,23 +136,23 @@ export default function AvailabilityManager({
           >
             Yadda saxla
           </button>
-          {saved && <span className="pb-2 text-sm text-emerald">Yadda saxlanıldı ✓</span>}
+          {saved && <span className="pb-2 text-sm text-emerald">{t("common.savedTick")}</span>}
         </div>
       </div>
 
       <div className="rounded border border-gray-200 p-4">
-        <p className="text-sm font-medium text-navy">Həftəlik qrafik</p>
+        <p className="text-sm font-medium text-navy">{t("avail.weekly")}</p>
 
         <div className="mt-3 space-y-2">
           {rules.length === 0 && (
-            <p className="text-sm text-slate">Hələ qrafik əlavə edilməyib.</p>
+            <p className="text-sm text-slate">{t("avail.empty")}</p>
           )}
           {WEEKDAY_ORDER.map((wd) => {
             const dayRules = rules.filter((r) => r.weekday === wd);
             if (dayRules.length === 0) return null;
             return (
               <div key={wd} className="text-sm">
-                <p className="font-medium text-navy">{WEEKDAY_LABELS_AZ[wd]}</p>
+                <p className="font-medium text-navy">{t(`common.wd.${wd}`)}</p>
                 <div className="mt-1 space-y-1">
                   {dayRules.map((r) => (
                     <div
@@ -185,7 +186,7 @@ export default function AvailabilityManager({
         >
           <div>
             <label htmlFor="wd" className="block text-xs text-slate">
-              Gün
+              {t("avail.day")}
             </label>
             <select
               id="wd"
@@ -195,14 +196,14 @@ export default function AvailabilityManager({
             >
               {WEEKDAY_ORDER.map((wd) => (
                 <option key={wd} value={wd}>
-                  {WEEKDAY_LABELS_AZ[wd]}
+                  {t(`common.wd.${wd}`)}
                 </option>
               ))}
             </select>
           </div>
           <div>
             <label htmlFor="ts" className="block text-xs text-slate">
-              Başlanğıc
+              {t("avail.start")}
             </label>
             <input
               id="ts"
@@ -230,7 +231,7 @@ export default function AvailabilityManager({
             disabled={busy}
             className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
           >
-            Əlavə et
+            {t("common.add")}
           </button>
         </form>
 

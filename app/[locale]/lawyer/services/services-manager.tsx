@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { formatAzn } from "@/lib/money";
+import { useTranslations } from "next-intl";
 
 type Service = {
   id: string;
@@ -11,27 +12,20 @@ type Service = {
   active: boolean;
 };
 
-const TYPE_LABELS: Record<Service["type"], string> = {
-  VIDEO: "Video görüş",
-  AUDIO: "Səsli zəng",
-  WRITTEN: "Yazılı cavab",
-  DOC_REVIEW: "Sənəd yoxlanışı",
-};
-
 const CALL_TYPES: Service["type"][] = ["VIDEO", "AUDIO"];
 const DURATIONS = [15, 30, 60];
 
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NO_PROFILE: "Əvvəlcə vəkil müraciəti göndərin.",
-  INVALID_BODY: "Sahələri düzgün doldurun.",
-  INVALID_DURATION: "Görüş növü üçün müddət seçin.",
-  TOO_MANY_SERVICES: "Xidmət sayı limitə çatıb.",
-  NOT_FOUND: "Xidmət tapılmadı. Səhifəni yeniləyin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
-
 export default function ServicesManager({ services }: { services: Service[] }) {
+  const tr = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: tr("svc.errors.UNAUTHORIZED"),
+    NO_PROFILE: tr("svc.errors.NO_PROFILE"),
+    INVALID_BODY: tr("svc.errors.INVALID_BODY"),
+    INVALID_DURATION: tr("svc.errors.INVALID_DURATION"),
+    TOO_MANY_SERVICES: tr("svc.errors.TOO_MANY_SERVICES"),
+    NOT_FOUND: tr("svc.errors.NOT_FOUND"),
+    DEFAULT: tr("svc.errors.DEFAULT"),
+  };
   const [type, setType] = useState<Service["type"]>("VIDEO");
   const [durationMin, setDurationMin] = useState("30");
   const [priceAzn, setPriceAzn] = useState("");
@@ -64,7 +58,7 @@ export default function ServicesManager({ services }: { services: Service[] }) {
 
   async function add() {
     if (priceAzn === "" || Number(priceAzn) < 1) {
-      setError("Qiyməti manatla yazın (ən azı 1).");
+      setError(tr("svc.ePrice"));
       return;
     }
     const ok = await call("/api/lawyer/services", {
@@ -87,7 +81,7 @@ export default function ServicesManager({ services }: { services: Service[] }) {
   }
 
   async function remove(s: Service) {
-    if (!window.confirm("Bu xidmət silinsin?")) return;
+    if (!window.confirm(tr("svc.confirmDel"))) return;
     const ok = await call(`/api/lawyer/services/${s.id}`, { method: "DELETE" });
     if (ok) window.location.reload();
   }
@@ -101,11 +95,11 @@ export default function ServicesManager({ services }: { services: Service[] }) {
           add();
         }}
       >
-        <p className="text-sm font-medium text-navy">Yeni xidmət</p>
+        <p className="text-sm font-medium text-navy">{tr("svc.new")}</p>
         <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div>
             <label htmlFor="stype" className="block text-xs text-slate">
-              Növ
+              {tr("svc.type")}
             </label>
             <select
               id="stype"
@@ -113,16 +107,16 @@ export default function ServicesManager({ services }: { services: Service[] }) {
               onChange={(e) => setType(e.target.value as Service["type"])}
               className="mt-1 w-full rounded border border-gray-300 px-2 py-2 text-sm outline-none focus:border-navy"
             >
-              {(Object.keys(TYPE_LABELS) as Service["type"][]).map((t) => (
+              {(["VIDEO", "AUDIO", "WRITTEN", "DOC_REVIEW"] as Service["type"][]).map((t) => (
                 <option key={t} value={t}>
-                  {TYPE_LABELS[t]}
+                  {tr(`common.serviceType.${t}`)}
                 </option>
               ))}
             </select>
           </div>
           <div>
             <label htmlFor="sdur" className="block text-xs text-slate">
-              Müddət
+              {tr("svc.duration")}
             </label>
             <select
               id="sdur"
@@ -133,14 +127,14 @@ export default function ServicesManager({ services }: { services: Service[] }) {
             >
               {DURATIONS.map((d) => (
                 <option key={d} value={d}>
-                  {d} dəq
+                  {d} {tr("common.min")}
                 </option>
               ))}
             </select>
           </div>
           <div>
             <label htmlFor="sprice" className="block text-xs text-slate">
-              Qiymət (₼)
+              {tr("svc.price")}
             </label>
             <input
               id="sprice"
@@ -159,14 +153,14 @@ export default function ServicesManager({ services }: { services: Service[] }) {
           disabled={busy}
           className="mt-4 rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
-          {busy ? "…" : "Əlavə et"}
+          {busy ? "…" : tr("common.add")}
         </button>
       </form>
 
       <div className="mt-6 space-y-3">
         {services.length === 0 && (
           <p className="rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-            Hələ xidmət əlavə etməmisiniz.
+            {tr("svc.empty")}
           </p>
         )}
         {services.map((s) => (
@@ -176,8 +170,8 @@ export default function ServicesManager({ services }: { services: Service[] }) {
           >
             <div>
               <p className="text-sm font-medium text-navy">
-                {TYPE_LABELS[s.type]}
-                {s.durationMin ? ` · ${s.durationMin} dəq` : ""}
+                {tr(`common.serviceType.${s.type}`)}
+                {s.durationMin ? ` · ${s.durationMin} ${tr("common.min")}` : ""}
               </p>
               <p className="text-sm">{formatAzn(s.priceQepik)}</p>
             </div>

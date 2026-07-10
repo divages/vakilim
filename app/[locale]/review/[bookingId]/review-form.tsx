@@ -1,23 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
-const TAGS = [
-  { slug: "clear", label: "Aydın izahat" },
-  { slug: "on_time", label: "Vaxtında" },
-  { slug: "solved", label: "Problemi həll etdi" },
-  { slug: "professional", label: "Peşəkar yanaşma" },
-];
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  NOT_ELIGIBLE: "Bu görüş üçün rəy yazmaq mümkün deyil.",
-  ALREADY_REVIEWED: "Bu görüş üçün artıq rəy yazmısınız.",
-  INVALID_BODY: "Ulduz sayını seçin.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+const TAGS = ["clear", "on_time", "solved", "professional"] as const;
 
 export default function ReviewForm({ bookingId }: { bookingId: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("review.errors.UNAUTHORIZED"),
+    NOT_ELIGIBLE: t("review.errors.NOT_ELIGIBLE"),
+    ALREADY_REVIEWED: t("review.errors.ALREADY_REVIEWED"),
+    INVALID_BODY: t("review.errors.INVALID_BODY"),
+    DEFAULT: t("review.errors.DEFAULT"),
+  };
   const [stars, setStars] = useState(0);
   const [tags, setTags] = useState<string[]>([]);
   const [text, setText] = useState("");
@@ -79,18 +75,18 @@ export default function ReviewForm({ bookingId }: { bookingId: string }) {
       </div>
 
       <div className="flex flex-wrap justify-center gap-2">
-        {TAGS.map((t) => (
+        {TAGS.map((tag) => (
           <button
-            key={t.slug}
+            key={tag}
             type="button"
-            onClick={() => toggleTag(t.slug)}
+            onClick={() => toggleTag(tag)}
             className={`rounded-full border px-3 py-1 text-sm ${
-              tags.includes(t.slug)
+              tags.includes(tag)
                 ? "border-navy bg-navy text-white"
                 : "border-gray-300 text-slate hover:border-navy"
             }`}
           >
-            {t.label}
+            {t(`common.tags.${tag}`)}
           </button>
         ))}
       </div>
@@ -99,7 +95,7 @@ export default function ReviewForm({ bookingId }: { bookingId: string }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={4}
-        placeholder="İstəyə görə: təəssüratınızı yazın…"
+        placeholder={t("review.ph")}
         className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
       />
 
@@ -109,7 +105,7 @@ export default function ReviewForm({ bookingId }: { bookingId: string }) {
         disabled={busy}
         className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Göndərilir…" : "Rəyi göndər"}
+        {busy ? t("common.sending") : t("review.submit")}
       </button>
     </form>
   );

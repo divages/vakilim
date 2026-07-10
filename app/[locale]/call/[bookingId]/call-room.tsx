@@ -3,18 +3,7 @@
 import { useState } from "react";
 import { LiveKitRoom, VideoConference } from "@livekit/components-react";
 import "@livekit/components-styles";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  FORBIDDEN: "Bu görüşə giriş icazəniz yoxdur.",
-  NOT_FOUND: "Görüş tapılmadı.",
-  INVALID_STATE: "Görüş aktiv deyil.",
-  TOO_EARLY: "Görüş hələ başlamayıb. Bir az sonra yenidən cəhd edin.",
-  TOO_LATE: "Görüşün vaxtı bitib.",
-  CONSENT_REQUIRED: "Davam etmək üçün razılıq tələb olunur.",
-  SERVER_CONFIG: "Video sistemi hələ qurulmayıb (LiveKit açarları çatışmır).",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function CallRoom({
   bookingId,
@@ -27,6 +16,18 @@ export default function CallRoom({
   otherName: string;
   durationMin: number;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("call.errors.UNAUTHORIZED"),
+    FORBIDDEN: t("call.errors.FORBIDDEN"),
+    NOT_FOUND: t("call.errors.NOT_FOUND"),
+    INVALID_STATE: t("call.errors.INVALID_STATE"),
+    TOO_EARLY: t("call.errors.TOO_EARLY"),
+    TOO_LATE: t("call.errors.TOO_LATE"),
+    CONSENT_REQUIRED: t("call.errors.CONSENT_REQUIRED"),
+    SERVER_CONFIG: t("call.errors.SERVER_CONFIG"),
+    DEFAULT: t("call.errors.DEFAULT"),
+  };
   const [conn, setConn] = useState<{ token: string; url: string } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,12 +58,10 @@ export default function CallRoom({
     return (
       <div className="mx-auto max-w-md px-4 py-24">
         <h1 className="text-xl font-bold text-navy">
-          {otherName} ilə görüş · {durationMin} dəq
+          {t("call.with", { name: otherName })} · {durationMin} {t("common.min")}
         </h1>
         <div className="mt-6 rounded border border-gray-200 bg-gray-50 p-4 text-sm leading-relaxed">
-          Görüş keyfiyyətə nəzarət və mübahisələrin həlli məqsədilə qeydə
-          alına bilər. Davam etməklə buna razılıq verirsiniz. Kamera və
-          mikrofonunuza icazə istəniləcək.
+          {t("call.consent")}
         </div>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
         <button
@@ -70,7 +69,7 @@ export default function CallRoom({
           disabled={busy}
           className="mt-6 w-full rounded bg-navy py-3 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
         >
-          {busy ? "Qoşulur…" : "Razıyam və qoşul"}
+          {busy ? t("call.joining") : t("call.agreeJoin")}
         </button>
       </div>
     );

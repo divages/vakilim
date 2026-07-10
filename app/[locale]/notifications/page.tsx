@@ -2,8 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getTranslations, getLocale } from "next-intl/server";
+import { intlTag } from "@/lib/locale";
 
 export default async function NotificationsPage() {
+  const t = await getTranslations();
+  const locale = await getLocale();
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/notifications");
 
@@ -21,11 +25,11 @@ export default async function NotificationsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Bildirişlər</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("notif.title")}</h1>
 
       {notifications.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Hələ bildiriş yoxdur.
+          {t("notif.empty")}
         </p>
       ) : (
         <div className="mt-6 space-y-2">
@@ -42,7 +46,7 @@ export default async function NotificationsPage() {
                   <p className="mt-1 text-sm">{n.body}</p>
                 </div>
                 <p className="whitespace-nowrap text-xs text-slate">
-                  {n.createdAt.toLocaleString("az-AZ", {
+                  {n.createdAt.toLocaleString(intlTag(locale), {
                     timeZone: "Asia/Baku",
                     day: "2-digit",
                     month: "2-digit",
@@ -56,7 +60,7 @@ export default async function NotificationsPage() {
                   href={n.link}
                   className="mt-2 inline-block text-sm text-emerald underline"
                 >
-                  Bax
+                  {t("common.view")}
                 </Link>
               )}
             </div>

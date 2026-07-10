@@ -1,26 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Area = { id: string; nameAz: string };
 
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Zəhmət olmasa yenidən daxil olun.",
-  ALREADY_APPLIED: "Siz artıq müraciət etmisiniz.",
-  INVALID_AREAS: "Seçilmiş fəaliyyət sahələri düzgün deyil.",
-  INVALID_BODY: "Bütün sahələri düzgün doldurun.",
-  FILE_REQUIRED: "Hər iki sənədi (lisenziya və şəxsiyyət vəsiqəsi) yükləyin.",
-  FILE_TOO_LARGE: "Fayl 10 MB-dan böyük ola bilməz.",
-  FILE_TYPE: "Yalnız PDF, JPG, PNG və WEBP faylları qəbul olunur.",
-  SERVER_CONFIG: "Fayl anbarı konfiqurasiya olunmayıb.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
-
-const LANGS = [
-  { code: "az", label: "Azərbaycan" },
-  { code: "ru", label: "Rus" },
-  { code: "en", label: "İngilis" },
-];
+const LANGS = ["az", "ru", "en"] as const;
 
 export default function ApplyForm({
   areas,
@@ -29,6 +14,18 @@ export default function ApplyForm({
   areas: Area[];
   defaultFullName: string;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("apply.errors.UNAUTHORIZED"),
+    ALREADY_APPLIED: t("apply.errors.ALREADY_APPLIED"),
+    INVALID_AREAS: t("apply.errors.INVALID_AREAS"),
+    INVALID_BODY: t("apply.errors.INVALID_BODY"),
+    FILE_REQUIRED: t("apply.errors.FILE_REQUIRED"),
+    FILE_TOO_LARGE: t("apply.errors.FILE_TOO_LARGE"),
+    FILE_TYPE: t("apply.errors.FILE_TYPE"),
+    SERVER_CONFIG: t("apply.errors.SERVER_CONFIG"),
+    DEFAULT: t("apply.errors.DEFAULT"),
+  };
   const [fullName, setFullName] = useState(defaultFullName);
   const [type, setType] = useState<"ADVOCATE" | "LICENSED_LAWYER">("ADVOCATE");
   const [licenseNo, setLicenseNo] = useState("");
@@ -47,19 +44,19 @@ export default function ApplyForm({
   }
 
   function localCheck(): string | null {
-    if (fullName.trim().length < 3) return "Ad və soyadınızı tam yazın.";
-    if (licenseNo.trim().length < 2) return "Lisenziya / vəsiqə nömrəsini yazın.";
+    if (fullName.trim().length < 3) return t("apply.eFullName");
+    if (licenseNo.trim().length < 2) return t("apply.eLicense");
     if (yearsExperience === "" || Number(yearsExperience) < 0)
-      return "Təcrübə ilini qeyd edin (0 ola bilər).";
+      return t("apply.eYears");
     for (const l of languages as ("az" | "ru" | "en")[]) {
       if (bios[l].trim().length < 20)
-        return `Seçdiyiniz hər dil üçün ən azı 20 simvolluq təqdimat yazın (${l.toUpperCase()}).`;
+        return t("apply.eBio", { lang: l.toUpperCase() });
     }
-    if (languages.length === 0) return "Ən azı bir dil seçin.";
-    if (areaIds.length === 0) return "Ən azı bir fəaliyyət sahəsi seçin.";
-    if (areaIds.length > 5) return "Ən çoxu 5 fəaliyyət sahəsi seçilə bilər.";
-    if (!licenseDoc) return "Lisenziya / vəsiqə sənədini yükləyin.";
-    if (!idDoc) return "Şəxsiyyət vəsiqəsinin skanını yükləyin.";
+    if (languages.length === 0) return t("apply.eLangs");
+    if (areaIds.length === 0) return t("apply.eAreas");
+    if (areaIds.length > 5) return t("apply.eAreasMax");
+    if (!licenseDoc) return t("apply.eLicDoc");
+    if (!idDoc) return t("apply.eIdDoc");
     return null;
   }
 
@@ -116,7 +113,7 @@ export default function ApplyForm({
     >
       <div>
         <label htmlFor="fullName" className={labelCls}>
-          Ad və soyad
+          {t("apply.fullName")}
         </label>
         <input
           id="fullName"
@@ -137,7 +134,7 @@ export default function ApplyForm({
               checked={type === "ADVOCATE"}
               onChange={() => setType("ADVOCATE")}
             />
-            Vəkil (Vəkillər Kollegiyasının üzvü)
+            {t("common.lawyerTypeFull.ADVOCATE")}
           </label>
           <label className="flex items-center gap-2">
             <input
@@ -146,7 +143,7 @@ export default function ApplyForm({
               checked={type === "LICENSED_LAWYER"}
               onChange={() => setType("LICENSED_LAWYER")}
             />
-            Hüquqşünas
+            {t("common.lawyerTypeFull.LICENSED_LAWYER")}
           </label>
         </div>
       </div>
@@ -154,7 +151,7 @@ export default function ApplyForm({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div>
           <label htmlFor="licenseNo" className={labelCls}>
-            Lisenziya / vəsiqə №
+            {t("apply.licenseNo")}
           </label>
           <input
             id="licenseNo"
@@ -165,7 +162,7 @@ export default function ApplyForm({
         </div>
         <div>
           <label htmlFor="years" className={labelCls}>
-            Təcrübə (il)
+            {t("apply.years")}
           </label>
           <input
             id="years"
@@ -179,7 +176,7 @@ export default function ApplyForm({
         </div>
         <div>
           <label htmlFor="city" className={labelCls}>
-            Şəhər
+            {t("apply.city")}
           </label>
           <input
             id="city"
@@ -191,10 +188,9 @@ export default function ApplyForm({
       </div>
 
       <div>
-        <span className={labelCls}>Haqqınızda — seçdiyiniz hər dildə</span>
+        <span className={labelCls}>{t("apply.biosTitle")}</span>
         <p className="mt-1 text-xs text-slate">
-          İddia etdiyiniz hər dil üçün qısa təqdimat yazın (ən azı 20 simvol)
-          — müştərilər profilinizi həmin dildə görəcək.
+          {t("apply.biosHelp")}
         </p>
         {(["az", "ru", "en"] as const)
           .filter((l) => languages.includes(l))
@@ -217,23 +213,23 @@ export default function ApplyForm({
       </div>
 
       <div>
-        <span className={labelCls}>Dillər</span>
+        <span className={labelCls}>{t("apply.langs")}</span>
         <div className="mt-2 flex gap-6 text-sm">
           {LANGS.map((l) => (
-            <label key={l.code} className="flex items-center gap-2">
+            <label key={l} className="flex items-center gap-2">
               <input
                 type="checkbox"
-                checked={languages.includes(l.code)}
-                onChange={() => toggle(languages, l.code, setLanguages)}
+                checked={languages.includes(l)}
+                onChange={() => toggle(languages, l, setLanguages)}
               />
-              {l.label}
+              {t(`common.langName.${l}`)}
             </label>
           ))}
         </div>
       </div>
 
       <div>
-        <span className={labelCls}>Fəaliyyət sahələri (1–5)</span>
+        <span className={labelCls}>{t("apply.areas")}</span>
         <div className="mt-2 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
           {areas.map((a) => (
             <label key={a.id} className="flex items-center gap-2">
@@ -249,17 +245,17 @@ export default function ApplyForm({
       </div>
 
       <div>
-        <span className={labelCls}>Təsdiqedici sənədlər</span>
+        <span className={labelCls}>{t("apply.docs")}</span>
         <p className="mt-1 text-xs text-slate">
-          Yalnız yoxlama üçün istifadə olunur, ictimai profildə görünmür.
+          {t("apply.docsNote")}
         </p>
         <div className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
             <span className="font-medium text-navy">
-              📎 Lisenziya / vəsiqə
+              📎 {t("apply.licDoc")}
             </span>
             <span className="mt-1 block truncate text-xs text-slate">
-              {licenseDoc ? licenseDoc.name : "PDF və ya şəkil seçin"}
+              {licenseDoc ? licenseDoc.name : "PDF / JPG / PNG"}
             </span>
             <input
               type="file"
@@ -270,10 +266,10 @@ export default function ApplyForm({
           </label>
           <label className="cursor-pointer rounded border border-dashed border-gray-300 p-3 text-sm hover:border-navy">
             <span className="font-medium text-navy">
-              📎 Şəxsiyyət vəsiqəsi
+              📎 {t("apply.idDoc")}
             </span>
             <span className="mt-1 block truncate text-xs text-slate">
-              {idDoc ? idDoc.name : "PDF və ya şəkil seçin"}
+              {idDoc ? idDoc.name : "PDF / JPG / PNG"}
             </span>
             <input
               type="file"
@@ -291,7 +287,7 @@ export default function ApplyForm({
         disabled={busy}
         className="w-full rounded bg-navy py-2.5 font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "Göndərilir…" : "Müraciət et"}
+        {busy ? t("common.sending") : t("apply.submit")}
       </button>
     </form>
   );

@@ -3,11 +3,12 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
   generateSlots,
-  WEEKDAY_LABELS_AZ,
 } from "@/lib/slots";
 import AvailabilityManager from "./availability-manager";
+import { getTranslations } from "next-intl/server";
 
 export default async function AvailabilityPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user) redirect("/login?next=/lawyer/availability");
 
@@ -52,10 +53,9 @@ export default async function AvailabilityPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Qrafik və mövcudluq</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("dash.availT")}</h1>
       <p className="mt-2 text-sm">
-        Həftəlik iş saatlarınızı təyin edin — sistem boş slotları avtomatik
-        hesablayır.
+        {t("avail.subtitle")}
       </p>
 
       <AvailabilityManager
@@ -67,18 +67,18 @@ export default async function AvailabilityPage() {
       />
 
       <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
-        Önizləmə — növbəti 7 gün ({previewDuration} dəq görüş üçün)
+        {t("avail.preview", { d: previewDuration })}
       </h2>
       {byDay.size === 0 ? (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-          Qrafik əlavə edin — boş slotlar burada görünəcək.
+          {t("avail.previewEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-3">
           {[...byDay.entries()].map(([dateIso, day]) => (
             <div key={dateIso} className="rounded border border-gray-200 p-3">
               <p className="text-sm font-medium text-navy">
-                {WEEKDAY_LABELS_AZ[day.weekday]} · {dateIso}
+                {t(`common.wd.${day.weekday}`)} · {dateIso}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {day.labels.map((l) => (

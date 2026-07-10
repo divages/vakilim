@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  UNAUTHORIZED: "Sessiya bitib. Yenidən daxil olun.",
-  INVALID_STATE: "Bu şikayətin statusu dəyişib. Səhifəni yeniləyin.",
-  INVALID_BODY: "Cavabı ən azı 10 simvolla yazın.",
-  NOT_FOUND: "Şikayət tapılmadı.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
-};
+import { useTranslations } from "next-intl";
 
 export default function ResponseForm({ disputeId }: { disputeId: string }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    UNAUTHORIZED: t("lawD.errors.UNAUTHORIZED"),
+    INVALID_STATE: t("lawD.errors.INVALID_STATE"),
+    INVALID_BODY: t("lawD.errors.INVALID_BODY"),
+    NOT_FOUND: t("lawD.errors.NOT_FOUND"),
+    DEFAULT: t("lawD.errors.DEFAULT"),
+  };
   const [text, setText] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -49,7 +50,7 @@ export default function ResponseForm({ disputeId }: { disputeId: string }) {
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={3}
-        placeholder="Baş verənlər barədə izahınızı yazın…"
+        placeholder={t("lawD.ph")}
         className="w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
       />
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
@@ -57,7 +58,7 @@ export default function ResponseForm({ disputeId }: { disputeId: string }) {
         disabled={busy || text.trim().length < 10}
         className="mt-2 rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark disabled:opacity-50"
       >
-        {busy ? "…" : "Cavab göndər"}
+        {busy ? "…" : t("lawD.send")}
       </button>
     </form>
   );
