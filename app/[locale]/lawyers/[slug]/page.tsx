@@ -5,6 +5,7 @@ import { formatAzn } from "@/lib/money";
 import { getCurrentUser } from "@/lib/auth";
 import BookingWidget from "./booking-widget";
 import Avatar from "@/components/avatar";
+import FavoriteButton from "@/components/favorite-button";
 
 async function loadProfile(slug: string) {
   return prisma.lawyerProfile.findFirst({
@@ -86,6 +87,19 @@ export default async function LawyerProfilePage({
       priceQepik: s.priceQepik,
     }));
 
+  const favInitial =
+    viewer?.role === "CLIENT"
+      ? !!(await prisma.favorite.findUnique({
+          where: {
+            userId_lawyerProfileId: {
+              userId: viewer.id,
+              lawyerProfileId: profile.id,
+            },
+          },
+          select: { id: true },
+        }))
+      : null;
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
       <div className="flex items-start gap-6">
@@ -103,6 +117,9 @@ export default async function LawyerProfilePage({
             <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
               {t("profile.verified")} ✓
             </span>
+            {favInitial !== null && (
+              <FavoriteButton profileId={profile.id} initial={favInitial} />
+            )}
           </div>
           <p className="mt-1 text-sm text-slate">{t(`common.lawyerTypeFull.${profile.type}`)}</p>
           <p className="mt-1 text-sm text-slate">

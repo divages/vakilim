@@ -12,7 +12,8 @@
     "admFlags": "Moderation",
     "admDisp": "Disputes",
     "admTpl": "Templates",
-    "admRev": "Reviews"
+    "admRev": "Reviews",
+    "favorites": "Favorites"
   },
   "footer": {
     "terms": "Terms",
@@ -735,5 +736,9 @@
     "nfTitle": "Page not found",
     "nfBody": "This page doesn't exist or has moved.",
     "goHome": "Back to home"
+  },
+  "fav": {
+    "title": "Favorites",
+    "empty": "No favorite lawyers yet — tap ♡ in the directory."
   }
 }

@@ -71,9 +71,14 @@ export default async function LocaleLayout({
                   {t("documents")}
                 </Link>
                 {user?.role === "CLIENT" && (
-                  <Link href="/bookings" className="font-medium text-slate-600 hover:text-navy">
-                    {t("myBookings")}
-                  </Link>
+                  <>
+                    <Link href="/bookings" className="font-medium text-slate-600 hover:text-navy">
+                      {t("myBookings")}
+                    </Link>
+                    <Link href="/favorites" className="font-medium text-slate-600 hover:text-navy">
+                      {t("favorites")}
+                    </Link>
+                  </>
                 )}
                 {user?.role === "ADMIN" ? (
                   <>

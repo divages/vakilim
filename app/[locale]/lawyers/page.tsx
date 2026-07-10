@@ -6,6 +6,8 @@ import { rankLawyers, type SortMode } from "@/lib/ranking";
 import { getTranslations } from "next-intl/server";
 import Avatar from "@/components/avatar";
 import { generateSlots, bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
+import { getCurrentUser } from "@/lib/auth";
+import FavoriteButton from "@/components/favorite-button";
 
 export const metadata = {
   title: "Vəkillər — Vakilim.az",
@@ -168,6 +170,18 @@ export default async function LawyersPage({
   const busyBy = new Map<string, typeof allBusy>();
   for (const b of allBusy)
     (busyBy.get(b.lawyerId) ?? busyBy.set(b.lawyerId, []).get(b.lawyerId)!).push(b);
+  const viewer = await getCurrentUser();
+  const favSet =
+    viewer?.role === "CLIENT" && ids.length > 0
+      ? new Set(
+          (
+            await prisma.favorite.findMany({
+              where: { userId: viewer.id, lawyerProfileId: { in: ids } },
+              select: { lawyerProfileId: true },
+            })
+          ).map((f) => f.lawyerProfileId)
+        )
+      : null;
   const nextLabel = new Map<string, string>();
   for (const c of ranked) {
     if (!c.minSvcDuration) continue;
@@ -360,6 +374,13 @@ export default async function LawyersPage({
                   ))}
                 </div>
               </div>
+              {favSet && (
+                <FavoriteButton
+                  profileId={c.id}
+                  initial={favSet.has(c.id)}
+                  className="self-start"
+                />
+              )}
             </Link>
           ))}
         </div>

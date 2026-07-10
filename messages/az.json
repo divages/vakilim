@@ -12,7 +12,8 @@
     "admFlags": "Moderasiya",
     "admDisp": "Mübahisələr",
     "admTpl": "Şablonlar",
-    "admRev": "Rəylər"
+    "admRev": "Rəylər",
+    "favorites": "Sevimlilər"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -735,5 +736,9 @@
     "nfTitle": "Səhifə tapılmadı",
     "nfBody": "Axtardığınız səhifə mövcud deyil və ya köçürülüb.",
     "goHome": "Ana səhifəyə qayıt"
+  },
+  "fav": {
+    "title": "Sevimlilər",
+    "empty": "Hələ sevimli vəkiliniz yoxdur — kataloqda ♡ işarəsinə toxunun."
   }
 }

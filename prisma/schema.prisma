@@ -77,6 +77,7 @@ model User {
   bookings      Booking[]
   messages      Message[]
   notifications Notification[]
+  favorites     Favorite[]
 }
 
 model Session {
@@ -140,6 +141,7 @@ model LawyerProfile {
   availabilityRules  AvailabilityRule[]
   bookings           Booking[]
   reviews            Review[]
+  favoritedBy   Favorite[]
 }
 
 model LawyerPracticeArea {
@@ -356,5 +358,17 @@ model DocOrder {
   paidAt            DateTime?
   createdAt         DateTime        @default(now())
 
+  @@index([userId, createdAt])
+}
+
+model Favorite {
+  id              String        @id @default(cuid())
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lawyerProfileId String
+  lawyer          LawyerProfile @relation(fields: [lawyerProfileId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+
+  @@unique([userId, lawyerProfileId])
   @@index([userId, createdAt])
 }
