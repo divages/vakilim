@@ -119,6 +119,14 @@ function when(d: Date): string {
             {t("bookings.join")}
           </Link>
         )}
+        {b.status === "CONFIRMED" && (
+          <a
+            href={`/api/bookings/${b.id}/calendar`}
+            className="mt-3 ml-2 inline-block rounded-xl border border-gray-100 px-4 py-2 text-sm font-medium text-navy hover:border-navy"
+          >
+            {t("bookings.addCal")}
+          </a>
+        )}
         {["REQUESTED", "CONFIRMED", "COMPLETED"].includes(b.status) && (
           <Link
             href={`/chat/${b.id}`}

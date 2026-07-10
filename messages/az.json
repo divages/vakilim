@@ -240,7 +240,8 @@
     "disputeResolved": "Mübahisə həll olunub",
     "disputeOpen": "Mübahisə baxılır",
     "reschedule": "Vaxtı dəyiş",
-    "unpaid": "ödəniş edilməyib"
+    "unpaid": "ödəniş edilməyib",
+    "addCal": "Təqvimə əlavə et"
   },
   "cancel": {
     "confirm": "Görüş ləğv edilsin? Geri qaytarılacaq məbləğ: {refund}",
@@ -740,5 +741,9 @@
   "fav": {
     "title": "Sevimlilər",
     "empty": "Hələ sevimli vəkiliniz yoxdur — kataloqda ♡ işarəsinə toxunun."
+  },
+  "cal": {
+    "summary": "{name} ilə hüquqi məsləhət — Vakilim.az",
+    "desc": "Görüşə qoşulmaq üçün linkə keçin. Qoşulma görüşdən 10 dəqiqə əvvəl açılır."
   }
 }

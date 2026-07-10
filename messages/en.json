@@ -240,7 +240,8 @@
     "disputeResolved": "Dispute resolved",
     "disputeOpen": "Dispute under review",
     "reschedule": "Reschedule",
-    "unpaid": "unpaid"
+    "unpaid": "unpaid",
+    "addCal": "Add to calendar"
   },
   "cancel": {
     "confirm": "Cancel this meeting? Refund amount: {refund}",
@@ -740,5 +741,9 @@
   "fav": {
     "title": "Favorites",
     "empty": "No favorite lawyers yet — tap ♡ in the directory."
+  },
+  "cal": {
+    "summary": "Legal consultation with {name} — Vakilim.az",
+    "desc": "Open the link to join. Joining opens 10 minutes before the meeting."
   }
 }
