@@ -96,8 +96,7 @@ export async function POST(
 
   await notifyUser(booking.lawyer.userId, {
     type: "BOOKING_RESCHEDULED",
-    title: "Görüş vaxtı dəyişdirildi",
-    body: `${oldLabel} → ${whenLabel(match.startAt)}`,
+    params: { from: oldLabel, to: whenLabel(match.startAt) },
     link: "/lawyer/bookings",
   });
 

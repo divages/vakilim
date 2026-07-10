@@ -611,5 +611,76 @@
       "FIELDS_DUPLICATE": "Ключи полей повторяются.",
       "DEFAULT": "Произошла ошибка."
     }
+  },
+  "notifT": {
+    "BOOKING_ACCEPTED": {
+      "title": "Встреча подтверждена",
+      "body": "Юрист принял встречу · {when}"
+    },
+    "BOOKING_DECLINED": {
+      "title": "Юрист отказал",
+      "body": "Встреча {when} не состоится — оплата возвращается полностью."
+    },
+    "NEW_BOOKING_REQUEST": {
+      "title": "Новый заказ — ждёт подтверждения",
+      "body": "{client} · {when}"
+    },
+    "NEW_BOOKING": {
+      "title": "Новая встреча подтверждена",
+      "body": "{client} · {when}"
+    },
+    "BOOKING_CANCELLED": {
+      "title": "Встреча отменена",
+      "body": "Клиент отменил встречу {when}."
+    },
+    "BOOKING_RESCHEDULED": {
+      "title": "Время встречи изменено",
+      "body": "{from} → {to}"
+    },
+    "DISPUTE_OPENED": {
+      "title": "Новая жалоба",
+      "body": "По встрече {when} открыта жалоба — срок ответа 2 дня."
+    },
+    "DISPUTE_RESOLVED_REFUND": {
+      "title": "Спор решён",
+      "body": "Решение: возврат {amount}."
+    },
+    "DISPUTE_RESOLVED_DISMISSED": {
+      "title": "Спор решён",
+      "body": "Решение: жалоба отклонена."
+    },
+    "NEW_REVIEW": {
+      "title": "Новый отзыв",
+      "body": "В вашем профиле новый отзыв: {stars}."
+    },
+    "NEW_MESSAGE": {
+      "title": "Новое сообщение",
+      "body": "{sender} написал(а) вам."
+    },
+    "REQUEST_EXPIRED_CLIENT": {
+      "title": "Заказ остался без ответа",
+      "body": "Юрист не ответил за {hours} ч — оплата возвращается полностью."
+    },
+    "REQUEST_EXPIRED_LAWYER": {
+      "title": "Срок заказа истёк",
+      "body": "Заказ на {when} отменён, так как остался без ответа."
+    },
+    "REMINDER_24H": {
+      "title": "Встреча завтра",
+      "body": "Напоминание: ваша встреча {when}."
+    },
+    "REMINDER_1H": {
+      "title": "До встречи меньше часа",
+      "body": "Встреча начнётся {when} — подключение скоро откроется."
+    },
+    "DISPUTE_OVERDUE_LAWYER": {
+      "title": "Срок ответа на жалобу истёк",
+      "body": "Ваш ответ задерживается — решение может быть принято без него."
+    },
+    "DISPUTE_OVERDUE_ADMIN": {
+      "title": "Юрист не ответил на жалобу",
+      "body": "Срок ответа {hours} ч истёк — можно выносить решение."
+    },
+    "emailLink": "Ссылка"
   }
 }

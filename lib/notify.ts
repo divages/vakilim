@@ -2,32 +2,54 @@ import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email";
 import { bakuDateIso, fmtMin } from "@/lib/slots";
 import { formatAzn } from "@/lib/money";
+import { renderNotification, type NotifParams } from "@/lib/notify-render";
 
 export function whenLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
   return `${bakuDateIso(d)} ${fmtMin(Math.round((d.getTime() - dayStart) / 60_000))}`;
 }
 
-type NotifyArgs = { type: string; title: string; body: string; link?: string };
+export type NotifType =
+  | "BOOKING_ACCEPTED"
+  | "BOOKING_DECLINED"
+  | "NEW_BOOKING_REQUEST"
+  | "NEW_BOOKING"
+  | "BOOKING_CANCELLED"
+  | "BOOKING_RESCHEDULED"
+  | "DISPUTE_OPENED"
+  | "DISPUTE_RESOLVED_REFUND"
+  | "DISPUTE_RESOLVED_DISMISSED"
+  | "NEW_REVIEW"
+  | "NEW_MESSAGE"
+  | "REQUEST_EXPIRED_CLIENT"
+  | "REQUEST_EXPIRED_LAWYER"
+  | "REMINDER_24H"
+  | "REMINDER_1H"
+  | "DISPUTE_OVERDUE_LAWYER"
+  | "DISPUTE_OVERDUE_ADMIN";
+
+type NotifyArgs = { type: NotifType; params?: NotifParams; link?: string };
 
 /**
- * Dual-write: always create the in-app row; additionally email if the user
- * has an address. Never throws — notifications must not break the caller.
+ * Stores the notification as type + params; the UI renders it in the
+ * viewer's locale at display time, and the email below is rendered in
+ * the recipient's saved locale at send time. Never throws.
  */
 export async function notifyUser(userId: string, n: NotifyArgs) {
   try {
     const row = await prisma.notification.create({
-      data: { userId, ...n },
+      data: { userId, type: n.type, params: n.params ?? undefined, link: n.link },
     });
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { email: true },
+      select: { email: true, locale: true },
     });
     if (user?.email) {
+      const r = renderNotification(n.type, n.params, user.locale);
       const sent = await sendEmail({
         to: user.email,
-        subject: `Vakilim.az — ${n.title}`,
-        text: `${n.body}${n.link ? `\n\nKeçid: https://vakilim.az${n.link}` : ""}`,
+        subject: `Vakilim.az — ${r.title}`,
+        text: `${r.body}${n.link ? `\n\n${r.linkLabel}: https://vakilim.az${n.link}` : ""}`,
       });
       if (sent.ok)
         await prisma.notification.update({
@@ -54,8 +76,7 @@ export async function notifyNewMessageThrottled(
     if (unread > 0) return;
     await notifyUser(recipientId, {
       type: "NEW_MESSAGE",
-      title: "Yeni mesaj",
-      body: `${senderName} sizə yazdı.`,
+      params: { sender: senderName },
       link,
     });
   } catch (e) {

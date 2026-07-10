@@ -47,8 +47,7 @@ export async function POST(
 
   await notifyUser(booking.lawyer.userId, {
     type: "DISPUTE_OPENED",
-    title: "Yeni şikayət",
-    body: `${whenLabel(booking.startAt)} görüşü üzrə şikayət açıldı — cavab müddəti 2 gündür.`,
+    params: { when: whenLabel(booking.startAt) },
     link: "/lawyer/disputes",
   });
 

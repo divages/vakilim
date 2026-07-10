@@ -97,15 +97,13 @@ export async function runTick(now = new Date()): Promise<TickCounts> {
         : []),
     ]);
     await notifyUser(b.clientId, {
-      type: "REQUEST_EXPIRED",
-      title: "Sifariş cavabsız qaldı",
-      body: `Vəkil ${REQUEST_EXPIRE_HOURS} saat ərzində cavab vermədi — ödəniş tam geri qaytarılır.`,
+      type: "REQUEST_EXPIRED_CLIENT",
+      params: { hours: REQUEST_EXPIRE_HOURS },
       link: "/bookings",
     });
     await notifyUser(b.lawyer.userId, {
-      type: "REQUEST_EXPIRED",
-      title: "Sifarişin vaxtı bitdi",
-      body: `${whenLabel(b.startAt)} sifarişi cavabsız qaldığı üçün ləğv edildi.`,
+      type: "REQUEST_EXPIRED_LAWYER",
+      params: { when: whenLabel(b.startAt) },
       link: "/lawyer/bookings",
     });
     counts.requestsExpired++;
@@ -125,17 +123,14 @@ export async function runTick(now = new Date()): Promise<TickCounts> {
     take: 50,
   });
   for (const b of far) {
-    const body = `Xatırlatma: görüşünüz ${whenLabel(b.startAt)}-də.`;
     await notifyUser(b.clientId, {
       type: "REMINDER_24H",
-      title: "Sabahkı görüş",
-      body,
+      params: { when: whenLabel(b.startAt) },
       link: "/bookings",
     });
     await notifyUser(b.lawyer.userId, {
       type: "REMINDER_24H",
-      title: "Sabahkı görüş",
-      body,
+      params: { when: whenLabel(b.startAt) },
       link: "/lawyer/bookings",
     });
     await prisma.booking.update({
@@ -159,17 +154,14 @@ export async function runTick(now = new Date()): Promise<TickCounts> {
     take: 50,
   });
   for (const b of near) {
-    const body = `Görüş ${whenLabel(b.startAt)}-də başlayır — qoşulma vaxtı yaxınlaşır.`;
     await notifyUser(b.clientId, {
       type: "REMINDER_1H",
-      title: "Görüşə 1 saatdan az qalıb",
-      body,
+      params: { when: whenLabel(b.startAt) },
       link: `/call/${b.id}`,
     });
     await notifyUser(b.lawyer.userId, {
       type: "REMINDER_1H",
-      title: "Görüşə 1 saatdan az qalıb",
-      body,
+      params: { when: whenLabel(b.startAt) },
       link: `/call/${b.id}`,
     });
     await prisma.booking.update({
@@ -199,16 +191,14 @@ export async function runTick(now = new Date()): Promise<TickCounts> {
     : [];
   for (const d of overdue) {
     await notifyUser(d.booking.lawyer.userId, {
-      type: "DISPUTE_OVERDUE",
-      title: "Şikayətə cavab müddəti bitib",
-      body: "Cavabınız gecikir — qərar cavabsız da verilə bilər.",
+      type: "DISPUTE_OVERDUE_LAWYER",
+      params: { hours: DISPUTE_RESPONSE_HOURS },
       link: "/lawyer/disputes",
     });
     for (const a of admins) {
       await notifyUser(a.id, {
-        type: "DISPUTE_OVERDUE",
-        title: "Vəkil şikayətə cavab vermədi",
-        body: "48 saatlıq cavab müddəti bitib — qərar verilə bilər.",
+        type: "DISPUTE_OVERDUE_ADMIN",
+        params: { hours: DISPUTE_RESPONSE_HOURS },
         link: "/admin/disputes",
       });
     }

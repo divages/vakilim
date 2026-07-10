@@ -42,8 +42,8 @@ export default async function NotificationsPage() {
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium text-navy">{n.title}</p>
-                  <p className="mt-1 text-sm">{n.body}</p>
+                  <p className="text-sm font-medium text-navy">{n.params ? t(`notifT.${n.type}.title`, n.params as Record<string, string | number>) : n.title}</p>
+                  <p className="mt-1 text-sm">{n.params ? t(`notifT.${n.type}.body`, n.params as Record<string, string | number>) : n.body}</p>
                 </div>
                 <p className="whitespace-nowrap text-xs text-slate">
                   {n.createdAt.toLocaleString(intlTag(locale), {

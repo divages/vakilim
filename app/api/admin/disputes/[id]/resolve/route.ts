@@ -73,20 +73,14 @@ export async function POST(
       : []),
   ]);
 
-  const outcome =
-    resolution === "DISMISSED"
-      ? "Şikayət rədd edildi."
-      : `Qərar: ${money(refund)} geri qaytarılır.`;
   await notifyUser(dispute.clientId, {
-    type: "DISPUTE_RESOLVED",
-    title: "Mübahisə həll olundu",
-    body: outcome,
+    type: resolution === "DISMISSED" ? "DISPUTE_RESOLVED_DISMISSED" : "DISPUTE_RESOLVED_REFUND",
+    params: resolution === "DISMISSED" ? undefined : { amount: money(refund) },
     link: "/bookings",
   });
   await notifyUser(dispute.booking.lawyer.userId, {
-    type: "DISPUTE_RESOLVED",
-    title: "Mübahisə həll olundu",
-    body: outcome,
+    type: resolution === "DISMISSED" ? "DISPUTE_RESOLVED_DISMISSED" : "DISPUTE_RESOLVED_REFUND",
+    params: resolution === "DISMISSED" ? undefined : { amount: money(refund) },
     link: "/lawyer/disputes",
   });
 

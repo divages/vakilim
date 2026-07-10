@@ -50,8 +50,7 @@ export async function POST(
 
   await notifyUser(booking.lawyer.userId, {
     type: "NEW_REVIEW",
-    title: "Yeni rəy",
-    body: `Profilinizə ${"★".repeat(parsed.data.stars)} rəy yazıldı.`,
+    params: { stars: "★".repeat(parsed.data.stars) },
     link: booking.lawyer.slug ? `/lawyers/${booking.lawyer.slug}` : "/lawyers",
   });
 

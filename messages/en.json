@@ -611,5 +611,76 @@
       "FIELDS_DUPLICATE": "Field keys are duplicated.",
       "DEFAULT": "Something went wrong."
     }
+  },
+  "notifT": {
+    "BOOKING_ACCEPTED": {
+      "title": "Meeting confirmed",
+      "body": "The lawyer accepted the meeting · {when}"
+    },
+    "BOOKING_DECLINED": {
+      "title": "Lawyer declined",
+      "body": "The {when} meeting won't take place — you get a full refund."
+    },
+    "NEW_BOOKING_REQUEST": {
+      "title": "New request — awaiting approval",
+      "body": "{client} · {when}"
+    },
+    "NEW_BOOKING": {
+      "title": "New meeting confirmed",
+      "body": "{client} · {when}"
+    },
+    "BOOKING_CANCELLED": {
+      "title": "Meeting cancelled",
+      "body": "The client cancelled the {when} meeting."
+    },
+    "BOOKING_RESCHEDULED": {
+      "title": "Meeting rescheduled",
+      "body": "{from} → {to}"
+    },
+    "DISPUTE_OPENED": {
+      "title": "New complaint",
+      "body": "A complaint was opened for the {when} meeting — you have 2 days to respond."
+    },
+    "DISPUTE_RESOLVED_REFUND": {
+      "title": "Dispute resolved",
+      "body": "Decision: {amount} is refunded."
+    },
+    "DISPUTE_RESOLVED_DISMISSED": {
+      "title": "Dispute resolved",
+      "body": "Decision: the complaint was dismissed."
+    },
+    "NEW_REVIEW": {
+      "title": "New review",
+      "body": "Your profile received a {stars} review."
+    },
+    "NEW_MESSAGE": {
+      "title": "New message",
+      "body": "{sender} sent you a message."
+    },
+    "REQUEST_EXPIRED_CLIENT": {
+      "title": "Request went unanswered",
+      "body": "The lawyer didn't respond within {hours}h — you get a full refund."
+    },
+    "REQUEST_EXPIRED_LAWYER": {
+      "title": "Request expired",
+      "body": "The {when} request was cancelled because it went unanswered."
+    },
+    "REMINDER_24H": {
+      "title": "Meeting tomorrow",
+      "body": "Reminder: your meeting is at {when}."
+    },
+    "REMINDER_1H": {
+      "title": "Meeting in under an hour",
+      "body": "The meeting starts at {when} — joining opens soon."
+    },
+    "DISPUTE_OVERDUE_LAWYER": {
+      "title": "Complaint response overdue",
+      "body": "Your response is overdue — a decision may be made without it."
+    },
+    "DISPUTE_OVERDUE_ADMIN": {
+      "title": "Lawyer didn't respond to complaint",
+      "body": "The {hours}h response window closed — a decision can be made."
+    },
+    "emailLink": "Link"
   }
 }

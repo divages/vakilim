@@ -45,11 +45,7 @@ export async function POST(req: Request) {
   const clientName = user.fullName || user.phone || "Müştəri";
   await notifyUser(booking.lawyer.userId, {
     type: nextStatus === "REQUESTED" ? "NEW_BOOKING_REQUEST" : "NEW_BOOKING",
-    title:
-      nextStatus === "REQUESTED"
-        ? "Yeni sifariş — təsdiq gözləyir"
-        : "Yeni görüş təsdiqləndi",
-    body: `${clientName} · ${whenLabel(booking.startAt)}`,
+    params: { client: clientName, when: whenLabel(booking.startAt) },
     link: "/lawyer/bookings",
   });
 

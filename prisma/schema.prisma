@@ -65,8 +65,8 @@ enum PaymentStatus {
 
 model User {
   id            String         @id @default(cuid())
+  locale        String   @default("az")
   role          UserRole       @default(CLIENT)
-  locale        String         @default("az")
   phone         String?        @unique
   email         String?        @unique
   fullName      String?
@@ -295,8 +295,9 @@ model Notification {
   userId    String
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   type      String
-  title     String
-  body      String
+  title     String?
+  body      String?
+  params    Json?
   link      String?
   readAt    DateTime?
   emailedAt DateTime?

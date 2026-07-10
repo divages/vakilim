@@ -611,5 +611,76 @@
       "FIELDS_DUPLICATE": "Sahə açarları təkrarlanır.",
       "DEFAULT": "Xəta baş verdi."
     }
+  },
+  "notifT": {
+    "BOOKING_ACCEPTED": {
+      "title": "Görüş təsdiqləndi",
+      "body": "Vəkil görüşü qəbul etdi · {when}"
+    },
+    "BOOKING_DECLINED": {
+      "title": "Vəkil imtina etdi",
+      "body": "{when} görüşü baş tutmayacaq — ödəniş tam geri qaytarılır."
+    },
+    "NEW_BOOKING_REQUEST": {
+      "title": "Yeni sifariş — təsdiq gözləyir",
+      "body": "{client} · {when}"
+    },
+    "NEW_BOOKING": {
+      "title": "Yeni görüş təsdiqləndi",
+      "body": "{client} · {when}"
+    },
+    "BOOKING_CANCELLED": {
+      "title": "Görüş ləğv edildi",
+      "body": "Müştəri {when} görüşünü ləğv etdi."
+    },
+    "BOOKING_RESCHEDULED": {
+      "title": "Görüş vaxtı dəyişdirildi",
+      "body": "{from} → {to}"
+    },
+    "DISPUTE_OPENED": {
+      "title": "Yeni şikayət",
+      "body": "{when} görüşü üzrə şikayət açıldı — cavab müddəti 2 gündür."
+    },
+    "DISPUTE_RESOLVED_REFUND": {
+      "title": "Mübahisə həll olundu",
+      "body": "Qərar: {amount} geri qaytarılır."
+    },
+    "DISPUTE_RESOLVED_DISMISSED": {
+      "title": "Mübahisə həll olundu",
+      "body": "Qərar: şikayət rədd edildi."
+    },
+    "NEW_REVIEW": {
+      "title": "Yeni rəy",
+      "body": "Profilinizə {stars} rəy yazıldı."
+    },
+    "NEW_MESSAGE": {
+      "title": "Yeni mesaj",
+      "body": "{sender} sizə yazdı."
+    },
+    "REQUEST_EXPIRED_CLIENT": {
+      "title": "Sifariş cavabsız qaldı",
+      "body": "Vəkil {hours} saat ərzində cavab vermədi — ödəniş tam geri qaytarılır."
+    },
+    "REQUEST_EXPIRED_LAWYER": {
+      "title": "Sifarişin vaxtı bitdi",
+      "body": "{when} sifarişi cavabsız qaldığı üçün ləğv edildi."
+    },
+    "REMINDER_24H": {
+      "title": "Sabahkı görüş",
+      "body": "Xatırlatma: görüşünüz {when}-də."
+    },
+    "REMINDER_1H": {
+      "title": "Görüşə 1 saatdan az qalıb",
+      "body": "Görüş {when}-də başlayır — qoşulma vaxtı yaxınlaşır."
+    },
+    "DISPUTE_OVERDUE_LAWYER": {
+      "title": "Şikayətə cavab müddəti bitib",
+      "body": "Cavabınız gecikir — qərar cavabsız da verilə bilər."
+    },
+    "DISPUTE_OVERDUE_ADMIN": {
+      "title": "Vəkil şikayətə cavab vermədi",
+      "body": "{hours} saatlıq cavab müddəti bitib — qərar verilə bilər."
+    },
+    "emailLink": "Keçid"
   }
 }

@@ -43,8 +43,7 @@ export async function POST(
     });
     await notifyUser(booking.clientId, {
       type: "BOOKING_ACCEPTED",
-      title: "Görüş təsdiqləndi",
-      body: `Vəkil görüşü qəbul etdi · ${whenLabel(booking.startAt)}`,
+      params: { when: whenLabel(booking.startAt) },
       link: "/bookings",
     });
     return NextResponse.json({ ok: true, status: "CONFIRMED" });
@@ -71,8 +70,7 @@ export async function POST(
 
   await notifyUser(booking.clientId, {
     type: "BOOKING_DECLINED",
-    title: "Vəkil imtina etdi",
-    body: `${whenLabel(booking.startAt)} görüşü baş tutmayacaq — ödəniş tam geri qaytarılır.`,
+    params: { when: whenLabel(booking.startAt) },
     link: "/bookings",
   });
 

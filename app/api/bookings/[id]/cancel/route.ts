@@ -56,8 +56,7 @@ export async function POST(
 
   await notifyUser(booking.lawyer.userId, {
     type: "BOOKING_CANCELLED",
-    title: "Görüş ləğv edildi",
-    body: `Müştəri ${whenLabel(booking.startAt)} görüşünü ləğv etdi.`,
+    params: { when: whenLabel(booking.startAt) },
     link: "/lawyer/bookings",
   });
 

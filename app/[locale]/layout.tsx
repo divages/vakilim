@@ -11,6 +11,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import LogoutButton from "@/components/logout-button";
 import LanguageSwitcher from "@/components/language-switcher";
+import LocaleSync from "@/components/locale-sync";
 
 const inter = Inter({ subsets: ["latin", "latin-ext", "cyrillic"] });
 
@@ -43,6 +44,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${inter.className} flex min-h-screen flex-col`} suppressHydrationWarning>
+        <LocaleSync locale={locale} loggedIn={!!user} />
         <NextIntlClientProvider>
           <header className="bg-navy text-white">
             <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-4">
