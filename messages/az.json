@@ -6,7 +6,13 @@
     "lawyerPanel": "Vəkil paneli",
     "forLawyers": "Vəkillər üçün",
     "login": "Daxil ol",
-    "logout": "Çıxış"
+    "logout": "Çıxış",
+    "admVer": "Müraciətlər",
+    "admRec": "Yazılar",
+    "admFlags": "Moderasiya",
+    "admDisp": "Mübahisələr",
+    "admTpl": "Şablonlar",
+    "admRev": "Rəylər"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -500,6 +506,110 @@
       "EMAIL_TAKEN": "Bu e-poçt başqa hesabda istifadə olunur.",
       "INVALID_BODY": "Ad ən azı 3 simvol, e-poçt düzgün formatda olmalıdır.",
       "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "admV": {
+    "title": "Vəkil müraciətləri",
+    "pending": "Gözləyən ({n})",
+    "pendingEmpty": "Gözləyən müraciət yoxdur.",
+    "recent": "Son qərarlar",
+    "recentEmpty": "Hələ qərar verilməyib.",
+    "docs": "Sənədlər",
+    "noDoc": "sənəd yoxdur",
+    "reason": "Səbəb:",
+    "reasonPh": "Rədd səbəbi (vəkilə göstəriləcək)…",
+    "reject": "Rədd et",
+    "confirmReject": "Rəddi təsdiqlə",
+    "cancel": "İmtina",
+    "status": {
+      "PENDING": "Gözləyir",
+      "APPROVED": "Təsdiqlənib",
+      "REJECTED": "Rədd edilib"
+    },
+    "errors": {
+      "FORBIDDEN": "Bu əməliyyat üçün icazəniz yoxdur.",
+      "NOT_FOUND": "Müraciət tapılmadı. Səhifəni yeniləyin.",
+      "REASON_REQUIRED": "Rədd üçün səbəb yazın (ən azı 5 simvol).",
+      "INVALID_BODY": "Məlumatlar düzgün deyil.",
+      "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin."
+    }
+  },
+  "admRec": {
+    "title": "Görüş yazıları",
+    "subtitle": "Yazılar görüş bitdikdən bir neçə dəqiqə sonra hazır olur və 30 gün saxlanılır. Link 10 dəqiqə ərzində keçərlidir.",
+    "empty": "Hələ yazı yoxdur.",
+    "watch": "İzlə"
+  },
+  "admF": {
+    "subtitle": "Platformadan kənara çıxma cəhdi kimi işarələnmiş mesajlar. Mesajlar çatdırılır — bura yalnız nəzarət üçündür.",
+    "empty": "İşarələnmiş mesaj yoxdur.",
+    "user": "İstifadəçi",
+    "reasons": {
+      "PHONE": "Telefon nömrəsi",
+      "EMAIL": "E-poçt",
+      "MESSENGER": "Messencer"
+    }
+  },
+  "admD": {
+    "payment": "Ödəniş:",
+    "remaining": "Qalıq:",
+    "overdue": "Vəkilin cavab müddəti bitib",
+    "responded": "Cavab verilib",
+    "open": "Açıq",
+    "rec": "Görüş yazısı",
+    "lastChat": "Son yazışma",
+    "res": {
+      "FULL_REFUND": "Tam geri qaytarma",
+      "PARTIAL_REFUND": "Qismən geri qaytarma",
+      "DISMISSED": "Rədd edilib"
+    },
+    "full": "Tam qaytar",
+    "partial": "Qismən qaytar",
+    "dismiss": "Rədd et",
+    "fullL": "tam geri qaytarma",
+    "partialL": "{amount} ₼ qismən qaytarma",
+    "dismissL": "şikayətin rədd edilməsi",
+    "confirm": "Qərar: {label}. Davam edilsin?",
+    "errors": {
+      "FORBIDDEN": "İcazə yoxdur.",
+      "INVALID_STATE": "Status dəyişib. Səhifəni yeniləyin.",
+      "NOTHING_TO_REFUND": "Qaytarılacaq məbləğ qalmayıb.",
+      "INVALID_AMOUNT": "Məbləğ qalıqdan çox ola bilməz.",
+      "NOT_FOUND": "Şikayət tapılmadı.",
+      "DEFAULT": "Xəta baş verdi."
+    }
+  },
+  "admRev": {
+    "subtitle": "Gizlədilmiş rəylər profillərdə və reytinq hesabında iştirak etmir.",
+    "empty": "Hələ rəy yoxdur.",
+    "show": "Göstər",
+    "hide": "Gizlət"
+  },
+  "admT": {
+    "subtitle": "Eyni slug ilə göndəriş mövcud şablonun yeni versiyasını yaradır. Müştərilər həmişə ən son versiyanı alır; köhnə sifarişlər öz versiyasına bağlı qalır.",
+    "formTitle": "Yeni şablon / yeni versiya",
+    "slug": "Slug (dəyişməz identifikator)",
+    "name": "Başlıq",
+    "cat": "Kateqoriya",
+    "catPh": "Ərizələr",
+    "lang": "Dil",
+    "family": "Ailə açarı (istəyə görə)",
+    "price": "Qiymət (₼, 0 = pulsuz)",
+    "desc": "Təsvir",
+    "body": "Sənəd mətni",
+    "bodySuffix": "yerdəyişənləri ilə",
+    "fields": "Sahələr (JSON — bələdçidəki format)",
+    "unknown": "Mətndə qarşılığı olmayan sahələr: {list}",
+    "unused": "Diqqət: bu sahələr mətndə istifadə olunmayıb: {list}",
+    "deactivate": "Deaktiv et",
+    "activate": "Aktiv et",
+    "errors": {
+      "FORBIDDEN": "İcazə yoxdur.",
+      "INVALID_BODY": "Meta sahələri düzgün doldurun (slug: kiçik hərf və defis).",
+      "FIELDS_JSON": "Sahələr JSON kimi oxuna bilmədi — sintaksisi yoxlayın.",
+      "FIELDS_INVALID": "Sahə tərifi düzgün deyil — bələdçiyə baxın.",
+      "FIELDS_DUPLICATE": "Sahə açarları təkrarlanır.",
+      "DEFAULT": "Xəta baş verdi."
     }
   }
 }

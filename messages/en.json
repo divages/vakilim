@@ -6,7 +6,13 @@
     "lawyerPanel": "Lawyer panel",
     "forLawyers": "For lawyers",
     "login": "Sign in",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "admVer": "Applications",
+    "admRec": "Recordings",
+    "admFlags": "Moderation",
+    "admDisp": "Disputes",
+    "admTpl": "Templates",
+    "admRev": "Reviews"
   },
   "footer": {
     "terms": "Terms",
@@ -500,6 +506,110 @@
       "EMAIL_TAKEN": "This email is used by another account.",
       "INVALID_BODY": "Name must be 3+ characters and the email valid.",
       "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "admV": {
+    "title": "Lawyer applications",
+    "pending": "Pending ({n})",
+    "pendingEmpty": "No pending applications.",
+    "recent": "Recent decisions",
+    "recentEmpty": "No decisions yet.",
+    "docs": "Documents",
+    "noDoc": "no document",
+    "reason": "Reason:",
+    "reasonPh": "Rejection reason (shown to the lawyer)…",
+    "reject": "Reject",
+    "confirmReject": "Confirm rejection",
+    "cancel": "Cancel",
+    "status": {
+      "PENDING": "Pending",
+      "APPROVED": "Approved",
+      "REJECTED": "Rejected"
+    },
+    "errors": {
+      "FORBIDDEN": "You don't have permission for this.",
+      "NOT_FOUND": "Application not found. Refresh.",
+      "REASON_REQUIRED": "Give a rejection reason (5+ characters).",
+      "INVALID_BODY": "Invalid data.",
+      "DEFAULT": "Something went wrong. Try again shortly."
+    }
+  },
+  "admRec": {
+    "title": "Meeting recordings",
+    "subtitle": "Recordings are ready minutes after the meeting and kept for 30 days. Links are valid for 10 minutes.",
+    "empty": "No recordings yet.",
+    "watch": "Watch"
+  },
+  "admF": {
+    "subtitle": "Messages flagged as attempts to move off-platform. Messages are delivered — this is monitoring only.",
+    "empty": "No flagged messages.",
+    "user": "User",
+    "reasons": {
+      "PHONE": "Phone number",
+      "EMAIL": "Email",
+      "MESSENGER": "Messenger"
+    }
+  },
+  "admD": {
+    "payment": "Payment:",
+    "remaining": "Remaining:",
+    "overdue": "Lawyer's response deadline passed",
+    "responded": "Responded",
+    "open": "Open",
+    "rec": "Meeting recording",
+    "lastChat": "Recent chat",
+    "res": {
+      "FULL_REFUND": "Full refund",
+      "PARTIAL_REFUND": "Partial refund",
+      "DISMISSED": "Dismissed"
+    },
+    "full": "Full refund",
+    "partial": "Partial refund",
+    "dismiss": "Dismiss",
+    "fullL": "full refund",
+    "partialL": "partial refund of {amount} ₼",
+    "dismissL": "dismissing the complaint",
+    "confirm": "Decision: {label}. Proceed?",
+    "errors": {
+      "FORBIDDEN": "Not allowed.",
+      "INVALID_STATE": "Status changed. Refresh.",
+      "NOTHING_TO_REFUND": "Nothing left to refund.",
+      "INVALID_AMOUNT": "Amount can't exceed the remainder.",
+      "NOT_FOUND": "Dispute not found.",
+      "DEFAULT": "Something went wrong."
+    }
+  },
+  "admRev": {
+    "subtitle": "Hidden reviews are excluded from profiles and rating math.",
+    "empty": "No reviews yet.",
+    "show": "Show",
+    "hide": "Hide"
+  },
+  "admT": {
+    "subtitle": "Submitting the same slug creates a new version of the template. Clients always get the latest; old orders stay pinned to theirs.",
+    "formTitle": "New template / new version",
+    "slug": "Slug (immutable identifier)",
+    "name": "Title",
+    "cat": "Category",
+    "catPh": "Applications",
+    "lang": "Language",
+    "family": "Family key (optional)",
+    "price": "Price (₼, 0 = free)",
+    "desc": "Description",
+    "body": "Document body",
+    "bodySuffix": "placeholders",
+    "fields": "Fields (JSON — format from the guide)",
+    "unknown": "Fields with no match in the body: {list}",
+    "unused": "Note: these fields are unused in the body: {list}",
+    "deactivate": "Deactivate",
+    "activate": "Activate",
+    "errors": {
+      "FORBIDDEN": "Not allowed.",
+      "INVALID_BODY": "Fill the meta fields correctly (slug: lowercase and hyphens).",
+      "FIELDS_JSON": "Fields aren't valid JSON — check the syntax.",
+      "FIELDS_INVALID": "A field definition is invalid — see the guide.",
+      "FIELDS_DUPLICATE": "Field keys are duplicated.",
+      "DEFAULT": "Something went wrong."
     }
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ToggleActive({
   id,
@@ -9,6 +10,7 @@ export default function ToggleActive({
   id: string;
   active: boolean;
 }) {
+  const t = useTranslations();
   const [busy, setBusy] = useState(false);
 
   async function toggle() {
@@ -31,7 +33,7 @@ export default function ToggleActive({
       disabled={busy}
       className="rounded border border-gray-300 px-3 py-1.5 text-xs hover:border-navy disabled:opacity-50"
     >
-      {active ? "Deaktiv et" : "Aktiv et"}
+      {active ? t("admT.deactivate") : t("admT.activate")}
     </button>
   );
 }

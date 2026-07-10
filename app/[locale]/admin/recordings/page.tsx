@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { presignRecordingUrl } from "@/lib/storage";
 import { bakuDateIso, fmtMin } from "@/lib/slots";
+import { getTranslations } from "next-intl/server";
 
 function bakuTimeLabel(d: Date): string {
   const dayStart = new Date(`${bakuDateIso(d)}T00:00:00+04:00`).getTime();
@@ -10,6 +11,7 @@ function bakuTimeLabel(d: Date): string {
 }
 
 export default async function AdminRecordingsPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/");
 
@@ -34,23 +36,22 @@ export default async function AdminRecordingsPage() {
       url: await presignRecordingUrl(s.recordingKey as string),
       startAt: s.booking.startAt,
       durationMin: s.booking.durationMin,
-      client: s.booking.client.fullName ?? s.booking.client.phone ?? "Müştəri",
-      lawyer: s.booking.lawyer.user.fullName ?? "Vəkil",
+      client: s.booking.client.fullName ?? s.booking.client.phone ?? t("common.client"),
+      lawyer: s.booking.lawyer.user.fullName ?? t("common.lawyer"),
       status: s.booking.status,
     }))
   );
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Görüş yazıları</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("admRec.title")}</h1>
       <p className="mt-2 text-sm">
-        Yazılar görüş bitdikdən bir neçə dəqiqə sonra hazır olur və 30 gün
-        saxlanılır. Link 10 dəqiqə ərzində keçərlidir.
+        {t("admRec.subtitle")}
       </p>
 
       {rows.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Hələ yazı yoxdur.
+          {t("admRec.empty")}
         </p>
       ) : (
         <div className="mt-6 space-y-3">
@@ -65,7 +66,7 @@ export default async function AdminRecordingsPage() {
                 </p>
                 <p className="mt-1 text-sm">
                   {bakuDateIso(r.startAt)} · {bakuTimeLabel(r.startAt)} ·{" "}
-                  {r.durationMin} dəq
+                  {r.durationMin} {t("common.min")}
                 </p>
                 <p className="mt-1 text-xs text-slate">{r.key}</p>
               </div>
@@ -76,7 +77,7 @@ export default async function AdminRecordingsPage() {
                   rel="noreferrer"
                   className="rounded bg-navy px-4 py-2 text-sm font-medium text-white hover:bg-navy-dark"
                 >
-                  İzlə
+                  {t("admRec.watch")}
                 </a>
               ) : (
                 <span className="text-xs text-slate">Konfiqurasiya yoxdur</span>

@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import ReviewCard, { type Application } from "./review-card";
 import { presignRecordingUrl } from "@/lib/storage";
+import { getTranslations } from "next-intl/server";
 
 async function loadApplications() {
   const include = {
@@ -52,6 +53,7 @@ async function loadApplications() {
 }
 
 export default async function VerificationsPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/");
 
@@ -59,14 +61,14 @@ export default async function VerificationsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Vəkil müraciətləri</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("admV.title")}</h1>
 
       <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
-        Gözləyən ({pending.length})
+        {t("admV.pending", { n: pending.length })}
       </h2>
       {pending.length === 0 ? (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-          Gözləyən müraciət yoxdur.
+          {t("admV.pendingEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-4">
@@ -77,11 +79,11 @@ export default async function VerificationsPage() {
       )}
 
       <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
-        Son qərarlar
+        {t("admV.recent")}
       </h2>
       {decided.length === 0 ? (
         <p className="mt-3 rounded border border-gray-200 bg-gray-50 p-4 text-sm">
-          Hələ qərar verilməyib.
+          {t("admV.recentEmpty")}
         </p>
       ) : (
         <div className="mt-3 space-y-4">

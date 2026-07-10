@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-const ERRORS: Record<string, string> = {
-  FORBIDDEN: "İcazə yoxdur.",
-  INVALID_STATE: "Status dəyişib. Səhifəni yeniləyin.",
-  NOTHING_TO_REFUND: "Qaytarılacaq məbləğ qalmayıb.",
-  INVALID_AMOUNT: "Məbləğ qalıqdan çox ola bilməz.",
-  NOT_FOUND: "Şikayət tapılmadı.",
-  DEFAULT: "Xəta baş verdi.",
-};
+import { useTranslations } from "next-intl";
 
 export default function ResolveControls({
   disputeId,
@@ -18,6 +10,15 @@ export default function ResolveControls({
   disputeId: string;
   remainingQepik: number;
 }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    FORBIDDEN: t("admD.errors.FORBIDDEN"),
+    INVALID_STATE: t("admD.errors.INVALID_STATE"),
+    NOTHING_TO_REFUND: t("admD.errors.NOTHING_TO_REFUND"),
+    INVALID_AMOUNT: t("admD.errors.INVALID_AMOUNT"),
+    NOT_FOUND: t("admD.errors.NOT_FOUND"),
+    DEFAULT: t("admD.errors.DEFAULT"),
+  };
   const [partialAzn, setPartialAzn] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -27,11 +28,11 @@ export default function ResolveControls({
   ) {
     const label =
       resolution === "FULL_REFUND"
-        ? "tam geri qaytarma"
+        ? t("admD.fullL")
         : resolution === "PARTIAL_REFUND"
-          ? `${partialAzn} ₼ qismən qaytarma`
-          : "şikayətin rədd edilməsi";
-    if (!window.confirm(`Qərar: ${label}. Davam edilsin?`)) return;
+          ? t("admD.partialL", { amount: partialAzn })
+          : t("admD.dismissL");
+    if (!window.confirm(t("admD.confirm", { label }))) return;
 
     setBusy(true);
     setError(null);
@@ -68,7 +69,7 @@ export default function ResolveControls({
           disabled={busy || remainingQepik <= 0}
           className="rounded bg-emerald px-3 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
         >
-          Tam qaytar
+          {t("admD.full")}
         </button>
         <div className="flex items-center gap-1">
           <input
@@ -85,7 +86,7 @@ export default function ResolveControls({
             disabled={busy || !partialAzn || remainingQepik <= 0}
             className="rounded border border-gray-300 px-3 py-2 text-sm font-medium text-navy hover:border-navy disabled:opacity-40"
           >
-            Qismən qaytar
+            {t("admD.partial")}
           </button>
         </div>
         <button
@@ -93,7 +94,7 @@ export default function ResolveControls({
           disabled={busy}
           className="rounded border border-red-300 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
         >
-          Rədd et
+          {t("admD.dismiss")}
         </button>
       </div>
     </div>

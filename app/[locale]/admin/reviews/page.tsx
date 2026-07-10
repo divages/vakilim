@@ -2,8 +2,10 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import HideToggle from "./hide-toggle";
+import { getTranslations } from "next-intl/server";
 
 export default async function AdminReviewsPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/");
 
@@ -18,14 +20,14 @@ export default async function AdminReviewsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Rəylər</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("dash.revT")}</h1>
       <p className="mt-2 text-sm">
-        Gizlədilmiş rəylər profillərdə və reytinq hesabında iştirak etmir.
+        {t("admRev.subtitle")}
       </p>
 
       {reviews.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          Hələ rəy yoxdur.
+          {t("admRev.empty")}
         </p>
       ) : (
         <div className="mt-6 space-y-3">
@@ -40,13 +42,13 @@ export default async function AdminReviewsPage() {
                 <div>
                   <p className="text-sm font-medium text-navy">
                     {r.lawyer.user.fullName} ←{" "}
-                    {(r.booking.client.fullName ?? "Müştəri").split(" ")[0]} ·{" "}
+                    {(r.booking.client.fullName ?? t("common.client")).split(" ")[0]} ·{" "}
                     <span className="text-amber-500">{"★".repeat(r.stars)}</span>
                   </p>
                   {r.text && <p className="mt-2 text-sm">{r.text}</p>}
                   {r.lawyerReply && (
                     <p className="mt-2 text-xs text-slate">
-                      Vəkilin cavabı: {r.lawyerReply}
+                      {t("profile.reply")} {r.lawyerReply}
                     </p>
                   )}
                 </div>

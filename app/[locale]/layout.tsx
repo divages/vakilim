@@ -64,22 +64,22 @@ export default async function LocaleLayout({
                 {user?.role === "ADMIN" ? (
                   <>
                     <Link href="/admin/verifications" className="text-white/80 hover:text-white">
-                      Müraciətlər
+                      {t("admVer")}
                     </Link>
                     <Link href="/admin/recordings" className="text-white/80 hover:text-white">
-                      Yazılar
+                      {t("admRec")}
                     </Link>
                     <Link href="/admin/flags" className="text-white/80 hover:text-white">
-                      Moderasiya
+                      {t("admFlags")}
                     </Link>
                     <Link href="/admin/disputes" className="text-white/80 hover:text-white">
-                      Mübahisələr
+                      {t("admDisp")}
                     </Link>
                     <Link href="/admin/templates" className="text-white/80 hover:text-white">
-                      Şablonlar
+                      {t("admTpl")}
                     </Link>
                     <Link href="/admin/reviews" className="text-white/80 hover:text-white">
-                      Rəylər
+                      {t("admRev")}
                     </Link>
                   </>
                 ) : user?.role === "LAWYER" ? (

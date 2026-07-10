@@ -1,14 +1,11 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getTranslations } from "next-intl/server";
 
-const REASON_LABELS: Record<string, string> = {
-  PHONE: "Telefon nömrəsi",
-  EMAIL: "E-poçt",
-  MESSENGER: "Messencer",
-};
 
 export default async function AdminFlagsPage() {
+  const t = await getTranslations();
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/");
 
@@ -29,15 +26,14 @@ export default async function AdminFlagsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Moderasiya</h1>
+      <h1 className="text-2xl font-bold text-navy">{t("nav.admFlags")}</h1>
       <p className="mt-2 text-sm">
-        Platformadan kənara çıxma cəhdi kimi işarələnmiş mesajlar. Mesajlar
-        çatdırılır — bura yalnız nəzarət üçündür.
+        {t("admF.subtitle")}
       </p>
 
       {flagged.length === 0 ? (
         <p className="mt-6 rounded border border-gray-200 bg-gray-50 p-6 text-sm">
-          İşarələnmiş mesaj yoxdur.
+          {t("admF.empty")}
         </p>
       ) : (
         <div className="mt-6 space-y-3">
@@ -45,9 +41,9 @@ export default async function AdminFlagsPage() {
             <div key={m.id} className="rounded border border-gray-200 p-4">
               <div className="flex items-start justify-between gap-3">
                 <p className="text-sm font-medium text-navy">
-                  {m.sender.fullName ?? m.sender.phone ?? "İstifadəçi"}{" "}
+                  {m.sender.fullName ?? m.sender.phone ?? t("admF.user")}{" "}
                   <span className="font-normal text-slate">
-                    ({m.sender.role === "LAWYER" ? "vəkil" : "müştəri"}) —{" "}
+                    ({m.sender.role === "LAWYER" ? t("common.lawyer") : t("common.client")}) —{" "}
                     {m.booking.lawyer.user.fullName} ×{" "}
                     {m.booking.client.fullName}
                   </span>
@@ -58,7 +54,7 @@ export default async function AdminFlagsPage() {
                       key={r}
                       className="rounded bg-red-100 px-2 py-1 text-xs font-medium text-red-700"
                     >
-                      {REASON_LABELS[r] ?? r}
+                      {t(`admF.reasons.${r}`)}
                     </span>
                   ))}
                 </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function HideToggle({
   id,
@@ -9,6 +10,7 @@ export default function HideToggle({
   id: string;
   hidden: boolean;
 }) {
+  const t = useTranslations();
   const [busy, setBusy] = useState(false);
 
   async function toggle() {
@@ -35,7 +37,7 @@ export default function HideToggle({
           : "border-red-300 text-red-700 hover:bg-red-50"
       }`}
     >
-      {hidden ? "Göstər" : "Gizlət"}
+      {hidden ? t("admRev.show") : t("admRev.hide")}
     </button>
   );
 }

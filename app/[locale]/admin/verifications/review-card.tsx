@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export type Application = {
   id: string;
@@ -21,26 +22,22 @@ export type Application = {
   idDocIsPdf: boolean;
 };
 
-const TYPE_LABELS: Record<Application["type"], string> = {
-  ADVOCATE: "Vəkil (Kollegiya üzvü)",
-  LICENSED_LAWYER: "Hüquqşünas",
-};
 
-const STATUS_BADGES: Record<Application["status"], { label: string; cls: string }> = {
-  PENDING: { label: "Gözləyir", cls: "bg-amber-100 text-amber-800" },
-  APPROVED: { label: "Təsdiqlənib", cls: "bg-emerald/15 text-navy" },
-  REJECTED: { label: "Rədd edilib", cls: "bg-red-100 text-red-700" },
-};
-
-const ERRORS: Record<string, string> = {
-  FORBIDDEN: "Bu əməliyyat üçün icazəniz yoxdur.",
-  NOT_FOUND: "Müraciət tapılmadı. Səhifəni yeniləyin.",
-  REASON_REQUIRED: "Rədd üçün səbəb yazın (ən azı 5 simvol).",
-  INVALID_BODY: "Məlumatlar düzgün deyil.",
-  DEFAULT: "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
+const STATUS_CLS: Record<string, string> = {
+  PENDING: "bg-amber-100 text-amber-800",
+  APPROVED: "bg-emerald/15 text-navy",
+  REJECTED: "bg-red-100 text-red-700",
 };
 
 export default function ReviewCard({ app }: { app: Application }) {
+  const t = useTranslations();
+  const ERRORS: Record<string, string> = {
+    FORBIDDEN: t("admV.errors.FORBIDDEN"),
+    NOT_FOUND: t("admV.errors.NOT_FOUND"),
+    REASON_REQUIRED: t("admV.errors.REASON_REQUIRED"),
+    INVALID_BODY: t("admV.errors.INVALID_BODY"),
+    DEFAULT: t("admV.errors.DEFAULT"),
+  };
   const [rejecting, setRejecting] = useState(false);
   const [reason, setReason] = useState("");
   const [busy, setBusy] = useState(false);
@@ -74,7 +71,7 @@ export default function ReviewCard({ app }: { app: Application }) {
     }
   }
 
-  const badge = STATUS_BADGES[app.status];
+  const badge = { cls: STATUS_CLS[app.status], label: t(`admV.status.${app.status}`) };
 
   return (
     <div className="rounded border border-gray-200 p-4">
@@ -89,29 +86,29 @@ export default function ReviewCard({ app }: { app: Application }) {
       </div>
 
       <dl className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
-        <Row k="Status" v={TYPE_LABELS[app.type]} />
-        <Row k="Lisenziya №" v={app.licenseNo} />
-        <Row k="Şəhər" v={app.city} />
-        <Row k="Təcrübə" v={`${app.yearsExperience} il`} />
-        <Row k="Dillər" v={app.languages.join(", ")} />
-        <Row k="Sahələr" v={app.areas.join(", ")} />
+        <Row k={t("dash.rowStatus")} v={t(`common.lawyerTypeFull.${app.type}`)} />
+        <Row k={t("apply.licenseNo")} v={app.licenseNo} />
+        <Row k={t("apply.city")} v={app.city} />
+        <Row k={t("dash.rowYears")} v={t("directory.years", { y: app.yearsExperience })} />
+        <Row k={t("apply.langs")} v={app.languages.join(", ")} />
+        <Row k={t("dash.rowAreas")} v={app.areas.join(", ")} />
       </dl>
 
       <p className="mt-3 rounded bg-gray-50 p-3 text-sm">{app.bio}</p>
 
       <div className="mt-3">
         <p className="text-xs font-medium uppercase tracking-wide text-slate">
-          Sənədlər
+          {t("admV.docs")}
         </p>
         <div className="mt-2 flex flex-wrap gap-3">
-          <DocTile label="Lisenziya" url={app.licenseDocUrl} isPdf={app.licenseDocIsPdf} />
-          <DocTile label="Şəxsiyyət vəsiqəsi" url={app.idDocUrl} isPdf={app.idDocIsPdf} />
+          <DocTile label={t("apply.licDoc")} url={app.licenseDocUrl} isPdf={app.licenseDocIsPdf} />
+          <DocTile label={t("apply.idDoc")} url={app.idDocUrl} isPdf={app.idDocIsPdf} />
         </div>
       </div>
 
       {app.status === "REJECTED" && app.rejectionReason && (
         <p className="mt-2 text-sm text-red-700">
-          Səbəb: {app.rejectionReason}
+          {t("admV.reason")} {app.rejectionReason}
         </p>
       )}
 
@@ -120,7 +117,7 @@ export default function ReviewCard({ app }: { app: Application }) {
           value={reason}
           onChange={(e) => setReason(e.target.value)}
           rows={2}
-          placeholder="Rədd səbəbi (vəkilə göstəriləcək)…"
+          placeholder={t("admV.reasonPh")}
           className="mt-3 w-full rounded border border-gray-300 px-3 py-2 text-sm outline-none focus:border-navy"
           autoFocus
         />
@@ -136,14 +133,14 @@ export default function ReviewCard({ app }: { app: Application }) {
               disabled={busy || app.status === "APPROVED"}
               className="rounded bg-emerald px-4 py-2 text-sm font-medium text-navy-dark hover:opacity-90 disabled:opacity-40"
             >
-              {busy ? "…" : "Təsdiqlə"}
+              {busy ? "…" : t("login.verify")}
             </button>
             <button
               onClick={() => setRejecting(true)}
               disabled={busy || app.status === "REJECTED"}
               className="rounded border border-red-300 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-40"
             >
-              Rədd et
+              {t("admV.reject")}
             </button>
           </>
         ) : (
@@ -153,7 +150,7 @@ export default function ReviewCard({ app }: { app: Application }) {
               disabled={busy}
               className="rounded bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
             >
-              {busy ? "…" : "Rəddi təsdiqlə"}
+              {busy ? "…" : t("admV.confirmReject")}
             </button>
             <button
               onClick={() => {
@@ -164,7 +161,7 @@ export default function ReviewCard({ app }: { app: Application }) {
               disabled={busy}
               className="rounded border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50 disabled:opacity-50"
             >
-              İmtina
+              {t("admV.cancel")}
             </button>
           </>
         )}
@@ -182,10 +179,11 @@ function DocTile({
   url: string | null;
   isPdf: boolean;
 }) {
+  const t = useTranslations();
   if (!url)
     return (
       <span className="rounded border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-slate">
-        {label}: sənəd yoxdur
+        {label}: {t("admV.noDoc")}
       </span>
     );
   if (isPdf)

@@ -4,8 +4,10 @@ import { prisma } from "@/lib/prisma";
 import { formatAzn } from "@/lib/money";
 import TemplateForm from "./template-form";
 import ToggleActive from "./toggle-active";
+import { getTranslations } from "next-intl/server";
 
 export default async function AdminTemplatesPage() {
+  const tr = await getTranslations();
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") redirect("/");
 
@@ -19,11 +21,9 @@ export default async function AdminTemplatesPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-2xl font-bold text-navy">Sənəd şablonları</h1>
+      <h1 className="text-2xl font-bold text-navy">{tr("catalog.title")}</h1>
       <p className="mt-2 text-sm">
-        Eyni slug ilə göndəriş mövcud şablonun yeni versiyasını yaradır.
-        Müştərilər həmişə ən son versiyanı alır; köhnə sifarişlər öz
-        versiyasına bağlı qalır.
+        {tr("admT.subtitle")}
       </p>
 
       <div className="mt-6 space-y-3">
@@ -61,7 +61,7 @@ export default async function AdminTemplatesPage() {
       </div>
 
       <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-slate">
-        Yeni şablon / yeni versiya
+        {tr("admT.formTitle")}
       </h2>
       <TemplateForm />
     </div>
