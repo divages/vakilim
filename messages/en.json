@@ -27,7 +27,10 @@
     "privacy": "Privacy",
     "refund": "Refund policy",
     "forLawyers": "For lawyers",
-    "areas": "Practice areas"
+    "areas": "Practice areas",
+    "about": "About",
+    "how": "How it works",
+    "contact": "Contact"
   },
   "home": {
     "title": "Find your lawyer",
@@ -742,7 +745,10 @@
     "newsTitle": "News — Vakilim.az",
     "qaTitle": "Q&A — Vakilim.az",
     "lawsTitle": "Laws & codes — Vakilim.az",
-    "areasTitle": "Practice areas — Vakilim.az"
+    "areasTitle": "Practice areas — Vakilim.az",
+    "aboutTitle": "About — Vakilim.az",
+    "howTitle": "How it works — Vakilim.az",
+    "contactTitle": "Contact — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -1029,5 +1035,48 @@
     "qaH": "Q&A",
     "qaAll": "All questions",
     "postsH": "Articles"
+  },
+  "about": {
+    "title": "About us",
+    "mission": "Vakilim.az exists to make legal help in Azerbaijan simple, transparent and accessible. Clients book verified lawyers in a few clicks; lawyers keep full control of their services, prices and schedule.",
+    "verifyH": "Verified lawyers",
+    "verifyB": "Every profile is checked against license and ID documents — published only after approval.",
+    "pricesH": "Transparent prices",
+    "pricesB": "Prices are visible upfront; no hidden fees.",
+    "languagesH": "In three languages",
+    "languagesB": "The platform works in Azerbaijani, Russian and English.",
+    "closing": "Write to us with questions, suggestions or partnership ideas — every voice makes the platform better.",
+    "ctaHow": "How it works →",
+    "ctaContact": "Contact"
+  },
+  "how": {
+    "title": "How it works",
+    "clientH": "For clients",
+    "c1H": "Choose a lawyer",
+    "c1B": "Pick from the directory by area, price and rating — or describe your case to the AI assistant.",
+    "c2H": "Pick a slot and pay",
+    "c3H": "Meet and review",
+    "c2B": "Choose a live slot — the meeting takes effect once the lawyer confirms.",
+    "c3B": "Get your video or written consultation; then rate the experience.",
+    "clientCta": "Find a lawyer →",
+    "lawyerH": "For lawyers",
+    "l1H": "Apply",
+    "l1B": "Register with your license and ID documents.",
+    "l2H": "Get verified",
+    "l2B": "After review your profile goes live; you set services and availability.",
+    "l3H": "Earn",
+    "l3B": "Accept requests, hold meetings, track earnings in your panel.",
+    "lawyerCta": "Join as a lawyer →",
+    "note": "Payments run in simulation during beta; see the laws section for official sources."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have a question? Write to us — we usually reply within 48 hours.",
+    "emailH": "Email",
+    "emailB": "One address for support, feedback and partnerships.",
+    "qaH": "Q&A",
+    "qaB": "Ready answers to common questions.",
+    "lawyerH": "Join as a lawyer",
+    "lawyerB": "Go to the application form."
   }
 }

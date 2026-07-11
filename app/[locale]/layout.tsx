@@ -198,6 +198,15 @@ export default async function LocaleLayout({
             <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm">
               <span>© {new Date().getFullYear()} Vakilim.az</span>
               <span className="flex gap-4">
+                <Link href="/about" className="text-slate hover:text-navy">
+                  {tf("about")}
+                </Link>
+                <Link href="/how-it-works" className="text-slate hover:text-navy">
+                  {tf("how")}
+                </Link>
+                <Link href="/contact" className="text-slate hover:text-navy">
+                  {tf("contact")}
+                </Link>
                 <Link href="/terms" className="text-slate hover:text-navy">
                   {tf("terms")}
                 </Link>

@@ -27,7 +27,10 @@
     "privacy": "Məxfilik",
     "refund": "Geri qaytarma",
     "forLawyers": "Vəkillər üçün",
-    "areas": "Hüquq sahələri"
+    "areas": "Hüquq sahələri",
+    "about": "Haqqımızda",
+    "how": "Necə işləyir",
+    "contact": "Əlaqə"
   },
   "home": {
     "title": "Vəkilinizi tapın",
@@ -742,7 +745,10 @@
     "newsTitle": "Xəbərlər — Vakilim.az",
     "qaTitle": "Sual-cavab — Vakilim.az",
     "lawsTitle": "Qanunlar və məcəllələr — Vakilim.az",
-    "areasTitle": "Hüquq sahələri — Vakilim.az"
+    "areasTitle": "Hüquq sahələri — Vakilim.az",
+    "aboutTitle": "Haqqımızda — Vakilim.az",
+    "howTitle": "Necə işləyir — Vakilim.az",
+    "contactTitle": "Əlaqə — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -1029,5 +1035,48 @@
     "qaH": "Sual-cavab",
     "qaAll": "Bütün suallar",
     "postsH": "Məqalələr"
+  },
+  "about": {
+    "title": "Haqqımızda",
+    "mission": "Vakilim.az — Azərbaycanda hüquqi yardımı sadə, şəffaf və əlçatan etmək üçün qurulub. Müştərilər təsdiqlənmiş vəkillərlə bir neçə kliklə görüş təyin edir; vəkillər isə öz xidmətlərini, qiymətlərini və qrafiklərini tam nəzarətdə saxlayır.",
+    "verifyH": "Təsdiqlənmiş vəkillər",
+    "verifyB": "Hər profil lisenziya və şəxsiyyət sənədləri ilə yoxlanılır — yalnız təsdiqdən sonra dərc olunur.",
+    "pricesH": "Şəffaf qiymətlər",
+    "pricesB": "Qiymətlər əvvəlcədən görünür; gizli ödənişlər yoxdur.",
+    "languagesH": "Üç dildə",
+    "languagesB": "Platforma Azərbaycan, rus və ingilis dillərində işləyir.",
+    "closing": "Sual, təklif və ya əməkdaşlıq üçün bizə yazın — hər fikir platformanı daha yaxşı edir.",
+    "ctaHow": "Necə işləyir →",
+    "ctaContact": "Əlaqə"
+  },
+  "how": {
+    "title": "Necə işləyir",
+    "clientH": "Müştərilər üçün",
+    "c1H": "Vəkili seçin",
+    "c1B": "Kataloqdan sahə, qiymət və reytinqə görə seçin — və ya vəziyyətinizi AI köməkçiyə yazın.",
+    "c2H": "Vaxt seçin və ödəyin",
+    "c3H": "Görüşün və rəy yazın",
+    "c2B": "Real boş saatlardan birini seçin — vəkil təsdiqləyəndə görüş qüvvəyə minir.",
+    "c3B": "Video və ya yazılı məsləhət alın; sonda təcrübənizi qiymətləndirin.",
+    "clientCta": "Vəkil tap →",
+    "lawyerH": "Vəkillər üçün",
+    "l1H": "Müraciət edin",
+    "l1B": "Lisenziya və şəxsiyyət sənədləri ilə qeydiyyatdan keçin.",
+    "l2H": "Təsdiq alın",
+    "l2B": "Yoxlamadan sonra profiliniz kataloqda dərc olunur; xidmət və qrafiki siz təyin edirsiniz.",
+    "l3H": "Qazanın",
+    "l3B": "Sorğuları qəbul edin, görüşləri keçirin, gəlirinizi panel üzərindən izləyin.",
+    "lawyerCta": "Vəkil kimi qoşul →",
+    "note": "Ödənişlər beta dövründə simulyasiya rejimindədir; rəsmi mənbələr üçün qanunlar bölməsinə baxın."
+  },
+  "contact": {
+    "title": "Əlaqə",
+    "subtitle": "Sualınız var? Yazın — adətən 48 saat ərzində cavab veririk.",
+    "emailH": "E-poçt",
+    "emailB": "Dəstək, təklif və əməkdaşlıq üçün vahid ünvan.",
+    "qaH": "Sual-cavab",
+    "qaB": "Tez-tez verilən suallara hazır cavablar.",
+    "lawyerH": "Vəkil kimi qoşulmaq",
+    "lawyerB": "Müraciət formasına keçin."
   }
 }

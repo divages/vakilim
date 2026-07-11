@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 const BASE = "https://vakilim.az";
 const LOCALES = ["az", "ru", "en"] as const;
-const STATIC = ["", "/lawyers", "/templates", "/intake", "/blog", "/news", "/qa", "/laws", "/areas", "/verify", "/login", "/terms", "/privacy", "/refund-policy"];
+const STATIC = ["", "/lawyers", "/templates", "/intake", "/blog", "/news", "/qa", "/laws", "/areas", "/about", "/how-it-works", "/contact", "/verify", "/login", "/terms", "/privacy", "/refund-policy"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [profiles, templates] = await Promise.all([
