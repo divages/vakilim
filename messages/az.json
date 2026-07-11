@@ -842,7 +842,10 @@
       "INVALID_BODY": "Sahələri yoxlayın.",
       "TOO_MANY_REQUESTS": "Çox cəhd — sonra yenidən yoxlayın.",
       "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
-    }
+    },
+    "phoneReq": "Nömrənizə təsdiq kodu göndəriləcək.",
+    "step2T": "Nömrəni təsdiqlə",
+    "editDetails": "Məlumatları dəyiş"
   },
   "reset": {
     "title": "Şifrə bərpası",
@@ -885,6 +888,12 @@
     "tfaEnable": "Aktivləşdir",
     "tfaCodeSent": "Nömrənizə kod göndərdik — daxil edin.",
     "tfaConfirm": "Təsdiqlə",
-    "tfaDisable": "Deaktiv et"
+    "tfaDisable": "Deaktiv et",
+    "phoneChange": "Dəyiş"
+  },
+  "cphone": {
+    "title": "Telefon nömrənizi əlavə edin",
+    "subtitle": "Davam etmək üçün nömrənizi təsdiqləyin — bildirişlər və təhlükəsizlik üçün lazımdır.",
+    "confirm": "Təsdiqlə"
   }
 }

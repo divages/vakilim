@@ -124,8 +124,15 @@ export async function GET(req: Request) {
     return fail(url.origin, locale, "failed");
   }
 
+  const landed = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { phone: true },
+  });
+  const dest = landed?.phone
+    ? saved.next
+    : `/${locale}/complete-phone?next=${encodeURIComponent(saved.next)}`;
   const { token, expiresAt } = await createSession(userId);
-  const res = NextResponse.redirect(new URL(saved.next, url.origin));
+  const res = NextResponse.redirect(new URL(dest, url.origin));
   res.cookies.set(sessionCookie(token, expiresAt));
   res.cookies.set({ name: STATE_COOKIE, value: "", path: "/", expires: new Date(0) });
   return res;

@@ -51,7 +51,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "WRONG_CODE" }, { status: 400 });
     await prisma.$transaction([
       prisma.otpCode.update({ where: { id: otp.id }, data: { consumedAt: new Date() } }),
-      prisma.user.update({ where: { id: user.id }, data: { twoFactorEnabled: true } }),
+      prisma.user.update({
+        where: { id: user.id },
+        data: { twoFactorEnabled: true, phoneVerifiedAt: new Date() },
+      }),
     ]);
     return NextResponse.json({ ok: true, enabled: true });
   }

@@ -842,7 +842,10 @@
       "INVALID_BODY": "Check the fields.",
       "TOO_MANY_REQUESTS": "Too many attempts — later.",
       "DEFAULT": "Something went wrong. Try again."
-    }
+    },
+    "phoneReq": "A confirmation code will be sent to this number.",
+    "step2T": "Confirm your number",
+    "editDetails": "Edit details"
   },
   "reset": {
     "title": "Password recovery",
@@ -885,6 +888,12 @@
     "tfaEnable": "Enable",
     "tfaCodeSent": "We sent a code to your number — enter it.",
     "tfaConfirm": "Confirm",
-    "tfaDisable": "Disable"
+    "tfaDisable": "Disable",
+    "phoneChange": "Change"
+  },
+  "cphone": {
+    "title": "Add your phone number",
+    "subtitle": "Verify your number to continue — it's needed for notifications and security.",
+    "confirm": "Confirm"
   }
 }

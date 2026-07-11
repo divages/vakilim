@@ -35,7 +35,11 @@ export async function POST(req: Request) {
 
   const [, user] = await prisma.$transaction([
     prisma.otpCode.update({ where: { id: otp.id }, data: { consumedAt: new Date() } }),
-    prisma.user.upsert({ where: { phone }, update: {}, create: { phone } }),
+    prisma.user.upsert({
+      where: { phone },
+      update: { phoneVerifiedAt: new Date() },
+      create: { phone, phoneVerifiedAt: new Date() },
+    }),
   ]);
 
   const { token, expiresAt } = await createSession(user.id);
