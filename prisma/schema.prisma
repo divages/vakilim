@@ -430,3 +430,45 @@ model Post {
 
   @@index([kind, publishedAt])
 }
+
+model QaEntry {
+  id          String    @id @default(cuid())
+  categoryAz  String?
+  categoryRu  String?
+  categoryEn  String?
+  questionAz  String
+  questionRu  String?
+  questionEn  String?
+  answerAz    String
+  answerRu    String?
+  answerEn    String?
+  sortOrder   Int       @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([publishedAt, sortOrder])
+}
+
+enum LawKind {
+  CODE
+  LAW
+}
+
+model LawDoc {
+  id          String    @id @default(cuid())
+  kind        LawKind
+  slug        String    @unique
+  titleAz     String
+  titleRu     String?
+  titleEn     String?
+  bodyAz      String
+  bodyRu      String?
+  bodyEn      String?
+  sortOrder   Int       @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([kind, sortOrder])
+}

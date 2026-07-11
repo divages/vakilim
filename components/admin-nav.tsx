@@ -15,6 +15,8 @@ const ITEMS = [
   { href: "/admin/reviews", key: "rev" },
   { href: "/admin/recordings", key: "rec" },
   { href: "/admin/posts", key: "posts" },
+  { href: "/admin/qa", key: "qa" },
+  { href: "/admin/laws", key: "laws" },
   { href: "/admin/templates", key: "tpl" },
 ] as const;
 

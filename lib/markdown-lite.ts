@@ -8,7 +8,28 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export function renderLiteMarkdown(src: string): string {
+export function headingId(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]+>/g, "")
+    .replace(/[^a-z0-9əöüğışç\s-]/gi, "")
+    .trim()
+    .replace(/\s+/g, "-")
+    .slice(0, 80);
+}
+
+/** Extracts ## headings for a table of contents. */
+export function extractToc(src: string): { id: string; text: string }[] {
+  return src
+    .split(/\n/)
+    .filter((l) => l.startsWith("## "))
+    .map((l) => {
+      const text = l.slice(3).trim();
+      return { id: headingId(text), text };
+    });
+}
+
+export function renderLiteMarkdown(src: string, withIds = false): string {
   const blocks = esc(src).replace(/\r\n/g, "\n").split(/\n\n+/);
   return blocks
     .map((b) => {
@@ -22,7 +43,12 @@ export function renderLiteMarkdown(src: string): string {
         )
         .replace(/\n/g, "<br/>");
       if (html.startsWith("### ")) return `<h3>${html.slice(4)}</h3>`;
-      if (html.startsWith("## ")) return `<h2>${html.slice(3)}</h2>`;
+      if (html.startsWith("## ")) {
+        const inner = html.slice(3);
+        return withIds
+          ? `<h2 id="${headingId(inner)}">${inner}</h2>`
+          : `<h2>${inner}</h2>`;
+      }
       return `<p>${html}</p>`;
     })
     .join("\n");

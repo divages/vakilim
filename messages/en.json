@@ -18,7 +18,9 @@
     "intake": "AI assistant",
     "blog": "Blog",
     "news": "News",
-    "admPosts": "Posts✎"
+    "admPosts": "Posts✎",
+    "qa": "Q&A",
+    "laws": "Laws"
   },
   "footer": {
     "terms": "Terms",
@@ -736,7 +738,9 @@
     "intakeTitle": "AI legal assistant — Vakilim.az",
     "signupTitle": "Sign up — Vakilim.az",
     "blogTitle": "Blog — Vakilim.az",
-    "newsTitle": "News — Vakilim.az"
+    "newsTitle": "News — Vakilim.az",
+    "qaTitle": "Q&A — Vakilim.az",
+    "lawsTitle": "Laws & codes — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -953,7 +957,9 @@
     "rec": "Recordings",
     "posts": "Blog/News",
     "tpl": "Templates",
-    "draftPosts": "Draft posts"
+    "draftPosts": "Draft posts",
+    "qa": "Q&A",
+    "laws": "Laws"
   },
   "adminReg": {
     "lawyersT": "Lawyers — registry",
@@ -977,5 +983,35 @@
     "price": "Price",
     "paid": "Paid",
     "templates": "Templates"
+  },
+  "qa": {
+    "title": "Questions & answers",
+    "subtitle": "Short answers to common legal questions.",
+    "general": "General",
+    "empty": "Nothing here yet — coming soon."
+  },
+  "laws": {
+    "title": "Laws & codes",
+    "subtitle": "Codes and laws of the Republic of Azerbaijan — for reading.",
+    "codes": "Codes",
+    "laws": "Laws",
+    "empty": "Texts will be added soon.",
+    "back": "All laws",
+    "toc": "Contents",
+    "note": "Texts are for reference — the official source is e-qanun.az."
+  },
+  "admQ": {
+    "title": "Q&A — editor",
+    "new": "New question",
+    "order": "Order",
+    "cat": "Category",
+    "q": "Question",
+    "a": "Answer"
+  },
+  "admL": {
+    "title": "Laws — editor",
+    "new": "New text",
+    "body": "Body",
+    "bodyHint": "## chapter headings build the contents"
   }
 }

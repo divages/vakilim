@@ -18,7 +18,9 @@
     "intake": "AI köməkçi",
     "blog": "Bloq",
     "news": "Xəbərlər",
-    "admPosts": "Yazılar✎"
+    "admPosts": "Yazılar✎",
+    "qa": "Sual-cavab",
+    "laws": "Qanunlar"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -736,7 +738,9 @@
     "intakeTitle": "AI hüquqi köməkçi — Vakilim.az",
     "signupTitle": "Qeydiyyat — Vakilim.az",
     "blogTitle": "Bloq — Vakilim.az",
-    "newsTitle": "Xəbərlər — Vakilim.az"
+    "newsTitle": "Xəbərlər — Vakilim.az",
+    "qaTitle": "Sual-cavab — Vakilim.az",
+    "lawsTitle": "Qanunlar və məcəllələr — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -953,7 +957,9 @@
     "rec": "Yazılar (video)",
     "posts": "Bloq/Xəbər",
     "tpl": "Şablonlar",
-    "draftPosts": "Qaralama yazılar"
+    "draftPosts": "Qaralama yazılar",
+    "qa": "Sual-cavab",
+    "laws": "Qanunlar"
   },
   "adminReg": {
     "lawyersT": "Vəkillər — reyestr",
@@ -977,5 +983,35 @@
     "price": "Qiymət",
     "paid": "Ödənilib",
     "templates": "Şablonlar"
+  },
+  "qa": {
+    "title": "Sual-cavab",
+    "subtitle": "Tez-tez verilən hüquqi suallara qısa cavablar.",
+    "general": "Ümumi",
+    "empty": "Hələ sual-cavab yoxdur — tezliklə."
+  },
+  "laws": {
+    "title": "Qanunlar və məcəllələr",
+    "subtitle": "Azərbaycan Respublikasının məcəllələri və qanunları — oxumaq üçün.",
+    "codes": "Məcəllələr",
+    "laws": "Qanunlar",
+    "empty": "Mətnlər tezliklə əlavə olunacaq.",
+    "back": "Bütün qanunlar",
+    "toc": "Mündəricat",
+    "note": "Mətnlər məlumat xarakteri daşıyır — rəsmi mənbə e-qanun.az-dır."
+  },
+  "admQ": {
+    "title": "Sual-cavab — redaktor",
+    "new": "Yeni sual",
+    "order": "Sıra",
+    "cat": "Kateqoriya",
+    "q": "Sual",
+    "a": "Cavab"
+  },
+  "admL": {
+    "title": "Qanunlar — redaktor",
+    "new": "Yeni mətn",
+    "body": "Mətn",
+    "bodyHint": "## fəsil başlıqları mündəricat yaradır"
   }
 }

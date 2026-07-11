@@ -81,6 +81,12 @@ export default async function LocaleLayout({
                   <Link href="/news" className="font-medium text-slate-600 hover:text-navy">
                     {t("news")}
                   </Link>
+                  <Link href="/qa" className="font-medium text-slate-600 hover:text-navy">
+                    {t("qa")}
+                  </Link>
+                  <Link href="/laws" className="font-medium text-slate-600 hover:text-navy">
+                    {t("laws")}
+                  </Link>
                   {user?.role === "CLIENT" && (
                     <>
                       <Link href="/bookings" className="font-medium text-slate-600 hover:text-navy">
@@ -158,6 +164,12 @@ export default async function LocaleLayout({
                 </Link>
                 <Link href="/news" className="font-medium text-slate-600 hover:text-navy">
                   {t("news")}
+                </Link>
+                <Link href="/qa" className="font-medium text-slate-600 hover:text-navy">
+                  {t("qa")}
+                </Link>
+                <Link href="/laws" className="font-medium text-slate-600 hover:text-navy">
+                  {t("laws")}
                 </Link>
                 {user?.role === "CLIENT" && (
                   <>
