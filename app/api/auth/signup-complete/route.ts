@@ -16,6 +16,7 @@ const bodySchema = z.object({
   phone: z.string().min(7).max(20),
   code: z.string().length(6),
   locale: z.enum(["az", "ru", "en"]).default("az"),
+  intent: z.enum(["client", "lawyer"]).default("client"),
 });
 const MAX_ATTEMPTS = 5;
 
@@ -71,12 +72,15 @@ export async function POST(req: Request) {
   ]);
 
   const raw = await createEmailToken(user.id, "VERIFY", 60 * 24);
-  const link = `https://vakilim.az/api/auth/verify-email?token=${raw}&locale=${locale}`;
+  const nextPath =
+    parsed.data.intent === "lawyer" ? `/${locale}/lawyer/apply` : `/${locale}/`;
+  const nextQ = `&next=${encodeURIComponent(nextPath)}`;
+  const link = `https://vakilim.az/api/auth/verify-email?token=${raw}&locale=${locale}${nextQ}`;
   const mail = renderAuthMail("verify", locale, { link });
   const sent = await sendEmail({ to: email, subject: mail.subject, text: mail.text });
   const devLink =
     process.env.OTP_DEV_ECHO === "true"
-      ? `/api/auth/verify-email?token=${raw}&locale=${locale}`
+      ? `/api/auth/verify-email?token=${raw}&locale=${locale}${nextQ}`
       : undefined;
   return NextResponse.json({ ok: true, ...(devLink ? { devLink } : {}), emailed: sent.ok });
 }

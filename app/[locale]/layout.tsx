@@ -110,11 +110,7 @@ export default async function LocaleLayout({
                     <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                       {t("lawyerPanel")}
                     </Link>
-                  ) : (
-                    <Link href="/lawyer/apply" className="font-medium text-slate-600 hover:text-navy">
-                      {t("forLawyers")}
-                    </Link>
-                  )}
+                  ) : null}
                 </nav>
               </div>
 
@@ -203,11 +199,7 @@ export default async function LocaleLayout({
                   <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                     {t("lawyerPanel")}
                   </Link>
-                ) : (
-                  <Link href="/lawyer/apply" className="font-medium text-slate-600 hover:text-navy">
-                    {t("forLawyers")}
-                  </Link>
-                )}
+                ) : null}
               </nav>
             </details>
           </header>
@@ -218,6 +210,9 @@ export default async function LocaleLayout({
               <span className="flex gap-4">
                 <Link href="/terms" className="text-slate hover:text-navy">
                   {tf("terms")}
+                </Link>
+                <Link href="/lawyer/apply" className="text-slate hover:text-navy">
+                  {tf("forLawyers")}
                 </Link>
                 <Link href="/privacy" className="text-slate hover:text-navy">
                   {tf("privacy")}

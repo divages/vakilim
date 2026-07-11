@@ -20,8 +20,11 @@ export async function GET(req: Request) {
     where: { id: userId },
     data: { emailVerifiedAt: new Date() },
   });
+  const nextRaw = url.searchParams.get("next") ?? `/${locale}/`;
+  const next =
+    nextRaw.startsWith("/") && !nextRaw.startsWith("//") ? nextRaw : `/${locale}/`;
   const { token: session, expiresAt } = await createSession(userId);
-  const res = NextResponse.redirect(new URL(`/${locale}/`, url.origin));
+  const res = NextResponse.redirect(new URL(next, url.origin));
   res.cookies.set(sessionCookie(session, expiresAt));
   return res;
 }

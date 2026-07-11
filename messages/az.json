@@ -20,7 +20,8 @@
   "footer": {
     "terms": "Şərtlər",
     "privacy": "Məxfilik",
-    "refund": "Geri qaytarma"
+    "refund": "Geri qaytarma",
+    "forLawyers": "Vəkillər üçün"
   },
   "home": {
     "title": "Vəkilinizi tapın",
@@ -847,7 +848,13 @@
     },
     "phoneReq": "Nömrənizə təsdiq kodu göndəriləcək.",
     "step2T": "Nömrəni təsdiqlə",
-    "editDetails": "Məlumatları dəyiş"
+    "editDetails": "Məlumatları dəyiş",
+    "roleQ": "Kim kimi qeydiyyatdan keçirsiniz?",
+    "roleClient": "Müştəri",
+    "roleClientD": "Hüquqi yardım axtarıram",
+    "roleLawyer": "Vəkil",
+    "roleLawyerD": "Xidmət göstərmək istəyirəm",
+    "doneLawyer": "E-poçtu təsdiqlədikdən sonra vəkil müraciət formasına yönləndiriləcəksiniz."
   },
   "reset": {
     "title": "Şifrə bərpası",

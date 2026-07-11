@@ -9,6 +9,7 @@ export default function SignupForm() {
   const t = useTranslations();
   const locale = useLocale();
   const [step, setStep] = useState<"details" | "code" | "done">("details");
+  const [role, setRole] = useState<"client" | "lawyer">("client");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ export default function SignupForm() {
     password,
     phone: phone.trim(),
     locale,
+    intent: role,
   });
 
   async function startSignup(e: React.FormEvent) {
@@ -101,6 +103,11 @@ export default function SignupForm() {
           {t("signup.doneT")}
         </h1>
         <p className="mt-4 text-slate">{t("signup.doneB", { email })}</p>
+        {role === "lawyer" && (
+          <p className="mt-3 text-sm font-medium text-emerald-700">
+            {t("signup.doneLawyer")}
+          </p>
+        )}
         {devLink && (
           <p className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
             [DEV] <a className="underline" href={devLink}>{devLink}</a>
@@ -189,6 +196,28 @@ export default function SignupForm() {
       )}
 
       <form onSubmit={startSignup} className="mt-2">
+        <p className={labelCls}>{t("signup.roleQ")}</p>
+        <div className="mt-1 grid grid-cols-2 gap-3">
+          {(["client", "lawyer"] as const).map((r) => (
+            <button
+              key={r}
+              type="button"
+              onClick={() => setRole(r)}
+              className={`rounded-2xl border-2 px-4 py-3 text-left transition ${
+                role === r
+                  ? "border-emerald bg-emerald-50/60"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              <span className="block font-semibold text-navy">
+                {t(r === "client" ? "signup.roleClient" : "signup.roleLawyer")}
+              </span>
+              <span className="mt-0.5 block text-xs text-slate">
+                {t(r === "client" ? "signup.roleClientD" : "signup.roleLawyerD")}
+              </span>
+            </button>
+          ))}
+        </div>
         <label className={labelCls}>{t("signup.name")}</label>
         <input
           autoComplete="name"

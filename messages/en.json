@@ -20,7 +20,8 @@
   "footer": {
     "terms": "Terms",
     "privacy": "Privacy",
-    "refund": "Refund policy"
+    "refund": "Refund policy",
+    "forLawyers": "For lawyers"
   },
   "home": {
     "title": "Find your lawyer",
@@ -847,7 +848,13 @@
     },
     "phoneReq": "A confirmation code will be sent to this number.",
     "step2T": "Confirm your number",
-    "editDetails": "Edit details"
+    "editDetails": "Edit details",
+    "roleQ": "How are you signing up?",
+    "roleClient": "Client",
+    "roleClientD": "I'm looking for legal help",
+    "roleLawyer": "Lawyer",
+    "roleLawyerD": "I want to offer services",
+    "doneLawyer": "After confirming your email you'll continue to the lawyer application."
   },
   "reset": {
     "title": "Password recovery",
