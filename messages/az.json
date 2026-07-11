@@ -15,7 +15,10 @@
     "admRev": "Rəylər",
     "favorites": "Sevimlilər",
     "menu": "Menyu",
-    "intake": "AI köməkçi"
+    "intake": "AI köməkçi",
+    "blog": "Bloq",
+    "news": "Xəbərlər",
+    "admPosts": "Yazılar✎"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -731,7 +734,9 @@
     "privacyTitle": "Məxfilik siyasəti — Vakilim.az",
     "refundTitle": "Geri qaytarma siyasəti — Vakilim.az",
     "intakeTitle": "AI hüquqi köməkçi — Vakilim.az",
-    "signupTitle": "Qeydiyyat — Vakilim.az"
+    "signupTitle": "Qeydiyyat — Vakilim.az",
+    "blogTitle": "Bloq — Vakilim.az",
+    "newsTitle": "Xəbərlər — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -910,5 +915,29 @@
     "resendIn": "Yenidən göndər ({s}s)",
     "resending": "Göndərilir…",
     "resendFail": "Alınmadı — bir azdan yenidən cəhd edin."
+  },
+  "blog": {
+    "title": "Bloq",
+    "newsTitle": "Xəbərlər",
+    "empty": "Hələ yazı yoxdur — tezliklə."
+  },
+  "admP": {
+    "title": "Bloq və xəbərlər",
+    "new": "Yeni yazı",
+    "edit": "Redaktə",
+    "kind": "Bölmə",
+    "postTitle": "Başlıq",
+    "excerpt": "Qısa təsvir",
+    "body": "Mətn",
+    "cover": "Şəkil URL",
+    "author": "Müəllif",
+    "pub": "Dərc olunub",
+    "draft": "Qaralama",
+    "publish": "Dərc et",
+    "unpublish": "Gizlət",
+    "save": "Yadda saxla",
+    "cancel": "Bağla",
+    "slugTaken": "Bu slug artıq mövcuddur.",
+    "err": "Xəta baş verdi — sahələri yoxlayın."
   }
 }

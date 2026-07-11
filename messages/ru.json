@@ -15,7 +15,10 @@
     "admRev": "Отзывы",
     "favorites": "Избранное",
     "menu": "Меню",
-    "intake": "AI-помощник"
+    "intake": "AI-помощник",
+    "blog": "Блог",
+    "news": "Новости",
+    "admPosts": "Записи✎"
   },
   "footer": {
     "terms": "Условия",
@@ -731,7 +734,9 @@
     "privacyTitle": "Политика конфиденциальности — Vakilim.az",
     "refundTitle": "Политика возвратов — Vakilim.az",
     "intakeTitle": "AI-помощник — Vakilim.az",
-    "signupTitle": "Регистрация — Vakilim.az"
+    "signupTitle": "Регистрация — Vakilim.az",
+    "blogTitle": "Блог — Vakilim.az",
+    "newsTitle": "Новости — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Условия использования",
@@ -910,5 +915,29 @@
     "resendIn": "Отправить снова ({s}с)",
     "resending": "Отправляем…",
     "resendFail": "Не получилось — попробуйте чуть позже."
+  },
+  "blog": {
+    "title": "Блог",
+    "newsTitle": "Новости",
+    "empty": "Пока нет публикаций — скоро."
+  },
+  "admP": {
+    "title": "Блог и новости",
+    "new": "Новая запись",
+    "edit": "Редактировать",
+    "kind": "Раздел",
+    "postTitle": "Заголовок",
+    "excerpt": "Краткое описание",
+    "body": "Текст",
+    "cover": "URL изображения",
+    "author": "Автор",
+    "pub": "Опубликовано",
+    "draft": "Черновик",
+    "publish": "Опубликовать",
+    "unpublish": "Скрыть",
+    "save": "Сохранить",
+    "cancel": "Закрыть",
+    "slugTaken": "Такой slug уже существует.",
+    "err": "Ошибка — проверьте поля."
   }
 }

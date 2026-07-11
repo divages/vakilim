@@ -15,7 +15,10 @@
     "admRev": "Reviews",
     "favorites": "Favorites",
     "menu": "Menu",
-    "intake": "AI assistant"
+    "intake": "AI assistant",
+    "blog": "Blog",
+    "news": "News",
+    "admPosts": "Posts✎"
   },
   "footer": {
     "terms": "Terms",
@@ -731,7 +734,9 @@
     "privacyTitle": "Privacy policy — Vakilim.az",
     "refundTitle": "Refund policy — Vakilim.az",
     "intakeTitle": "AI legal assistant — Vakilim.az",
-    "signupTitle": "Sign up — Vakilim.az"
+    "signupTitle": "Sign up — Vakilim.az",
+    "blogTitle": "Blog — Vakilim.az",
+    "newsTitle": "News — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -910,5 +915,29 @@
     "resendIn": "Resend in {s}s",
     "resending": "Sending…",
     "resendFail": "Didn't work — try again shortly."
+  },
+  "blog": {
+    "title": "Blog",
+    "newsTitle": "News",
+    "empty": "Nothing here yet — coming soon."
+  },
+  "admP": {
+    "title": "Blog & news",
+    "new": "New post",
+    "edit": "Edit",
+    "kind": "Section",
+    "postTitle": "Title",
+    "excerpt": "Excerpt",
+    "body": "Body",
+    "cover": "Cover URL",
+    "author": "Author",
+    "pub": "Published",
+    "draft": "Draft",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "save": "Save",
+    "cancel": "Close",
+    "slugTaken": "This slug already exists.",
+    "err": "Error — check the fields."
   }
 }

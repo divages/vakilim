@@ -75,6 +75,12 @@ export default async function LocaleLayout({
                   <Link href="/intake" className="font-medium text-slate-600 hover:text-navy">
                     {t("intake")}
                   </Link>
+                  <Link href="/blog" className="font-medium text-slate-600 hover:text-navy">
+                    {t("blog")}
+                  </Link>
+                  <Link href="/news" className="font-medium text-slate-600 hover:text-navy">
+                    {t("news")}
+                  </Link>
                   {user?.role === "CLIENT" && (
                     <>
                       <Link href="/bookings" className="font-medium text-slate-600 hover:text-navy">
@@ -104,6 +110,9 @@ export default async function LocaleLayout({
                       </Link>
                       <Link href="/admin/reviews" className="font-medium text-slate-600 hover:text-navy">
                         {t("admRev")}
+                      </Link>
+                      <Link href="/admin/posts" className="font-medium text-slate-600 hover:text-navy">
+                        {t("admPosts")}
                       </Link>
                     </>
                   ) : user?.role === "LAWYER" ? (
@@ -163,6 +172,12 @@ export default async function LocaleLayout({
                 </Link>
                 <Link href="/intake" className="font-medium text-slate-600 hover:text-navy">
                   {t("intake")}
+                </Link>
+                <Link href="/blog" className="font-medium text-slate-600 hover:text-navy">
+                  {t("blog")}
+                </Link>
+                <Link href="/news" className="font-medium text-slate-600 hover:text-navy">
+                  {t("news")}
                 </Link>
                 {user?.role === "CLIENT" && (
                   <>
