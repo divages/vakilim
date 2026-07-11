@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import ResendCode from "@/components/resend-code";
 
 type Mode = "email" | "email-2fa" | "phone-request" | "phone-verify";
 
@@ -93,6 +94,25 @@ export default function LoginForm({
     } finally {
       setBusy(false);
     }
+  }
+
+  async function resendPhoneCode() {
+    const { ok, data } = await post("/api/auth/request-code", { phone, locale });
+    if (ok) setDevCode(data?.devCode ?? null);
+    return ok;
+  }
+
+  async function resend2faCode() {
+    const { ok, data } = await post("/api/auth/login", {
+      email: email.trim().toLowerCase(),
+      password,
+      locale,
+    });
+    if (ok && data?.twoFactor) {
+      setDevCode(data?.devCode ?? null);
+      return true;
+    }
+    return false;
   }
 
   async function requestCode(e: React.FormEvent) {
@@ -272,6 +292,7 @@ export default function LoginForm({
           >
             {busy ? t("login2.checking") : t("login2.submit")}
           </button>
+        <ResendCode onResend={resend2faCode} />
         </form>
       )}
 
@@ -346,6 +367,7 @@ export default function LoginForm({
           >
             ← {t("login2.changePhone")}
           </button>
+        <ResendCode onResend={resendPhoneCode} />
         </form>
       )}
     </div>

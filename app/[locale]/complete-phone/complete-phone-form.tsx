@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import ResendCode from "@/components/resend-code";
 
 export default function CompletePhoneForm({ next }: { next: string }) {
   const t = useTranslations();
@@ -67,6 +68,12 @@ export default function CompletePhoneForm({ next }: { next: string }) {
     }
   }
 
+  async function resendCode() {
+    const { ok, data } = await post({ action: "start", phone });
+    if (ok) setDevCode(data?.devCode ?? null);
+    return ok;
+  }
+
   const inputCls =
     "mt-1 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald";
 
@@ -126,6 +133,7 @@ export default function CompletePhoneForm({ next }: { next: string }) {
       >
         ← {t("login2.changePhone")}
       </button>
-    </form>
+    <ResendCode onResend={resendCode} />
+      </form>
   );
 }

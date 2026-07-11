@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import ResendCode from "@/components/resend-code";
 
 export default function SettingsForm({
   defaultFullName,
@@ -50,6 +51,11 @@ export default function SettingsForm({
       return;
     }
     window.location.reload();
+  }
+  async function phoneResend() {
+    const { ok, data } = await phonePost({ action: "start", phone: pNew });
+    if (ok) setPDev(data?.devCode ?? null);
+    return ok;
   }
   const t = useTranslations();
   const ERRORS: Record<string, string> = {
@@ -155,6 +161,7 @@ export default function SettingsForm({
             >
               {t("cphone.confirm")}
             </button>
+            <ResendCode onResend={phoneResend} />
           </div>
         )}
       </div>

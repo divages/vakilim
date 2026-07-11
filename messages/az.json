@@ -895,5 +895,11 @@
     "title": "Telefon nömrənizi əlavə edin",
     "subtitle": "Davam etmək üçün nömrənizi təsdiqləyin — bildirişlər və təhlükəsizlik üçün lazımdır.",
     "confirm": "Təsdiqlə"
+  },
+  "otp": {
+    "resend": "Kodu yenidən göndər",
+    "resendIn": "Yenidən göndər ({s}s)",
+    "resending": "Göndərilir…",
+    "resendFail": "Alınmadı — bir azdan yenidən cəhd edin."
   }
 }

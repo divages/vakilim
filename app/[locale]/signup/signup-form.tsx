@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import ResendCode from "@/components/resend-code";
 
 export default function SignupForm() {
   const t = useTranslations();
@@ -83,6 +84,12 @@ export default function SignupForm() {
     }
   }
 
+  async function resendSignupCode() {
+    const { ok, data } = await post("/api/auth/signup-start", details());
+    if (ok) setDevCode(data?.devCode ?? null);
+    return ok;
+  }
+
   const inputCls =
     "mt-1 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald";
   const labelCls = "mt-4 block text-xs font-semibold uppercase text-slate";
@@ -145,6 +152,7 @@ export default function SignupForm() {
           >
             ← {t("signup.editDetails")}
           </button>
+        <ResendCode onResend={resendSignupCode} />
         </form>
       </div>
     );

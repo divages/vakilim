@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import ResendCode from "@/components/resend-code";
 
 export default function SettingsSecurity({
   email,
@@ -56,6 +57,11 @@ export default function SettingsSecurity({
       return;
     }
     setTfa(true); setTfaStep("idle"); setTfaCode("");
+  }
+  async function tfaResend() {
+    const { ok, data } = await tfaPost({ action: "start" });
+    if (ok) setTfaDev(data?.devCode ?? null);
+    return ok;
   }
   async function tfaDisable(e: React.FormEvent) {
     e.preventDefault();
@@ -227,6 +233,7 @@ export default function SettingsSecurity({
             <button className="mt-2 rounded-xl bg-navy px-4 py-2 text-sm font-medium text-white hover:opacity-90">
               {t("sett2.tfaConfirm")}
             </button>
+            <ResendCode onResend={tfaResend} />
           </form>
         )}
       </div>

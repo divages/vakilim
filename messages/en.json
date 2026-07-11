@@ -895,5 +895,11 @@
     "title": "Add your phone number",
     "subtitle": "Verify your number to continue — it's needed for notifications and security.",
     "confirm": "Confirm"
+  },
+  "otp": {
+    "resend": "Resend code",
+    "resendIn": "Resend in {s}s",
+    "resending": "Sending…",
+    "resendFail": "Didn't work — try again shortly."
   }
 }
