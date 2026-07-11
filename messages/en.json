@@ -821,7 +821,8 @@
       "INVALID_CODE": "Wrong or expired code.",
       "DEFAULT": "Something went wrong. Try again.",
       "WRONG_CODE": "Wrong code.",
-      "CODE_EXPIRED": "Code expired — sign in again."
+      "CODE_EXPIRED": "Code expired — sign in again.",
+      "ADMIN_PHONE_REQUIRED": "Admin sign-in requires a verified phone on the account."
     },
     "verifyFailed": "Verification link invalid or expired — sign up again or use password recovery.",
     "googleFailed": "Google sign-in failed — try again or use email.",
@@ -939,5 +940,42 @@
     "cancel": "Close",
     "slugTaken": "This slug already exists.",
     "err": "Error — check the fields."
+  },
+  "adminNav": {
+    "dash": "Dashboard",
+    "lawyers": "Lawyers",
+    "users": "Users",
+    "docs": "Documents",
+    "ver": "Verifications",
+    "disp": "Disputes",
+    "flags": "Flags",
+    "rev": "Reviews",
+    "rec": "Recordings",
+    "posts": "Blog/News",
+    "tpl": "Templates",
+    "draftPosts": "Draft posts"
+  },
+  "adminReg": {
+    "lawyersT": "Lawyers — registry",
+    "usersT": "Users",
+    "docsT": "Document orders",
+    "name": "Name",
+    "type": "Type",
+    "city": "City",
+    "status": "Status",
+    "joined": "Joined",
+    "profile": "Profile",
+    "application": "Application",
+    "contact": "Contact",
+    "role": "Role",
+    "verifiedCols": "Verified",
+    "bookings": "Bookings",
+    "searchPh": "Search by name, email or phone…",
+    "readOnly": "Read-only — account actions come later.",
+    "date": "Date",
+    "buyer": "Buyer",
+    "price": "Price",
+    "paid": "Paid",
+    "templates": "Templates"
   }
 }

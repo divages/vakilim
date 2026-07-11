@@ -92,30 +92,10 @@ export default async function LocaleLayout({
                     </>
                   )}
                   {user?.role === "ADMIN" ? (
-                    <>
-                      <Link href="/admin/verifications" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admVer")}
-                      </Link>
-                      <Link href="/admin/recordings" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admRec")}
-                      </Link>
-                      <Link href="/admin/flags" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admFlags")}
-                      </Link>
-                      <Link href="/admin/disputes" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admDisp")}
-                      </Link>
-                      <Link href="/admin/templates" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admTpl")}
-                      </Link>
-                      <Link href="/admin/reviews" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admRev")}
-                      </Link>
-                      <Link href="/admin/posts" className="font-medium text-slate-600 hover:text-navy">
-                        {t("admPosts")}
-                      </Link>
-                    </>
-                  ) : user?.role === "LAWYER" ? (
+                  <Link href="/admin" className="font-medium text-slate-600 hover:text-navy">
+                    Admin
+                  </Link>
+                ) : user?.role === "LAWYER" ? (
                     <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                       {t("lawyerPanel")}
                     </Link>
@@ -190,26 +170,9 @@ export default async function LocaleLayout({
                   </>
                 )}
                 {user?.role === "ADMIN" ? (
-                  <>
-                    <Link href="/admin/verifications" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admVer")}
-                    </Link>
-                    <Link href="/admin/disputes" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admDisp")}
-                    </Link>
-                    <Link href="/admin/flags" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admFlags")}
-                    </Link>
-                    <Link href="/admin/recordings" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admRec")}
-                    </Link>
-                    <Link href="/admin/templates" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admTpl")}
-                    </Link>
-                    <Link href="/admin/reviews" className="font-medium text-slate-600 hover:text-navy">
-                      {t("admRev")}
-                    </Link>
-                  </>
+                  <Link href="/admin" className="font-medium text-slate-600 hover:text-navy">
+                    Admin
+                  </Link>
                 ) : user?.role === "LAWYER" ? (
                   <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                     {t("lawyerPanel")}

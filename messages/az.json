@@ -821,7 +821,8 @@
       "INVALID_CODE": "Kod yanlış və ya vaxtı keçib.",
       "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin.",
       "WRONG_CODE": "Kod yanlışdır.",
-      "CODE_EXPIRED": "Kodun vaxtı keçib — yenidən daxil olun."
+      "CODE_EXPIRED": "Kodun vaxtı keçib — yenidən daxil olun.",
+      "ADMIN_PHONE_REQUIRED": "Admin girişi üçün hesabda təsdiqlənmiş telefon olmalıdır."
     },
     "verifyFailed": "Təsdiq keçidi etibarsız və ya vaxtı keçib — yenidən qeydiyyatdan keçin və ya şifrə bərpasından istifadə edin.",
     "googleFailed": "Google ilə giriş alınmadı — yenidən cəhd edin və ya e-poçt ilə daxil olun.",
@@ -939,5 +940,42 @@
     "cancel": "Bağla",
     "slugTaken": "Bu slug artıq mövcuddur.",
     "err": "Xəta baş verdi — sahələri yoxlayın."
+  },
+  "adminNav": {
+    "dash": "İdarə paneli",
+    "lawyers": "Vəkillər",
+    "users": "İstifadəçilər",
+    "docs": "Sənədlər",
+    "ver": "Təsdiqlər",
+    "disp": "Mübahisələr",
+    "flags": "Bayraqlar",
+    "rev": "Rəylər",
+    "rec": "Yazılar (video)",
+    "posts": "Bloq/Xəbər",
+    "tpl": "Şablonlar",
+    "draftPosts": "Qaralama yazılar"
+  },
+  "adminReg": {
+    "lawyersT": "Vəkillər — reyestr",
+    "usersT": "İstifadəçilər",
+    "docsT": "Sənəd sifarişləri",
+    "name": "Ad",
+    "type": "Növ",
+    "city": "Şəhər",
+    "status": "Status",
+    "joined": "Qeydiyyat",
+    "profile": "Profil",
+    "application": "Müraciət",
+    "contact": "Əlaqə",
+    "role": "Rol",
+    "verifiedCols": "Təsdiq",
+    "bookings": "Görüşlər",
+    "searchPh": "Ad, e-poçt və ya telefon üzrə axtar…",
+    "readOnly": "Yalnız baxış rejimi — hesab əməliyyatları sonrakı mərhələdə.",
+    "date": "Tarix",
+    "buyer": "Alıcı",
+    "price": "Qiymət",
+    "paid": "Ödənilib",
+    "templates": "Şablonlar"
   }
 }

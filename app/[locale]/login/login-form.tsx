@@ -8,6 +8,10 @@ import ResendCode from "@/components/resend-code";
 
 type Mode = "email" | "email-2fa" | "phone-request" | "phone-verify";
 
+function landing(next: string, role?: string) {
+  return next === "/" && role === "ADMIN" ? "/admin" : next;
+}
+
 export default function LoginForm({
   next,
   verifyFailed = false,
@@ -67,7 +71,7 @@ export default function LoginForm({
         setMode("email-2fa");
         return;
       }
-      router.push(next);
+      router.push(landing(next, data?.user?.role));
       router.refresh();
     } finally {
       setBusy(false);
@@ -89,7 +93,7 @@ export default function LoginForm({
         setError(ERR(data?.error ?? "DEFAULT"));
         return;
       }
-      router.push(next);
+      router.push(landing(next, data?.user?.role));
       router.refresh();
     } finally {
       setBusy(false);
@@ -151,7 +155,7 @@ export default function LoginForm({
         setError(ERR(data?.error ?? "DEFAULT"));
         return;
       }
-      router.push(next);
+      router.push(landing(next, data?.user?.role));
       router.refresh();
     } finally {
       setBusy(false);

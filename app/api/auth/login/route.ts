@@ -28,7 +28,13 @@ export async function POST(req: Request) {
   if (!user.emailVerifiedAt)
     return NextResponse.json({ ok: false, error: "EMAIL_NOT_VERIFIED" }, { status: 403 });
 
-  if (user.twoFactorEnabled && user.phone) {
+  if (user.role === "ADMIN" && !user.phone)
+    // Admin password login without a provable phone is refused outright.
+    return NextResponse.json(
+      { ok: false, error: "ADMIN_PHONE_REQUIRED" },
+      { status: 403 }
+    );
+  if ((user.twoFactorEnabled || user.role === "ADMIN") && user.phone) {
     const code = generateOtp();
     await prisma.otpCode.create({
       data: {
