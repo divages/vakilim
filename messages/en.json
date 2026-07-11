@@ -30,7 +30,9 @@
     "areas": "Practice areas",
     "about": "About",
     "how": "How it works",
-    "contact": "Contact"
+    "contact": "Contact",
+    "feeCalc": "Fee calculator",
+    "deadlineCalc": "Deadline calculator"
   },
   "home": {
     "title": "Find your lawyer",
@@ -748,7 +750,9 @@
     "areasTitle": "Practice areas — Vakilim.az",
     "aboutTitle": "About — Vakilim.az",
     "howTitle": "How it works — Vakilim.az",
-    "contactTitle": "Contact — Vakilim.az"
+    "contactTitle": "Contact — Vakilim.az",
+    "feeCalcTitle": "State fee calculator — Vakilim.az",
+    "deadlineCalcTitle": "Appeal deadline calculator — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -1078,5 +1082,35 @@
     "qaB": "Ready answers to common questions.",
     "lawyerH": "Join as a lawyer",
     "lawyerB": "Go to the application form."
+  },
+  "tools": {
+    "draftBanner": "Figures are draft-status and require verification against e-qanun.az. Results are indicative, not legal advice.",
+    "legalNote": "Official source: e-qanun.az. Consult a lawyer for an exact calculation.",
+    "feeTitle": "State fee calculator",
+    "feeSub": "Estimate the court fee for a property claim.",
+    "amount": "Claim amount",
+    "feeResultH": "Estimated fee",
+    "feeScope": "Physical person · first instance · property claim",
+    "ratesH": "Rate table (draft)",
+    "rateFrom": "From amount",
+    "rateRule": "Fee",
+    "rateCap": "Maximum",
+    "dlTitle": "Appeal deadline calculator",
+    "dlSub": "Work out the last day to appeal from the decision date.",
+    "dlDate": "Decision date",
+    "dlCase": "Case type",
+    "dlCivil": "Civil",
+    "dlAdmin": "Administrative",
+    "dlStage": "Which decision?",
+    "dlFirst": "First instance",
+    "dlAppeal": "Appellate",
+    "dlResultAppeal": "Last day for appeal",
+    "dlResultKass": "Last day for cassation",
+    "dlMonths": "{n} mo",
+    "dlLeft": "{n} days left",
+    "dlPassed": "deadline passed",
+    "dlShifted": "The last day fell on a weekend and was moved to the next working day.",
+    "dlHolidays": "Note: public holidays are not accounted for — only weekend shifting is applied.",
+    "draftTag": "DRAFT"
   }
 }

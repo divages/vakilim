@@ -30,7 +30,9 @@
     "areas": "Hüquq sahələri",
     "about": "Haqqımızda",
     "how": "Necə işləyir",
-    "contact": "Əlaqə"
+    "contact": "Əlaqə",
+    "feeCalc": "Rüsum kalkulyatoru",
+    "deadlineCalc": "Müddət kalkulyatoru"
   },
   "home": {
     "title": "Vəkilinizi tapın",
@@ -748,7 +750,9 @@
     "areasTitle": "Hüquq sahələri — Vakilim.az",
     "aboutTitle": "Haqqımızda — Vakilim.az",
     "howTitle": "Necə işləyir — Vakilim.az",
-    "contactTitle": "Əlaqə — Vakilim.az"
+    "contactTitle": "Əlaqə — Vakilim.az",
+    "feeCalcTitle": "Dövlət rüsumu kalkulyatoru — Vakilim.az",
+    "deadlineCalcTitle": "Şikayət müddəti kalkulyatoru — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -1078,5 +1082,35 @@
     "qaB": "Tez-tez verilən suallara hazır cavablar.",
     "lawyerH": "Vəkil kimi qoşulmaq",
     "lawyerB": "Müraciət formasına keçin."
+  },
+  "tools": {
+    "draftBanner": "Rəqəmlər layihə statusundadır və e-qanun.az üzrə yoxlanış tələb edir. Nəticə istinad xarakterlidir, hüquqi məsləhət deyil.",
+    "legalNote": "Rəsmi mənbə: e-qanun.az. Dəqiq hesablama üçün vəkillə məsləhətləşin.",
+    "feeTitle": "Dövlət rüsumu kalkulyatoru",
+    "feeSub": "Əmlak xarakterli iddia üzrə məhkəmə rüsumunu təxmini hesablayın.",
+    "amount": "İddia məbləği",
+    "feeResultH": "Təxmini rüsum",
+    "feeScope": "Fiziki şəxs · birinci instansiya · əmlak iddiası",
+    "ratesH": "Hesablama cədvəli (layihə)",
+    "rateFrom": "Məbləğdən",
+    "rateRule": "Rüsum",
+    "rateCap": "Maksimum",
+    "dlTitle": "Şikayət müddəti kalkulyatoru",
+    "dlSub": "Qərar tarixinə görə şikayət üçün son günü hesablayın.",
+    "dlDate": "Qərarın tarixi",
+    "dlCase": "İşin növü",
+    "dlCivil": "Mülki",
+    "dlAdmin": "İnzibati",
+    "dlStage": "Hansı qərar?",
+    "dlFirst": "Birinci instansiya",
+    "dlAppeal": "Apellyasiya",
+    "dlResultAppeal": "Apellyasiya üçün son gün",
+    "dlResultKass": "Kassasiya üçün son gün",
+    "dlMonths": "{n} ay",
+    "dlLeft": "{n} gün qalıb",
+    "dlPassed": "müddət keçib",
+    "dlShifted": "Son gün qeyri-iş gününə düşdüyü üçün növbəti iş gününə keçirilib.",
+    "dlHolidays": "Qeyd: rəsmi bayram günləri nəzərə alınmır — yalnız şənbə/bazar keçidi tətbiq olunur.",
+    "draftTag": "LAYİHƏ"
   }
 }

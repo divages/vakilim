@@ -216,6 +216,12 @@ export default async function LocaleLayout({
                 <Link href="/areas" className="text-slate hover:text-navy">
                   {tf("areas")}
                 </Link>
+                <Link href="/tools/rusum" className="text-slate hover:text-navy">
+                  {tf("feeCalc")}
+                </Link>
+                <Link href="/tools/muddet" className="text-slate hover:text-navy">
+                  {tf("deadlineCalc")}
+                </Link>
                 <Link href="/privacy" className="text-slate hover:text-navy">
                   {tf("privacy")}
                 </Link>
