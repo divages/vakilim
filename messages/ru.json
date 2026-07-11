@@ -13,7 +13,9 @@
     "admDisp": "Споры",
     "admTpl": "Шаблоны",
     "admRev": "Отзывы",
-    "favorites": "Избранное"
+    "favorites": "Избранное",
+    "menu": "Меню",
+    "intake": "AI-помощник"
   },
   "footer": {
     "terms": "Условия",

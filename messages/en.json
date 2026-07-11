@@ -13,7 +13,9 @@
     "admDisp": "Disputes",
     "admTpl": "Templates",
     "admRev": "Reviews",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "menu": "Menu",
+    "intake": "AI assistant"
   },
   "footer": {
     "terms": "Terms",
