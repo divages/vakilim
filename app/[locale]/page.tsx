@@ -1,8 +1,16 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { getLocale } from "next-intl/server";
+import { prisma } from "@/lib/prisma";
 
 export default async function HomePage() {
   const t = await getTranslations("home");
+  const areas = await prisma.practiceArea.findMany({
+    orderBy: { sortOrder: "asc" },
+    take: 8,
+    select: { id: true, slug: true, nameAz: true, nameRu: true, nameEn: true },
+  });
+  const locale = await getLocale();
 
   return (
     <div className="mx-auto max-w-5xl px-4">
@@ -38,6 +46,21 @@ export default async function HomePage() {
           >
             {t("aiCta")}
           </Link>
+        </div>
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {areas.map((a) => (
+            <Link
+              key={a.id}
+              href={`/areas/${a.slug}`}
+              className="rounded-full border border-gray-200 px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:border-emerald hover:text-emerald-700"
+            >
+              {locale === "ru"
+                ? a.nameRu ?? a.nameAz
+                : locale === "en"
+                  ? a.nameEn ?? a.nameAz
+                  : a.nameAz}
+            </Link>
+          ))}
         </div>
       </section>
 

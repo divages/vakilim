@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 
 const BASE = "https://vakilim.az";
 const LOCALES = ["az", "ru", "en"] as const;
-const STATIC = ["", "/lawyers", "/templates", "/intake", "/blog", "/news", "/qa", "/laws", "/verify", "/login", "/terms", "/privacy", "/refund-policy"];
+const STATIC = ["", "/lawyers", "/templates", "/intake", "/blog", "/news", "/qa", "/laws", "/areas", "/verify", "/login", "/terms", "/privacy", "/refund-policy"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [profiles, templates] = await Promise.all([
@@ -55,6 +55,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: ld.updatedAt,
         changeFrequency: "yearly",
       });
+
+  const areaRows = await prisma.practiceArea.findMany({ select: { slug: true } });
+  for (const l of LOCALES)
+    for (const a of areaRows)
+      rows.push({ url: `${BASE}/${l}/areas/${a.slug}`, changeFrequency: "weekly" });
 
   return rows;
 }

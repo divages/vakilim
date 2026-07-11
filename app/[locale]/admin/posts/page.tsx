@@ -8,6 +8,10 @@ export default async function AdminPostsPage() {
   const user = await getCurrentUser();
   if (user?.role !== "ADMIN") redirect("/");
   const t = await getTranslations();
+  const areas = await prisma.practiceArea.findMany({
+    orderBy: { sortOrder: "asc" },
+    select: { slug: true, nameAz: true },
+  });
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
     take: 100,
@@ -18,6 +22,7 @@ export default async function AdminPostsPage() {
         {t("admP.title")}
       </h1>
       <PostsEditor
+        areas={areas}
         posts={posts.map((p) => ({
           id: p.id,
           kind: p.kind,
@@ -33,6 +38,7 @@ export default async function AdminPostsPage() {
           bodyEn: p.bodyEn,
           coverUrl: p.coverUrl,
           authorName: p.authorName,
+          practiceAreaSlug: p.practiceAreaSlug,
           published: !!p.publishedAt,
         }))}
       />

@@ -15,6 +15,7 @@ const patchSchema = z
   answerRu: z.string().optional().nullable().or(z.literal("")),
   answerEn: z.string().optional().nullable().or(z.literal("")),
   sortOrder: z.number().int().min(0).max(9999).optional(),
+  practiceAreaSlug: z.string().max(80).optional().nullable().or(z.literal("")),
     published: z.boolean().optional(),
   })
   .partial();

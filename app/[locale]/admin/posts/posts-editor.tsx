@@ -8,15 +8,15 @@ type P = {
   titleAz: string; titleRu: string | null; titleEn: string | null;
   excerptAz: string; excerptRu: string | null; excerptEn: string | null;
   bodyAz: string; bodyRu: string | null; bodyEn: string | null;
-  coverUrl: string | null; authorName: string | null; published: boolean;
+  coverUrl: string | null; authorName: string | null; practiceAreaSlug: string | null; published: boolean;
 };
 const EMPTY: Omit<P, "id" | "published"> = {
   kind: "BLOG", slug: "", titleAz: "", titleRu: "", titleEn: "",
   excerptAz: "", excerptRu: "", excerptEn: "", bodyAz: "", bodyRu: "", bodyEn: "",
-  coverUrl: "", authorName: "",
+  coverUrl: "", authorName: "", practiceAreaSlug: "",
 };
 
-export default function PostsEditor({ posts }: { posts: P[] }) {
+export default function PostsEditor({ posts, areas }: { posts: P[]; areas: { slug: string; nameAz: string }[] }) {
   const t = useTranslations();
   const [list, setList] = useState(posts);
   const [editing, setEditing] = useState<string | "new" | null>(null);
@@ -31,7 +31,7 @@ export default function PostsEditor({ posts }: { posts: P[] }) {
       setForm({ ...p, titleRu: p.titleRu ?? "", titleEn: p.titleEn ?? "",
         excerptRu: p.excerptRu ?? "", excerptEn: p.excerptEn ?? "",
         bodyRu: p.bodyRu ?? "", bodyEn: p.bodyEn ?? "",
-        coverUrl: p.coverUrl ?? "", authorName: p.authorName ?? "" });
+        coverUrl: p.coverUrl ?? "", authorName: p.authorName ?? "", practiceAreaSlug: p.practiceAreaSlug ?? "" });
     } else {
       setEditing("new");
       setForm({ ...EMPTY });
@@ -119,6 +119,15 @@ export default function PostsEditor({ posts }: { posts: P[] }) {
             <div>
               <label className={lbl}>Slug (a-z, 0-9, -)</label>
               <input {...F("slug")} className={inputCls} placeholder="mehkeme-prosesi-nece-kecir" />
+            </div>
+            <div>
+              <label className={lbl}>{t("admP.area")}</label>
+              <select {...F("practiceAreaSlug")} className={inputCls}>
+                <option value="">—</option>
+                {areas.map((a) => (
+                  <option key={a.slug} value={a.slug}>{a.nameAz}</option>
+                ))}
+              </select>
             </div>
           </div>
           {(["Az", "Ru", "En"] as const).map((L) => (

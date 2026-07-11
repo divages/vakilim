@@ -17,6 +17,7 @@ const bodySchema = z.object({
   bodyEn: z.string().optional().nullable(),
   coverUrl: z.string().url().max(500).optional().nullable().or(z.literal("")),
   authorName: z.string().max(80).optional().nullable(),
+  practiceAreaSlug: z.string().max(80).optional().nullable().or(z.literal("")),
 });
 
 export async function POST(req: Request) {
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
   if (clash)
     return NextResponse.json({ ok: false, error: "SLUG_TAKEN" }, { status: 409 });
   const post = await prisma.post.create({
-    data: { ...d, coverUrl: d.coverUrl || null },
+    data: { ...d, coverUrl: d.coverUrl || null, practiceAreaSlug: d.practiceAreaSlug || null },
   });
   return NextResponse.json({ ok: true, id: post.id });
 }

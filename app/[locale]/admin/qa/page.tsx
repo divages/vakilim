@@ -4,6 +4,10 @@ import QaEditor from "./qa-editor";
 
 export default async function AdminQaPage() {
   const t = await getTranslations();
+  const areas = await prisma.practiceArea.findMany({
+    orderBy: { sortOrder: "asc" },
+    select: { slug: true, nameAz: true },
+  });
   const rows = await prisma.qaEntry.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
     take: 300,
@@ -14,6 +18,7 @@ export default async function AdminQaPage() {
         {t("admQ.title")}
       </h1>
       <QaEditor
+        areas={areas}
         rows={rows.map((r) => ({
           ...r,
           published: !!r.publishedAt,

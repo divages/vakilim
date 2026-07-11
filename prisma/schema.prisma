@@ -422,13 +422,15 @@ model Post {
   bodyAz      String
   bodyRu      String?
   bodyEn      String?
-  coverUrl    String?
+  coverUrl         String?
+  practiceAreaSlug String?
   authorName  String?
   publishedAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@index([kind, publishedAt])
+  @@index([practiceAreaSlug])
 }
 
 model QaEntry {
@@ -442,12 +444,14 @@ model QaEntry {
   answerAz    String
   answerRu    String?
   answerEn    String?
-  sortOrder   Int       @default(0)
-  publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  sortOrder        Int       @default(0)
+  practiceAreaSlug String?
+  publishedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
   @@index([publishedAt, sortOrder])
+  @@index([practiceAreaSlug])
 }
 
 enum LawKind {

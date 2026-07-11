@@ -16,6 +16,7 @@ const patchSchema = z.object({
   bodyEn: z.string().nullable().optional(),
   coverUrl: z.string().url().max(500).nullable().optional().or(z.literal("")),
   authorName: z.string().max(80).nullable().optional(),
+  practiceAreaSlug: z.string().max(80).nullable().optional().or(z.literal("")),
   published: z.boolean().optional(),
 });
 
@@ -30,12 +31,15 @@ export async function PATCH(
   const parsed = patchSchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success)
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
-  const { published, coverUrl, ...rest } = parsed.data;
+  const { published, coverUrl, practiceAreaSlug, ...rest } = parsed.data;
   await prisma.post.update({
     where: { id },
     data: {
       ...rest,
       ...(coverUrl !== undefined ? { coverUrl: coverUrl || null } : {}),
+      ...(practiceAreaSlug !== undefined
+        ? { practiceAreaSlug: practiceAreaSlug || null }
+        : {}),
       ...(published !== undefined
         ? { publishedAt: published ? new Date() : null }
         : {}),

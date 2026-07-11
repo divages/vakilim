@@ -8,14 +8,15 @@ type R = {
   categoryAz: string | null; categoryRu: string | null; categoryEn: string | null;
   questionAz: string; questionRu: string | null; questionEn: string | null;
   answerAz: string; answerRu: string | null; answerEn: string | null;
+  practiceAreaSlug?: string | null;
 };
 const EMPTY = {
   sortOrder: 0, categoryAz: "", categoryRu: "", categoryEn: "",
   questionAz: "", questionRu: "", questionEn: "",
-  answerAz: "", answerRu: "", answerEn: "",
+  answerAz: "", answerRu: "", answerEn: "", practiceAreaSlug: "",
 };
 
-export default function QaEditor({ rows }: { rows: R[] }) {
+export default function QaEditor({ rows, areas }: { rows: R[]; areas: { slug: string; nameAz: string }[] }) {
   const t = useTranslations();
   const [list, setList] = useState(rows);
   const [editing, setEditing] = useState<string | "new" | null>(null);
@@ -69,7 +70,7 @@ export default function QaEditor({ rows }: { rows: R[] }) {
   const lbl = "mt-3 block text-xs font-semibold uppercase text-slate";
   const F = (k: keyof typeof EMPTY) => ({
     value: String(form[k] ?? ""),
-    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value })),
   });
 
@@ -103,6 +104,15 @@ export default function QaEditor({ rows }: { rows: R[] }) {
             <div>
               <label className={lbl}>{t("admQ.order")}</label>
               <input {...F("sortOrder")} className={inputCls} inputMode="numeric" />
+            </div>
+            <div>
+              <label className={lbl}>{t("admP.area")}</label>
+              <select {...F("practiceAreaSlug")} className={inputCls}>
+                <option value="">—</option>
+                {areas.map((a) => (
+                  <option key={a.slug} value={a.slug}>{a.nameAz}</option>
+                ))}
+              </select>
             </div>
           </div>
           {(["Az", "Ru", "En"] as const).map((L) => (

@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/auth";
 import BookingWidget from "./booking-widget";
 import Avatar from "@/components/avatar";
 import FavoriteButton from "@/components/favorite-button";
+import { Link } from "@/i18n/navigation";
 
 async function loadProfile(slug: string) {
   return prisma.lawyerProfile.findFirst({
@@ -131,12 +132,17 @@ export default async function LawyerProfilePage({
 
       <div className="mt-4 flex flex-wrap gap-2">
         {profile.practiceAreas.map((pa) => (
-          <span
+          <Link
+            href={`/areas/${pa.practiceArea.slug}`}
             key={pa.practiceAreaId}
-            className="rounded-full bg-navy/5 px-3 py-1 text-xs font-medium text-navy"
+            className="rounded-full bg-navy/5 px-3 py-1 text-xs font-medium text-navy transition hover:bg-emerald-50 hover:text-emerald-700"
           >
-            {pa.practiceArea.nameAz}
-          </span>
+            {locale === "ru"
+              ? pa.practiceArea.nameRu ?? pa.practiceArea.nameAz
+              : locale === "en"
+                ? pa.practiceArea.nameEn ?? pa.practiceArea.nameAz
+                : pa.practiceArea.nameAz}
+          </Link>
         ))}
       </div>
 

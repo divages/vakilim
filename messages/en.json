@@ -26,7 +26,8 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "refund": "Refund policy",
-    "forLawyers": "For lawyers"
+    "forLawyers": "For lawyers",
+    "areas": "Practice areas"
   },
   "home": {
     "title": "Find your lawyer",
@@ -740,7 +741,8 @@
     "blogTitle": "Blog — Vakilim.az",
     "newsTitle": "News — Vakilim.az",
     "qaTitle": "Q&A — Vakilim.az",
-    "lawsTitle": "Laws & codes — Vakilim.az"
+    "lawsTitle": "Laws & codes — Vakilim.az",
+    "areasTitle": "Practice areas — Vakilim.az"
   },
   "legal": {
     "termsTitle": "Terms of use",
@@ -943,7 +945,8 @@
     "save": "Save",
     "cancel": "Close",
     "slugTaken": "This slug already exists.",
-    "err": "Error — check the fields."
+    "err": "Error — check the fields.",
+    "area": "Practice area"
   },
   "adminNav": {
     "dash": "Dashboard",
@@ -1013,5 +1016,18 @@
     "new": "New text",
     "body": "Body",
     "bodyHint": "## chapter headings build the contents"
+  },
+  "areas": {
+    "title": "Practice areas",
+    "subtitle": "Pick an area — matching lawyers, answers and articles in one place.",
+    "count": "{n} lawyers",
+    "metaTitle": "{name} lawyers — Vakilim.az",
+    "intro": "Verified {name} lawyers: video and written consultations, transparent prices, live availability.",
+    "cta": "Describe your case to the AI assistant →",
+    "lawyersH": "Lawyers ({n})",
+    "empty": "Lawyers in this area are coming soon.",
+    "qaH": "Q&A",
+    "qaAll": "All questions",
+    "postsH": "Articles"
   }
 }

@@ -26,7 +26,8 @@
     "terms": "Şərtlər",
     "privacy": "Məxfilik",
     "refund": "Geri qaytarma",
-    "forLawyers": "Vəkillər üçün"
+    "forLawyers": "Vəkillər üçün",
+    "areas": "Hüquq sahələri"
   },
   "home": {
     "title": "Vəkilinizi tapın",
@@ -740,7 +741,8 @@
     "blogTitle": "Bloq — Vakilim.az",
     "newsTitle": "Xəbərlər — Vakilim.az",
     "qaTitle": "Sual-cavab — Vakilim.az",
-    "lawsTitle": "Qanunlar və məcəllələr — Vakilim.az"
+    "lawsTitle": "Qanunlar və məcəllələr — Vakilim.az",
+    "areasTitle": "Hüquq sahələri — Vakilim.az"
   },
   "legal": {
     "termsTitle": "İstifadə şərtləri",
@@ -943,7 +945,8 @@
     "save": "Yadda saxla",
     "cancel": "Bağla",
     "slugTaken": "Bu slug artıq mövcuddur.",
-    "err": "Xəta baş verdi — sahələri yoxlayın."
+    "err": "Xəta baş verdi — sahələri yoxlayın.",
+    "area": "Hüquq sahəsi"
   },
   "adminNav": {
     "dash": "İdarə paneli",
@@ -1013,5 +1016,18 @@
     "new": "Yeni mətn",
     "body": "Mətn",
     "bodyHint": "## fəsil başlıqları mündəricat yaradır"
+  },
+  "areas": {
+    "title": "Hüquq sahələri",
+    "subtitle": "Sahəni seçin — uyğun vəkillər, cavablar və məqalələr bir yerdə.",
+    "count": "{n} vəkil",
+    "metaTitle": "{name} üzrə vəkillər — Vakilim.az",
+    "intro": "{name} üzrə təsdiqlənmiş vəkillər: video və yazılı məsləhət, şəffaf qiymətlər, real vaxtda boş saatlar.",
+    "cta": "Vəziyyətinizi AI köməkçiyə yazın →",
+    "lawyersH": "Vəkillər ({n})",
+    "empty": "Bu sahə üzrə vəkillər tezliklə əlavə olunacaq.",
+    "qaH": "Sual-cavab",
+    "qaAll": "Bütün suallar",
+    "postsH": "Məqalələr"
   }
 }
