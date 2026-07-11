@@ -811,9 +811,15 @@
       "TOO_MANY_REQUESTS": "Too many attempts — try again shortly.",
       "INVALID_PHONE": "Invalid phone number.",
       "INVALID_CODE": "Wrong or expired code.",
-      "DEFAULT": "Something went wrong. Try again."
+      "DEFAULT": "Something went wrong. Try again.",
+      "WRONG_CODE": "Wrong code.",
+      "CODE_EXPIRED": "Code expired — sign in again."
     },
-    "verifyFailed": "Verification link invalid or expired — sign up again or use password recovery."
+    "verifyFailed": "Verification link invalid or expired — sign up again or use password recovery.",
+    "googleFailed": "Google sign-in failed — try again or use email.",
+    "googleInUse": "This Google account is linked to a different user.",
+    "apple": "Continue with Apple",
+    "twoFaSent": "A confirmation code was sent to {phone}."
   },
   "signup": {
     "title": "Create account",
@@ -869,6 +875,16 @@
       "WRONG_PASSWORD": "Current password is incorrect.",
       "TOO_MANY_REQUESTS": "Too many attempts — later.",
       "DEFAULT": "Something went wrong."
-    }
+    },
+    "googleLinked": "Linked",
+    "googleLink": "Link Google account",
+    "tfaTitle": "Two-step sign-in",
+    "tfaOn": "On",
+    "tfaOff": "Off",
+    "tfaNoPhone": "Add a phone number to your profile first.",
+    "tfaEnable": "Enable",
+    "tfaCodeSent": "We sent a code to your number — enter it.",
+    "tfaConfirm": "Confirm",
+    "tfaDisable": "Disable"
   }
 }

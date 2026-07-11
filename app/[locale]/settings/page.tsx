@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import SettingsForm from "./settings-form";
 import { getTranslations } from "next-intl/server";
 import SettingsSecurity from "./settings-security";
+import { prisma } from "@/lib/prisma";
 
 export default async function SettingsPage() {
   const t = await getTranslations();
@@ -20,10 +21,18 @@ export default async function SettingsPage() {
         defaultEmail={user.email ?? ""}
         phone={user.phone ?? ""}
       />
+      {/* google link state */}
       <SettingsSecurity
         email={user.email}
         emailVerified={!!user.emailVerifiedAt}
         hasPassword={!!user.passwordHash}
+        twoFactorEnabled={user.twoFactorEnabled}
+        phone={user.phone}
+        hasGoogle={
+          (await prisma.account.count({
+            where: { userId: user.id, provider: "google" },
+          })) > 0
+        }
       />
     </div>
   );

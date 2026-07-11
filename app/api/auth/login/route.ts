@@ -3,7 +3,8 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { verifyPassword } from "@/lib/password";
-import { createSession, sessionCookie } from "@/lib/auth";
+import { createSession, sessionCookie, generateOtp, hashOtp } from "@/lib/auth";
+import { sendOtp } from "@/lib/otp-transport";
 
 const bodySchema = z.object({
   email: z.string().email(),
@@ -27,7 +28,25 @@ export async function POST(req: Request) {
   if (!user.emailVerifiedAt)
     return NextResponse.json({ ok: false, error: "EMAIL_NOT_VERIFIED" }, { status: 403 });
 
-  // L3 seam: when user.twoFactorEnabled, branch to an OTP step here.
+  if (user.twoFactorEnabled && user.phone) {
+    const code = generateOtp();
+    await prisma.otpCode.create({
+      data: {
+        phone: user.phone,
+        codeHash: hashOtp(code, user.phone),
+        expiresAt: new Date(Date.now() + 5 * 60_000),
+      },
+    });
+    await sendOtp(user.phone, code, parsed.data.locale ?? user.locale);
+    const devCode = process.env.OTP_DEV_ECHO === "true" ? code : undefined;
+    const masked = user.phone.slice(0, 4) + "•••" + user.phone.slice(-4);
+    return NextResponse.json({
+      ok: true,
+      twoFactor: true,
+      phoneMasked: masked,
+      ...(devCode ? { devCode } : {}),
+    });
+  }
 
   const { token, expiresAt } = await createSession(user.id);
   const res = NextResponse.json({

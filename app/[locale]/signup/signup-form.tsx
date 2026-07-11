@@ -87,6 +87,14 @@ export default function SignupForm() {
           >
             {t("signup.google")}
           </a>
+          {process.env.NEXT_PUBLIC_APPLE_LOGIN === "1" && (
+            <a
+              href="/api/auth/apple?next=/"
+              className="mt-3 flex w-full items-center justify-center gap-3 rounded-xl bg-black px-4 py-3 text-sm font-semibold text-white hover:opacity-90"
+            >
+               {t("login2.apple")}
+            </a>
+          )}
           <div className="mt-5 flex items-center gap-3 text-xs text-slate">
             <span className="h-px flex-1 bg-gray-100" />
             {t("login2.or")}

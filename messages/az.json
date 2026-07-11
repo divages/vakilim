@@ -811,9 +811,15 @@
       "TOO_MANY_REQUESTS": "Çox cəhd — bir neçə dəqiqə sonra yenidən yoxlayın.",
       "INVALID_PHONE": "Nömrə düzgün deyil.",
       "INVALID_CODE": "Kod yanlış və ya vaxtı keçib.",
-      "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin."
+      "DEFAULT": "Xəta baş verdi. Yenidən cəhd edin.",
+      "WRONG_CODE": "Kod yanlışdır.",
+      "CODE_EXPIRED": "Kodun vaxtı keçib — yenidən daxil olun."
     },
-    "verifyFailed": "Təsdiq keçidi etibarsız və ya vaxtı keçib — yenidən qeydiyyatdan keçin və ya şifrə bərpasından istifadə edin."
+    "verifyFailed": "Təsdiq keçidi etibarsız və ya vaxtı keçib — yenidən qeydiyyatdan keçin və ya şifrə bərpasından istifadə edin.",
+    "googleFailed": "Google ilə giriş alınmadı — yenidən cəhd edin və ya e-poçt ilə daxil olun.",
+    "googleInUse": "Bu Google hesabı başqa istifadəçiyə bağlıdır.",
+    "apple": "Apple ilə davam et",
+    "twoFaSent": "Təsdiq kodu {phone} nömrəsinə göndərildi."
   },
   "signup": {
     "title": "Qeydiyyat",
@@ -869,6 +875,16 @@
       "WRONG_PASSWORD": "Cari şifrə yanlışdır.",
       "TOO_MANY_REQUESTS": "Çox cəhd — sonra yenidən yoxlayın.",
       "DEFAULT": "Xəta baş verdi."
-    }
+    },
+    "googleLinked": "Bağlıdır",
+    "googleLink": "Google hesabını bağla",
+    "tfaTitle": "İki mərhələli giriş",
+    "tfaOn": "Aktiv",
+    "tfaOff": "Deaktiv",
+    "tfaNoPhone": "Aktivləşdirmək üçün əvvəlcə profilə telefon nömrəsi əlavə edin.",
+    "tfaEnable": "Aktivləşdir",
+    "tfaCodeSent": "Nömrənizə kod göndərdik — daxil edin.",
+    "tfaConfirm": "Təsdiqlə",
+    "tfaDisable": "Deaktiv et"
   }
 }
