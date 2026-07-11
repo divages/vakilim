@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 async function ownedService(id: string) {
   const user = await getCurrentUser();
@@ -26,6 +27,8 @@ export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "svc", 30, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
   const owned = await ownedService(id);
   if ("error" in owned)
@@ -47,6 +50,8 @@ export async function DELETE(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(_req, "svc", 30, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
   const owned = await ownedService(id);
   if ("error" in owned)

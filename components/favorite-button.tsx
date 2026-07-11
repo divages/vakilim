@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function FavoriteButton({
   profileId,
@@ -11,6 +12,7 @@ export default function FavoriteButton({
   initial: boolean;
   className?: string;
 }) {
+  const t = useTranslations();
   const [fav, setFav] = useState(initial);
   const [busy, setBusy] = useState(false);
 
@@ -39,6 +41,7 @@ export default function FavoriteButton({
     <button
       onClick={toggle}
       aria-pressed={fav}
+      aria-label={t("common.favAria")}
       className={`rounded-full p-2 text-lg leading-none transition ${
         fav ? "text-red-500" : "text-gray-300 hover:text-red-400"
       } ${className}`}

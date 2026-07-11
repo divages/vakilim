@@ -3,13 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
 import { renderLiteMarkdown, extractToc } from "@/lib/markdown-lite";
+import { pickL } from "@/lib/locale-pick";
 
-function pickF(row: Record<string, string | null>, field: string, locale: string): string {
-  const az = row[`${field}Az`] as string;
-  if (locale === "ru") return row[`${field}Ru`] ?? az;
-  if (locale === "en") return row[`${field}En`] ?? az;
-  return az;
-}
 
 export async function generateMetadata({
   params,
@@ -23,7 +18,7 @@ export async function generateMetadata({
   });
   if (!r) return {};
   return {
-    title: pickF(r as never, "title", locale) + " — Vakilim.az",
+    title: pickL(r, "title", locale) + " — Vakilim.az",
     alternates: {
       canonical: `/${locale}/laws/${slug}`,
       languages: {
@@ -47,7 +42,7 @@ export default async function LawPage({
     where: { slug, publishedAt: { not: null, lte: new Date() } },
   });
   if (!r) notFound();
-  const body = pickF(r as never, "body", locale);
+  const body = pickL(r, "body", locale);
   const toc = extractToc(body);
 
   return (
@@ -56,7 +51,7 @@ export default async function LawPage({
         ← {t("laws.back")}
       </Link>
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-navy">
-        {pickF(r as never, "title", locale)}
+        {pickL(r, "title", locale)}
       </h1>
       {toc.length > 1 && (
         <nav className="mt-6 rounded-2xl border border-gray-100 bg-gray-50/60 p-5">

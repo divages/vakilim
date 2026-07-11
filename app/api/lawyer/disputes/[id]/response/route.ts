@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({ text: z.string().trim().min(10).max(2000) });
 
@@ -9,6 +10,8 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "dresp", 10, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
   const user = await getCurrentUser();
   if (!user)

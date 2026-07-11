@@ -10,7 +10,8 @@ export default async function AdminDocuments() {
     take: 100,
   });
   const users = orders.length
-    ? await prisma.user.findMany({
+    ? await // unbounded-ok: naturally bounded set
+  prisma.user.findMany({
         where: { id: { in: [...new Set(orders.map((o) => o.userId))] } },
         select: { id: true, fullName: true, phone: true },
       })

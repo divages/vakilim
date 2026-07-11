@@ -20,7 +20,9 @@
     "news": "Xəbərlər",
     "admPosts": "Yazılar✎",
     "qa": "Sual-cavab",
-    "laws": "Qanunlar"
+    "laws": "Qanunlar",
+    "skip": "Əsas məzmuna keç",
+    "bellAria": "Bildirişlər"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -110,7 +112,8 @@
     "savedTick": "Yadda saxlanıldı ✓",
     "yourReply": "Cavabınız:",
     "phone": "Telefon",
-    "more": "Daha çox göstər"
+    "more": "Daha çox göstər",
+    "favAria": "Sevimlilərə əlavə et və ya çıxar"
   },
   "directory": {
     "title": "Vəkillər",

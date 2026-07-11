@@ -25,7 +25,7 @@ export default async function PostArticle({
         {p.authorName ? ` · ${p.authorName}` : ""}
       </p>
       <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-navy">
-        {pick(p, "title", p as never, locale)}
+        {pick(p, "title", locale)}
       </h1>
       {p.coverUrl && (
         // eslint-disable-next-line @next/next/no-img-element
@@ -38,7 +38,7 @@ export default async function PostArticle({
       <div
         className="prose-vakilim mt-8 space-y-4 leading-relaxed text-slate-700 [&_a]:text-emerald [&_a]:underline [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-navy [&_h3]:mt-6 [&_h3]:font-bold [&_h3]:text-navy"
         dangerouslySetInnerHTML={{
-          __html: renderLiteMarkdown(pick(p, "body", p as never, locale)),
+          __html: renderLiteMarkdown(pick(p, "body", locale)),
         }}
       />
     </article>

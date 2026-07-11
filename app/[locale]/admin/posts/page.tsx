@@ -8,7 +8,8 @@ export default async function AdminPostsPage() {
   const user = await getCurrentUser();
   if (user?.role !== "ADMIN") redirect("/");
   const t = await getTranslations();
-  const areas = await prisma.practiceArea.findMany({
+  const areas = await // unbounded-ok: naturally bounded set
+  prisma.practiceArea.findMany({
     orderBy: { sortOrder: "asc" },
     select: { slug: true, nameAz: true },
   });

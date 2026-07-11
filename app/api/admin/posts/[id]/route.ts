@@ -14,7 +14,7 @@ const patchSchema = z.object({
   bodyAz: z.string().min(10).optional(),
   bodyRu: z.string().nullable().optional(),
   bodyEn: z.string().nullable().optional(),
-  coverUrl: z.string().url().max(500).nullable().optional().or(z.literal("")),
+  coverUrl: z.string().url().regex(/^https:\/\//).max(500).nullable().optional().or(z.literal("")),
   authorName: z.string().max(80).nullable().optional(),
   practiceAreaSlug: z.string().max(80).nullable().optional().or(z.literal("")),
   published: z.boolean().optional(),

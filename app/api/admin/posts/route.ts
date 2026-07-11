@@ -15,7 +15,7 @@ const bodySchema = z.object({
   bodyAz: z.string().min(10),
   bodyRu: z.string().optional().nullable(),
   bodyEn: z.string().optional().nullable(),
-  coverUrl: z.string().url().max(500).optional().nullable().or(z.literal("")),
+  coverUrl: z.string().url().regex(/^https:\/\//).max(500).optional().nullable().or(z.literal("")),
   authorName: z.string().max(80).optional().nullable(),
   practiceAreaSlug: z.string().max(80).optional().nullable().or(z.literal("")),
 });

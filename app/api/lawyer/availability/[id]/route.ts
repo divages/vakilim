@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function DELETE(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(_req, "avail", 30, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
 
   const user = await getCurrentUser();

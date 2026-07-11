@@ -7,19 +7,9 @@ import Avatar from "@/components/avatar";
 import FavoriteButton from "@/components/favorite-button";
 import { formatAzn } from "@/lib/money";
 import { renderLiteMarkdown } from "@/lib/markdown-lite";
+import { pickL, areaNameL } from "@/lib/locale-pick";
 import { generateSlots, bakuDateIso, fmtMin, weekdayOfIso } from "@/lib/slots";
 
-function areaName(a: { nameAz: string; nameRu: string | null; nameEn: string | null }, locale: string) {
-  if (locale === "ru") return a.nameRu ?? a.nameAz;
-  if (locale === "en") return a.nameEn ?? a.nameAz;
-  return a.nameAz;
-}
-function pickQ(row: Record<string, string | null>, field: string, locale: string): string {
-  const az = row[`${field}Az`] as string;
-  if (locale === "ru") return row[`${field}Ru`] ?? az;
-  if (locale === "en") return row[`${field}En`] ?? az;
-  return az;
-}
 
 export async function generateMetadata({
   params,
@@ -30,7 +20,7 @@ export async function generateMetadata({
   const area = await prisma.practiceArea.findUnique({ where: { slug } });
   if (!area) return {};
   const t = await getTranslations({ locale, namespace: "areas" });
-  const name = areaName(area, locale);
+  const name = areaNameL(area, locale);
   return {
     title: t("metaTitle", { name }),
     description: t("intro", { name }),
@@ -55,7 +45,7 @@ export default async function AreaLanding({
   const area = await prisma.practiceArea.findUnique({ where: { slug } });
   if (!area) notFound();
   const t = await getTranslations();
-  const name = areaName(area, locale);
+  const name = areaNameL(area, locale);
 
 const rows = await prisma.lawyerProfile.findMany({
     where: {
@@ -116,10 +106,12 @@ const rows = await prisma.lawyerProfile.findMany({
   const [allRules, allBusy] =
     ids.length > 0
       ? await Promise.all([
+          // unbounded-ok: naturally bounded set
           prisma.availabilityRule.findMany({
             where: { lawyerId: { in: ids } },
             select: { lawyerId: true, weekday: true, startMin: true, endMin: true },
           }),
+          // unbounded-ok: bounded by ids set
           prisma.booking.findMany({
             where: {
               lawyerId: { in: ids },
@@ -267,13 +259,13 @@ const rows = await prisma.lawyerProfile.findMany({
                 className="group rounded-2xl border border-gray-100 bg-white px-5 py-4 shadow-sm open:shadow-md"
               >
                 <summary className="cursor-pointer list-none font-semibold text-navy">
-                  {pickQ(r as never, "question", locale)}
+                  {pickL(r, "question", locale)}
                   <span className="float-right text-slate transition group-open:rotate-45">+</span>
                 </summary>
                 <div
                   className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700 [&_a]:text-emerald [&_a]:underline"
                   dangerouslySetInnerHTML={{
-                    __html: renderLiteMarkdown(pickQ(r as never, "answer", locale)),
+                    __html: renderLiteMarkdown(pickL(r, "answer", locale)),
                   }}
                 />
               </details>
@@ -301,7 +293,7 @@ const rows = await prisma.lawyerProfile.findMany({
                   {po.publishedAt!.toISOString().slice(0, 10)}
                 </p>
                 <p className="mt-1 line-clamp-2 font-semibold text-navy">
-                  {pickQ(po as never, "title", locale)}
+                  {pickL(po, "title", locale)}
                 </p>
               </Link>
             ))}

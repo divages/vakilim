@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { encryptJson } from "@/lib/crypto";
 import { validateAnswers, type FieldDef } from "@/lib/doc-fields";
 import { generateAndStore, newDocUid } from "@/lib/docgen";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({
   templateSlug: z.string().min(1),
@@ -12,6 +13,8 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  if (!checkRateLimit(req, "docorder", 10, 60 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });

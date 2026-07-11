@@ -20,7 +20,9 @@
     "news": "News",
     "admPosts": "Posts✎",
     "qa": "Q&A",
-    "laws": "Laws"
+    "laws": "Laws",
+    "skip": "Skip to content",
+    "bellAria": "Notifications"
   },
   "footer": {
     "terms": "Terms",
@@ -110,7 +112,8 @@
     "savedTick": "Saved ✓",
     "yourReply": "Your reply:",
     "phone": "Phone",
-    "more": "Show more"
+    "more": "Show more",
+    "favAria": "Add to or remove from favorites"
   },
   "directory": {
     "title": "Lawyers",

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { renderLiteMarkdown } from "@/lib/markdown-lite";
+import { pickL } from "@/lib/locale-pick";
 
 export async function generateMetadata({
   params,
@@ -18,12 +19,6 @@ export async function generateMetadata({
   };
 }
 
-function pickQ(row: Record<string, string | null>, field: string, locale: string): string {
-  const az = row[`${field}Az`] as string;
-  if (locale === "ru") return row[`${field}Ru`] ?? az;
-  if (locale === "en") return row[`${field}En`] ?? az;
-  return az;
-}
 
 export default async function QaPage({
   params,
@@ -40,7 +35,7 @@ export default async function QaPage({
 
   const groups = new Map<string, typeof rows>();
   for (const r of rows) {
-    const cat = pickQ(r as never, "category", locale) || t("qa.general");
+    const cat = pickL(r, "category", locale) || t("qa.general");
     if (!groups.has(cat)) groups.set(cat, []);
     groups.get(cat)!.push(r);
   }
@@ -50,10 +45,10 @@ export default async function QaPage({
     "@type": "FAQPage",
     mainEntity: rows.map((r) => ({
       "@type": "Question",
-      name: pickQ(r as never, "question", locale),
+      name: pickL(r, "question", locale),
       acceptedAnswer: {
         "@type": "Answer",
-        text: pickQ(r as never, "answer", locale),
+        text: pickL(r, "answer", locale),
       },
     })),
   };
@@ -83,7 +78,7 @@ export default async function QaPage({
                   className="group rounded-2xl border border-gray-100 bg-white px-5 py-4 shadow-sm open:shadow-md"
                 >
                   <summary className="cursor-pointer list-none font-semibold text-navy">
-                    {pickQ(r as never, "question", locale)}
+                    {pickL(r, "question", locale)}
                     <span className="float-right text-slate transition group-open:rotate-45">
                       +
                     </span>
@@ -91,7 +86,7 @@ export default async function QaPage({
                   <div
                     className="mt-3 space-y-3 text-sm leading-relaxed text-slate-700 [&_a]:text-emerald [&_a]:underline"
                     dangerouslySetInnerHTML={{
-                      __html: renderLiteMarkdown(pickQ(r as never, "answer", locale)),
+                      __html: renderLiteMarkdown(pickL(r, "answer", locale)),
                     }}
                   />
                 </details>

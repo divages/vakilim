@@ -1,16 +1,13 @@
 import { prisma } from "@/lib/prisma";
+import { pickL } from "@/lib/locale-pick";
 import type { PostKind } from "@/generated/prisma/client";
 
-export function pick(
-  p: { titleAz: string; titleRu: string | null; titleEn: string | null },
+export function pick<R extends Record<string, unknown>>(
+  row: R,
   field: "title" | "excerpt" | "body",
-  row: Record<string, unknown>,
   locale: string
 ): string {
-  const az = row[`${field}Az`] as string;
-  if (locale === "ru") return (row[`${field}Ru`] as string | null) ?? az;
-  if (locale === "en") return (row[`${field}En`] as string | null) ?? az;
-  return az;
+  return pickL(row, field, locale);
 }
 
 export async function publishedPosts(kind: PostKind, page: number, per = 9) {

@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
+import { pickL } from "@/lib/locale-pick";
 
 export async function generateMetadata({
   params,
@@ -18,11 +19,6 @@ export async function generateMetadata({
   };
 }
 
-function pickT(r: { titleAz: string; titleRu: string | null; titleEn: string | null }, locale: string) {
-  if (locale === "ru") return r.titleRu ?? r.titleAz;
-  if (locale === "en") return r.titleEn ?? r.titleAz;
-  return r.titleAz;
-}
 
 export default async function LawsPage({
   params,
@@ -34,6 +30,7 @@ export default async function LawsPage({
   const rows = await prisma.lawDoc.findMany({
     where: { publishedAt: { not: null, lte: new Date() } },
     orderBy: [{ kind: "asc" }, { sortOrder: "asc" }],
+    take: 300,
     select: { id: true, kind: true, slug: true, titleAz: true, titleRu: true, titleEn: true },
   });
   const codes = rows.filter((r) => r.kind === "CODE");
@@ -50,7 +47,7 @@ export default async function LawsPage({
               href={`/laws/${r.slug}`}
               className="block rounded-2xl border border-gray-100 bg-white px-5 py-4 font-medium text-navy shadow-sm transition hover:shadow-md"
             >
-              {pickT(r, locale)} →
+              {pickL(r, "title", locale)} →
             </Link>
           ))}
         </div>

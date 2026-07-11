@@ -4,7 +4,8 @@ import QaEditor from "./qa-editor";
 
 export default async function AdminQaPage() {
   const t = await getTranslations();
-  const areas = await prisma.practiceArea.findMany({
+  const areas = await // unbounded-ok: naturally bounded set
+  prisma.practiceArea.findMany({
     orderBy: { sortOrder: "asc" },
     select: { slug: true, nameAz: true },
   });

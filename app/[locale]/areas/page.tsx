@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Link } from "@/i18n/navigation";
+import { areaNameL } from "@/lib/locale-pick";
 
 export async function generateMetadata({
   params,
@@ -18,11 +19,6 @@ export async function generateMetadata({
   };
 }
 
-function areaName(a: { nameAz: string; nameRu: string | null; nameEn: string | null }, locale: string) {
-  if (locale === "ru") return a.nameRu ?? a.nameAz;
-  if (locale === "en") return a.nameEn ?? a.nameAz;
-  return a.nameAz;
-}
 
 export default async function AreasPage({
   params,
@@ -31,7 +27,8 @@ export default async function AreasPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations();
-  const areas = await prisma.practiceArea.findMany({
+  const areas = await // unbounded-ok: naturally bounded set
+  prisma.practiceArea.findMany({
     orderBy: { sortOrder: "asc" },
     include: {
       _count: {
@@ -54,7 +51,7 @@ export default async function AreasPage({
             href={`/areas/${a.slug}`}
             className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition hover:shadow-md"
           >
-            <p className="font-bold text-navy">{areaName(a, locale)}</p>
+            <p className="font-bold text-navy">{areaNameL(a, locale)}</p>
             <p className="mt-1 text-sm text-slate">
               {t("areas.count", { n: a._count.lawyers })}
             </p>

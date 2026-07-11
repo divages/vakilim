@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import "@/lib/env";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "../globals.css";
 import { routing } from "@/i18n/routing";
@@ -25,6 +26,13 @@ export async function generateMetadata({
   return {
     metadataBase: new URL("https://vakilim.az"),
     title: t("siteTitle"),
+    openGraph: {
+      siteName: "Vakilim.az",
+      type: "website",
+      locale: locale === "az" ? "az_AZ" : locale === "ru" ? "ru_RU" : "en_US",
+      title: t("siteTitle"),
+      description: t("siteDesc"),
+    },
     description: t("siteDesc"),
     alternates: {
       canonical: `/${locale}`,
@@ -56,6 +64,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={`${inter.className} flex min-h-screen flex-col`} suppressHydrationWarning>
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-navy focus:px-4 focus:py-2 focus:text-sm focus:text-white">{t("skip")}</a>
         <LocaleSync locale={locale} loggedIn={!!user} />
         <NextIntlClientProvider>
           <header className="sticky top-0 z-20 border-b border-gray-100 bg-white/80 backdrop-blur">
@@ -116,6 +125,7 @@ export default async function LocaleLayout({
                   <>
                     <Link
                       href="/notifications"
+                      aria-label={t("bellAria")}
                       className="relative font-medium text-slate-600 hover:text-navy"
                     >
                       🔔
@@ -193,7 +203,7 @@ export default async function LocaleLayout({
               </nav>
             </details>
           </header>
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">{children}</main>
           <footer className="border-t border-gray-100 bg-gray-50">
             <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm">
               <span>© {new Date().getFullYear()} Vakilim.az</span>

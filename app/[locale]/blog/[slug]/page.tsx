@@ -13,8 +13,14 @@ export async function generateMetadata({
   });
   if (!p) return {};
   return {
-    title: pick(p, "title", p as never, locale) + " — Vakilim.az",
-    description: pick(p, "excerpt", p as never, locale),
+    title: pick(p, "title", locale) + " — Vakilim.az",
+    description: pick(p, "excerpt", locale),
+    openGraph: {
+      type: "article",
+      title: pick(p, "title", locale),
+      description: pick(p, "excerpt", locale),
+      ...(p.coverUrl ? { images: [p.coverUrl] } : {}),
+    },
     alternates: {
       canonical: `/${locale}/blog/${slug}`,
       languages: {

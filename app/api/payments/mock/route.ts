@@ -3,10 +3,13 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { notifyUser, whenLabel } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({ bookingId: z.string().min(1) });
 
 export async function POST(req: Request) {
+  if (!checkRateLimit(req, "pay", 10, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });

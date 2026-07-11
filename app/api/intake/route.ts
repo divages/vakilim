@@ -23,7 +23,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "INVALID_BODY" }, { status: 400 });
   const { text, locale } = parsed.data;
 
-  const areas = await prisma.practiceArea.findMany({
+  const areas = await // unbounded-ok: naturally bounded set
+  prisma.practiceArea.findMany({
     orderBy: { sortOrder: "asc" },
     select: { slug: true, nameAz: true, nameRu: true, nameEn: true },
   });

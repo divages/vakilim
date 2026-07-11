@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { notifyUser, whenLabel } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const bodySchema = z.object({ action: z.enum(["ACCEPT", "DECLINE"]) });
 
@@ -10,6 +11,8 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "decision", 30, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
 
   const user = await getCurrentUser();

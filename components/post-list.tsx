@@ -45,10 +45,10 @@ export default async function PostList({
                   {p.authorName ? ` · ${p.authorName}` : ""}
                 </p>
                 <h2 className="mt-1 font-bold text-navy">
-                  {pick(p, "title", p as never, locale)}
+                  {pick(p, "title", locale)}
                 </h2>
                 <p className="mt-2 line-clamp-3 text-sm text-slate">
-                  {pick(p, "excerpt", p as never, locale)}
+                  {pick(p, "excerpt", locale)}
                 </p>
               </div>
             </Link>

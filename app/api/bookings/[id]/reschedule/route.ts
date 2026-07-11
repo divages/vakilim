@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { generateSlots } from "@/lib/slots";
 import { canReschedule } from "@/lib/reschedule";
 import { notifyUser, whenLabel } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const ACTIVE_STATUSES = ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"] as const;
 const DAYS = 14;
@@ -16,6 +17,8 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(req, "resched", 10, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
 
   const user = await getCurrentUser();

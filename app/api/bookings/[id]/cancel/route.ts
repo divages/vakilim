@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { cancellationRefund } from "@/lib/policy";
 import { notifyUser, whenLabel } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const CANCELLABLE = ["PENDING_PAYMENT", "REQUESTED", "CONFIRMED"] as const;
 
@@ -10,6 +11,8 @@ export async function POST(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(_req, "cancel", 10, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
 
   const user = await getCurrentUser();

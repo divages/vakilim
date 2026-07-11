@@ -56,7 +56,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "yearly",
       });
 
-  const areaRows = await prisma.practiceArea.findMany({ select: { slug: true } });
+  const areaRows = await // unbounded-ok: naturally bounded set
+  prisma.practiceArea.findMany({ select: { slug: true } });
   for (const l of LOCALES)
     for (const a of areaRows)
       rows.push({ url: `${BASE}/${l}/areas/${a.slug}`, changeFrequency: "weekly" });

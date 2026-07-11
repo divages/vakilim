@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const CALL_TYPES = ["VIDEO", "AUDIO"] as const;
 const DURATIONS = [15, 30, 60] as const;
@@ -14,6 +15,8 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
+  if (!checkRateLimit(req, "svc", 20, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const user = await getCurrentUser();
   if (!user)
     return NextResponse.json({ ok: false, error: "UNAUTHORIZED" }, { status: 401 });

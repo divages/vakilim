@@ -9,11 +9,14 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { isJoinable } from "@/lib/call-window";
 import { s3Env } from "@/lib/storage";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!checkRateLimit(_req, "recstart", 10, 10 * 60_000))
+    return NextResponse.json({ ok: false, error: "TOO_MANY_REQUESTS" }, { status: 429 });
   const { id } = await params;
 
   const lkUrl = process.env.LIVEKIT_URL;
