@@ -19,7 +19,7 @@ export default async function PostArticle({
   if (!p) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12">
+    <article className="mx-auto w-full max-w-5xl px-4 py-10">
       <p className="text-xs text-slate">
         {p.publishedAt!.toISOString().slice(0, 10)}
         {p.authorName ? ` · ${p.authorName}` : ""}

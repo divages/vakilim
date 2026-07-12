@@ -24,7 +24,7 @@ export default async function PrivacyPage({
   const { locale } = await params;
   const t = await getTranslations();
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12 text-[15px] leading-relaxed">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10 text-[15px] leading-relaxed">
       <h1 className="text-2xl font-bold text-navy">{t("legal.privacyTitle")}</h1>
       <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800">
         {t("legal.draftBanner")}

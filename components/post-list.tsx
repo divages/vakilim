@@ -17,7 +17,7 @@ export default async function PostList({
   const { rows, pages } = await publishedPosts(kind, page);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t(kind === "BLOG" ? "blog.title" : "blog.newsTitle")}
       </h1>

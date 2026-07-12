@@ -47,12 +47,12 @@ export default async function LawPage({
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10">
-      <Link href="/laws" className="text-sm font-medium text-emerald hover:underline">
-        ← {t("laws.back")}
-      </Link>
-      <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {pickL(r, "title", locale)}
       </h1>
+      <Link href="/laws" className="mt-3 text-sm font-medium text-emerald hover:underline">
+        ← {t("laws.back")}
+      </Link>
       {toc.length > 1 && (
         <nav className="mt-6 rounded-2xl border border-gray-100 bg-gray-50/60 p-5">
           <p className="text-xs font-bold uppercase tracking-wide text-slate">

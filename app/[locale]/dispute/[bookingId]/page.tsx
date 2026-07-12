@@ -27,7 +27,7 @@ export default async function DisputePage({
     redirect("/bookings");
 
   return (
-    <div className="mx-auto max-w-md px-4 py-10">
+    <div className="mx-auto w-full max-w-md px-4 py-10">
       <h1 className="text-2xl font-bold text-navy">Problem bildirin</h1>
       <p className="mt-2 text-sm">
         {t("dispute.intro", { name: booking.lawyer.user.fullName ?? t("common.lawyer") })}

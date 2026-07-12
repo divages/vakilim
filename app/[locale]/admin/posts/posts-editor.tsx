@@ -10,7 +10,7 @@ type P = {
   bodyAz: string; bodyRu: string | null; bodyEn: string | null;
   coverUrl: string | null; authorName: string | null; practiceAreaSlug: string | null; byLawyer: boolean; published: boolean;
 };
-const EMPTY: Omit<P, "id" | "published"> = {
+const EMPTY: Omit<P, "id" | "published" | "byLawyer"> = {
   kind: "BLOG", slug: "", titleAz: "", titleRu: "", titleEn: "",
   excerptAz: "", excerptRu: "", excerptEn: "", bodyAz: "", bodyRu: "", bodyEn: "",
   coverUrl: "", authorName: "", practiceAreaSlug: "",

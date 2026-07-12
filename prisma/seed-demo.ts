@@ -78,6 +78,29 @@ const FALLBACK_FIELDS = [
   { key: "details", label: "Əlavə şərtlər", type: "text", required: false },
 ];
 
+const EMEK_BODY = `## Ümumi müddəalar
+
+Azərbaycan Respublikası Konstitusiyasının 35-ci maddəsinə əsasən əmək fərdi və ictimai rifahın əsasıdır. Hər kəsin əməyə olan qabiliyyəti əsasında sərbəst surətdə özünə fəaliyyət növü, peşə, məşğuliyyət və iş yeri seçmək hüququ vardır.
+
+## Maddə 2. Əmək Məcəlləsinin vəzifələri və prinsipləri
+
+1. Azərbaycan Respublikasının Əmək Məcəlləsi işçilərlə işəgötürənlər arasında yaranan əmək münasibətlərini, habelə onlarla müvafiq dövlət hakimiyyəti orqanları, hüquqi şəxslər arasında həmin münasibətlərdən törəyən digər hüquq münasibətlərini tənzim edir.
+
+2. Azərbaycan Respublikasının Əmək Məcəlləsi fiziki şəxslərin əmək hüquqlarının və bu hüquqların həyata keçirilməsini təmin edən qaydaların minimum normalarını müəyyən edir.
+
+## Maddə 3. Əsas anlayışlar
+
+**İşçi** — işəgötürənlə fərdi qaydada yazılı əmək müqaviləsi (kontrakt) bağlayaraq müvafiq iş yerində haqqı ödənilməklə çalışan fiziki şəxs.
+
+**İşəgötürən** — tam fəaliyyət qabiliyyətli olub işçilərlə əmək müqaviləsi bağlamaq, ona xitam vermək, yaxud onun şərtlərini dəyişdirmək hüququna malik olan şəxs.
+
+**Müəssisə** — mülkiyyətçinin təşkilati-hüquqi formasından, adından və fəaliyyət növündən asılı olmayaraq qanunvericiliyə müvafiq olaraq yaratdığı hüquqi şəxs, onun filialı, nümayəndəliyi.
+
+---
+
+*Mənbə və tam rəsmi mətn:* [e-qanun.az/framework/46943](https://e-qanun.az/framework/46943)
+`;
+
 async function main() {
   // the app's own client singleton — the only constructor that knows the
   // Prisma 7 driver-adapter options; env is already loaded by this point
@@ -129,7 +152,7 @@ async function main() {
     data: {
       role: "ADMIN",
       phone: "+16505500808",
-      email: "contact@appliance-suregon.com",
+      email: "javid@vakilim.az",
       passwordHash: bcrypt.hashSync("Vakilim.az", 10),
       emailVerifiedAt: now,
       phoneVerifiedAt: now,
@@ -137,7 +160,7 @@ async function main() {
       locale: "az",
     },
   });
-  console.log("admin: contact@appliance-suregon.com / Vakilim.az (+16505500808) ✓");
+  console.log("admin: javid@vakilim.az / Vakilim.az (+16505500808) ✓");
 
   // ── 4. 50 lawyers ──
   const usedPhones = new Set(["+16505500808"]);
@@ -149,6 +172,7 @@ async function main() {
     }
   };
   let approved = 0, pending = 0, rejected = 0;
+  const approvedProfiles: { id: string; name: string }[] = [];
   for (let i = 0; i < 50; i++) {
     const female = rnd() < 0.5;
     const first = pick(female ? FEMALE : MALE);
@@ -191,6 +215,7 @@ async function main() {
     });
 
     if (status === "APPROVED") {
+      approvedProfiles.push({ id: profile.id, name: fullName });
       await prisma.service.create({
         data: {
           lawyerId: profile.id,
@@ -249,9 +274,114 @@ async function main() {
   }
   console.log(`templates: ${tCount} (10 families × az/ru/en) ✓`);
 
+  // ── 5b. blog & news + lawyer articles ──
+  const P = (az: string, ru: string, en: string) => [az, ru, en] as const;
+  const PLATFORM: [readonly [string,string,string], readonly [string,string,string], "BLOG"|"NEWS", string | null][] = [
+    [P("Bosanma prosesi: addim-addim beledci","Развод: пошаговый гид","Divorce, step by step"), P("Erizeden qerara qeder — ne gozlemek lazimdir.","От заявления до решения — чего ожидать.","From filing to decision — what to expect."), "BLOG", "aile-huququ"],
+    [P("Isden cixarilma: huquqlariniz","Увольнение: ваши права","Dismissal: your rights"), P("Qanunsuz xitamda kompensasiya yollari.","Компенсация при незаконном увольнении.","Compensation for unlawful dismissal."), "BLOG", "emek-huququ"],
+    [P("Icare muqavilesinde 7 vacib bend","7 пунктов договора аренды","7 key lease clauses"), P("Kiraceci ve mulk sahibi ucun.","Для арендатора и владельца.","For tenants and landlords."), "BLOG", "dasinmaz-emlak"],
+    [P("Vergi yoxlamasina hazirliq","Подготовка к налоговой проверке","Preparing for a tax audit"), P("Senedler, muddetler, huquqlar.","Документы, сроки, права.","Documents, deadlines, rights."), "BLOG", "vergi-huququ"],
+    [P("Miqrasiya statusu: tez-tez suallar","Миграционный статус: FAQ","Migration status FAQ"), P("Icazeler ve muddetler barede.","О разрешениях и сроках.","On permits and periods."), "BLOG", "miqrasiya"],
+    [P("Borc muqavilesi nece tertib olunur","Как оформить договор займа","Drafting a loan agreement"), P("Faiz, muddet, teminat.","Проценты, срок, обеспечение.","Interest, term, security."), "BLOG", "mulki-huquq"],
+    [P("Vakilim.az beta merheleye kecdi","Vakilim.az вышел в бету","Vakilim.az enters beta"), P("Ilk istifadeciler ucun qapilar aciqdir.","Двери открыты для первых пользователей.","Doors open for first users."), "NEWS", null],
+    [P("Yeni sahe sehifeleri ise dusdu","Запущены страницы областей права","Practice-area pages are live"), P("Her sahe uzre vekiller ve materiallar bir yerde.","Юристы и материалы по каждой области.","Lawyers and materials per area."), "NEWS", null],
+    [P("Sened kataloqu genislendi","Каталог документов расширен","Document catalog expanded"), P("30 yeni sablon uc dilde.","30 новых шаблонов на трёх языках.","30 new templates in three languages."), "NEWS", null],
+    [P("Video goruslerde yazi funksiyasi","Запись видеовстреч","Call recording arrives"), P("Raziliq esasinda, 30 gun saxlama ile.","С согласия сторон, хранение 30 дней.","Consent-based, 30-day retention."), "NEWS", null],
+  ];
+  const mdBody = (titleAz: string) =>
+    "## " + titleAz + "\n\nBu material **melumat xarakterlidir** ve huquqi meslehet deyil. Konkret veziyyet ucun [vekil tapin](https://vakilim.az/az/lawyers).\n\n## Esas meqamlar\n\nProsesin gedisi, teleb olunan senedler ve muddetler barede umumi beledci. Her hal ferdidir - peshekar rey vacibdir.";
+  let postN = 0;
+  for (const [titles, excerpts, kind, area] of PLATFORM) {
+    postN++;
+    await prisma.post.create({
+      data: {
+        kind,
+        slug: slugify(titles[0]) + "-" + postN,
+        titleAz: titles[0], titleRu: titles[1], titleEn: titles[2],
+        excerptAz: excerpts[0], excerptRu: excerpts[1], excerptEn: excerpts[2],
+        bodyAz: mdBody(titles[0]),
+        bodyRu: "## " + titles[1] + "\n\nОбзорный материал. **Не является юридической консультацией.**",
+        bodyEn: "## " + titles[2] + "\n\nAn overview. **Not legal advice.**",
+        coverUrl: "https://picsum.photos/seed/vakilim" + postN + "/800/450",
+        authorName: "Vakilim.az",
+        practiceAreaSlug: area,
+        publishedAt: new Date(Date.now() - postN * 86_400_000),
+      },
+    });
+  }
+  const authors = [...approvedProfiles].sort(() => rnd() - 0.5).slice(0, 11);
+  for (let i = 0; i < authors.length; i++) {
+    const a = authors[i];
+    const published = i < 8;
+    await prisma.post.create({
+      data: {
+        kind: "BLOG",
+        slug: "meqale-" + slugify(a.name) + "-" + (i + 1),
+        titleAz: "Praktikadan: " + pick(["ilk mehkeme iclasi","muqavile yoxlanisi","apellyasiya tecrubesi","danisiqlarin sirleri"]),
+        excerptAz: "Vekil tecrubesinden qisa qeydler ve tovsiyeler.",
+        bodyAz: "## Tecrubeden qeydler\n\n**" + a.name + "** praktik mesleheler bolusur.\n\nHer is ferdidir; buradaki fikirler umumi istiqamet ucundur.",
+        authorLawyerId: a.id,
+        authorName: a.name,
+        practiceAreaSlug: pick(AREAS)[0],
+        publishedAt: published ? new Date(Date.now() - (i + 2) * 43_200_000) : null,
+      },
+    });
+  }
+  console.log("posts: " + PLATFORM.length + " platform + " + authors.length + " lawyer articles (8 live, 3 in review)");
+
+  // ── 5c. laws (real text from e-qanun.az; laws are official acts, public domain) ──
+  const LAW_DOCS = [
+    {
+      slug: "emek-mecellesi",
+      kind: "CODE" as const,
+      titleAz: "Az\u0259rbaycan Respublikas\u0131n\u0131n \u018fm\u0259k M\u0259c\u0259ll\u0259si",
+      titleRu: "Трудовой кодекс Азербайджанской Республики",
+      titleEn: "Labor Code of the Republic of Azerbaijan",
+      cat: "M\u0259c\u0259ll\u0259l\u0259r",
+      url: "https://e-qanun.az/framework/46943",
+      body: EMEK_BODY,
+    },
+    {
+      slug: "mulki-mecelle",
+      kind: "CODE" as const,
+      titleAz: "Az\u0259rbaycan Respublikas\u0131n\u0131n M\u00fclki M\u0259c\u0259ll\u0259si",
+      titleRu: "Гражданский кодекс Азербайджанской Республики",
+      titleEn: "Civil Code of the Republic of Azerbaijan",
+      cat: "M\u0259c\u0259ll\u0259l\u0259r",
+      url: "https://e-qanun.az/",
+      body: "## Haqq\u0131nda\n\nM\u00fclki M\u0259c\u0259ll\u0259 m\u00fclki h\u00fcquq m\u00fcnasib\u0259tl\u0259rini — \u0259mlak, m\u00fcqavil\u0259l\u0259r, \u00f6hd\u0259likl\u0259r, miras v\u0259 dig\u0259r m\u0259s\u0259l\u0259l\u0259ri t\u0259nzim edir.\n\n**Tam r\u0259smi m\u0259tn:** [e-qanun.az](https://e-qanun.az/)",
+    },
+    {
+      slug: "vekillik-qanunu",
+      kind: "LAW" as const,
+      titleAz: "V\u0259kill\u0259r v\u0259 v\u0259killik f\u0259aliyy\u0259ti haqq\u0131nda Qanun",
+      titleRu: "Закон об адвокатах и адвокатской деятельности",
+      titleEn: "Law on Advocates and Advocacy",
+      cat: "Qanunlar",
+      url: "https://e-qanun.az/",
+      body: "## Haqq\u0131nda\n\nBu Qanun v\u0259killiyin t\u0259\u015fkili, v\u0259kill\u0259rin h\u00fcquq v\u0259 v\u0259zif\u0259l\u0259ri, v\u0259kill\u0259r kollegiyas\u0131n\u0131n f\u0259aliyy\u0259t \u0259saslar\u0131n\u0131 m\u00fc\u0259yy\u0259n edir.\n\n**Tam r\u0259smi m\u0259tn:** [e-qanun.az](https://e-qanun.az/)",
+    },
+  ];
+  for (let i = 0; i < LAW_DOCS.length; i++) {
+    const L = LAW_DOCS[i];
+    await prisma.lawDoc.create({
+      data: {
+        kind: L.kind,
+        slug: L.slug,
+        titleAz: L.titleAz,
+        titleRu: L.titleRu,
+        titleEn: L.titleEn,
+bodyAz: L.body,
+        sortOrder: i,
+        publishedAt: new Date(),
+      },
+    });
+  }
+  console.log("laws: " + LAW_DOCS.length + " docs (Emek Mecellesi with real e-qanun text)");
+
   // ── 6. 20 clients ──
   const clientHash = bcrypt.hashSync("Valikim.az", 10); // literal per spec — note the l/k
-  const usedMails = new Set(["contact@appliance-suregon.com"]);
+  const usedMails = new Set(["javid@vakilim.az"]);
   for (let i = 0; i < 20; i++) {
     const female = rnd() < 0.5;
     const first = pick(female ? FEMALE : MALE);
@@ -275,7 +405,12 @@ async function main() {
   console.log("clients: 20 (+994 phones, password: Valikim.az) ✓");
 
   console.log("\n═══ SEED COMPLETE ═══");
-  console.log("Admin login:  contact@appliance-suregon.com / Vakilim.az  → 2FA code to +16505500808 (echoed in dev)");
+  console.log("Admin login:  javid@vakilim.az / Vakilim.az  → 2FA code to +16505500808 (echoed in dev)");
+  const [nPosts, nLaws, nTpl, nLaw, nUsr] = await Promise.all([
+    prisma.post.count(), prisma.lawDoc.count(), prisma.docTemplate.count(),
+    prisma.lawyerProfile.count(), prisma.user.count(),
+  ]);
+  console.log("SEED SELF-REPORT — posts:" + nPosts + " laws:" + nLaws + " templates:" + nTpl + " lawyers:" + nLaw + " users:" + nUsr);
   console.log("Any client:   <listed email> / Valikim.az  · lawyers sign in via phone code");
 
   await prisma.$disconnect();

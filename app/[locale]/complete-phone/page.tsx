@@ -16,7 +16,7 @@ export default async function CompletePhonePage({
   if (user.phone) redirect(next);
   const t = await getTranslations();
   return (
-    <div className="mx-auto max-w-sm px-4 py-10">
+    <div className="mx-auto w-full max-w-sm px-4 py-10">
       <h1 className="text-2xl font-extrabold tracking-tight text-navy">
         {t("cphone.title")}
       </h1>

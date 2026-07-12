@@ -111,12 +111,14 @@ export default async function LocaleLayout({
                     Admin
                   </Link>
                 ) : user?.role === "LAWYER" ? (
+                    <>
                     <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                       {t("lawyerPanel")}
                     </Link>
-                  <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
-                    {t("myArticles")}
-                  </Link>
+                    <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
+                      {t("myArticles")}
+                    </Link>
+                  </>
                   ) : null}
                 </nav>
               </div>
@@ -199,12 +201,14 @@ export default async function LocaleLayout({
                     Admin
                   </Link>
                 ) : user?.role === "LAWYER" ? (
-                  <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
+                  <>
+                    <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                     {t("lawyerPanel")}
                   </Link>
-                <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
-                  {t("myArticles")}
-                </Link>
+                    <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
+                      {t("myArticles")}
+                    </Link>
+                  </>
                 ) : null}
               </nav>
             </details>
