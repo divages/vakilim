@@ -74,6 +74,7 @@ model User {
   twoFactorEnabled Boolean        @default(false)
   phoneVerifiedAt  DateTime?
   fullName      String?
+  photoKey      String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   lawyerProfile LawyerProfile?
@@ -144,6 +145,7 @@ model LawyerProfile {
   updatedAt          DateTime             @updatedAt
   practiceAreas      LawyerPracticeArea[]
   services           Service[]
+  articles           Post[]
   availabilityRules  AvailabilityRule[]
   bookings           Booking[]
   reviews            Review[]
@@ -424,6 +426,8 @@ model Post {
   bodyEn      String?
   coverUrl         String?
   practiceAreaSlug String?
+  authorLawyerId   String?
+  authorLawyer     LawyerProfile? @relation(fields: [authorLawyerId], references: [id], onDelete: SetNull)
   authorName  String?
   publishedAt DateTime?
   createdAt   DateTime  @default(now())
@@ -431,6 +435,7 @@ model Post {
 
   @@index([kind, publishedAt])
   @@index([practiceAreaSlug])
+  @@index([authorLawyerId])
 }
 
 model QaEntry {

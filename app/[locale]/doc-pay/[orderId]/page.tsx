@@ -23,7 +23,7 @@ export default async function DocPayPage({
   if (order.status !== "PENDING_PAYMENT") redirect("/documents");
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
+    <div className="mx-auto max-w-md px-4 py-10">
       <h1 className="text-2xl font-bold text-navy">{t("common.payTitle")}</h1>
 
       <div className="mt-6 rounded-2xl border border-gray-100 shadow-sm p-4 text-sm">

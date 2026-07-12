@@ -179,7 +179,7 @@ const rows = await prisma.lawyerProfile.findMany({
   ]);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <p className="text-xs font-semibold uppercase tracking-wide text-emerald">
         <Link href="/areas" className="hover:underline">{t("areas.title")}</Link>
       </p>

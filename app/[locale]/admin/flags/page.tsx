@@ -36,7 +36,7 @@ export default async function AdminFlagsPage({
   if (hasMore) flagged.pop();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div>
       <h1 className="text-2xl font-bold text-navy">{t("nav.admFlags")}</h1>
       <p className="mt-2 text-sm">
         {t("admF.subtitle")}

@@ -37,7 +37,7 @@ export default async function VerifyPage({
     : null;
 
   return (
-    <div className="mx-auto max-w-md px-4 py-16">
+    <div className="mx-auto max-w-md px-4 py-10">
       <h1 className="text-2xl font-bold text-navy">{t("verify.title")}</h1>
       <p className="mt-2 text-sm">
         {t("verify.subtitle")}

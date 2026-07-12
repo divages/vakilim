@@ -18,7 +18,7 @@ export default async function AdminPostsPage() {
     take: 100,
   });
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <div>
       <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t("admP.title")}
       </h1>
@@ -40,6 +40,7 @@ export default async function AdminPostsPage() {
           coverUrl: p.coverUrl,
           authorName: p.authorName,
           practiceAreaSlug: p.practiceAreaSlug,
+          byLawyer: !!p.authorLawyerId,
           published: !!p.publishedAt,
         }))}
       />

@@ -14,6 +14,21 @@ export default function SettingsForm({
   phone: string;
 }) {
   const [pStep, setPStep] = useState<"idle" | "input" | "code">("idle");
+  const [pBusy2, setPBusy2] = useState(false);
+
+  async function uploadPhoto(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (!f || pBusy2) return;
+    setPBusy2(true);
+    try {
+      const fd = new FormData();
+      fd.append("photo", f);
+      const res = await fetch("/api/me/photo-file", { method: "POST", body: fd });
+      if (res.ok) window.location.reload();
+    } finally {
+      setPBusy2(false);
+    }
+  }
   const [pNew, setPNew] = useState("");
   const [pCode, setPCode] = useState("");
   const [pDev, setPDev] = useState<string | null>(null);
@@ -105,6 +120,20 @@ export default function SettingsForm({
       }}
     >
       <div>
+        {/* photo */}
+        <div className="mb-5 flex items-center gap-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/api/me/photo-file"
+            alt=""
+            className="h-16 w-16 rounded-full border border-gray-200 object-cover"
+            onError={(e) => ((e.target as HTMLImageElement).style.visibility = "hidden")}
+          />
+          <label className="cursor-pointer rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-navy hover:border-navy">
+            {pBusy2 ? t("sett2.photoBusy") : t("sett2.photoBtn")}
+            <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={uploadPhoto} />
+          </label>
+        </div>
         <label className="block text-sm font-medium text-navy">{t("common.phone")}</label>
         <div className="mt-1 flex items-center gap-3">
           <span className="text-sm font-medium text-navy">{phone || "—"}</span>

@@ -114,6 +114,9 @@ export default async function LocaleLayout({
                     <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                       {t("lawyerPanel")}
                     </Link>
+                  <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
+                    {t("myArticles")}
+                  </Link>
                   ) : null}
                 </nav>
               </div>
@@ -199,6 +202,9 @@ export default async function LocaleLayout({
                   <Link href="/lawyer/dashboard" className="font-medium text-slate-600 hover:text-navy">
                     {t("lawyerPanel")}
                   </Link>
+                <Link href="/lawyer/articles" className="font-medium text-slate-600 hover:text-navy">
+                  {t("myArticles")}
+                </Link>
                 ) : null}
               </nav>
             </details>

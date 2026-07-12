@@ -27,7 +27,7 @@ export default async function FillPage({
   if (!template || !version) notFound();
 
   return (
-    <div className="mx-auto max-w-md px-4 py-12">
+    <div className="mx-auto max-w-md px-4 py-10">
       <h1 className="text-xl font-bold text-navy">{template.title}</h1>
       <Wizard
         slug={template.slug}

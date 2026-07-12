@@ -55,7 +55,7 @@ export default async function LawsPage({
     );
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("laws.title")}</h1>
       <p className="mt-2 text-slate">{t("laws.subtitle")}</p>
       {rows.length === 0 ? (

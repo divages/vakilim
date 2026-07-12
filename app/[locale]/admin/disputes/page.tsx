@@ -65,7 +65,7 @@ export default async function AdminDisputesPage({
   );
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div>
       <h1 className="text-2xl font-bold text-navy">{t("dash.dispT")}</h1>
 
       {rows.length === 0 ? (

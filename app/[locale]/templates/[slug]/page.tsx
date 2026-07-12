@@ -55,7 +55,7 @@ export default async function TemplateDetailPage({
   const fields = version.fields as unknown as FieldDef[];
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <div className="flex items-start justify-between gap-4">
         <h1 className="text-2xl font-bold text-navy">{template.title}</h1>
         <span className="rounded-xl bg-navy/5 px-3 py-1.5 text-sm font-semibold text-navy">

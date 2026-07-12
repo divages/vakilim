@@ -22,7 +22,8 @@
     "qa": "Sual-cavab",
     "laws": "Qanunlar",
     "skip": "Əsas məzmuna keç",
-    "bellAria": "Bildirişlər"
+    "bellAria": "Bildirişlər",
+    "myArticles": "Məqalələrim"
   },
   "footer": {
     "terms": "Şərtlər",
@@ -145,7 +146,8 @@
     "about": "Haqqında",
     "services": "Xidmətlər",
     "reviews": "Rəylər",
-    "reply": "Vəkilin cavabı:"
+    "reply": "Vəkilin cavabı:",
+    "articlesH": "Məqalələr"
   },
   "widget": {
     "title": "Onlayn görüş sifariş et",
@@ -923,7 +925,9 @@
     "tfaCodeSent": "Nömrənizə kod göndərdik — daxil edin.",
     "tfaConfirm": "Təsdiqlə",
     "tfaDisable": "Deaktiv et",
-    "phoneChange": "Dəyiş"
+    "phoneChange": "Dəyiş",
+    "photoBtn": "Şəkli dəyiş",
+    "photoBusy": "Yüklənir…"
   },
   "cphone": {
     "title": "Telefon nömrənizi əlavə edin",
@@ -959,7 +963,8 @@
     "cancel": "Bağla",
     "slugTaken": "Bu slug artıq mövcuddur.",
     "err": "Xəta baş verdi — sahələri yoxlayın.",
-    "area": "Hüquq sahəsi"
+    "area": "Hüquq sahəsi",
+    "byLawyer": "Vəkil məqaləsi"
   },
   "adminNav": {
     "dash": "İdarə paneli",
@@ -1115,5 +1120,17 @@
     "dlShifted": "Son gün qeyri-iş gününə düşdüyü üçün növbəti iş gününə keçirilib.",
     "dlHolidays": "Qeyd: rəsmi bayram günləri nəzərə alınmır — yalnız şənbə/bazar keçidi tətbiq olunur.",
     "draftTag": "LAYİHƏ"
+  },
+  "lart": {
+    "title": "Məqalələrim",
+    "subtitle": "Yazdığınız məqalələr admin təsdiqindən sonra bloqda və profilinizdə dərc olunur.",
+    "new": "Yeni məqalə",
+    "pending": "Baxılır",
+    "live": "Dərc olunub",
+    "view": "Bax",
+    "del": "Sil",
+    "submit": "Təsdiqə göndər",
+    "locked": "Dərc olunmuş məqaləni dəyişmək üçün adminə yazın.",
+    "reviewNote": "Məqalə əvvəlcə qaralama kimi saxlanılır — admin təsdiqindən sonra görünür."
   }
 }

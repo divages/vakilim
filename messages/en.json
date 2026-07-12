@@ -22,7 +22,8 @@
     "qa": "Q&A",
     "laws": "Laws",
     "skip": "Skip to content",
-    "bellAria": "Notifications"
+    "bellAria": "Notifications",
+    "myArticles": "My articles"
   },
   "footer": {
     "terms": "Terms",
@@ -145,7 +146,8 @@
     "about": "About",
     "services": "Services",
     "reviews": "Reviews",
-    "reply": "Lawyer's reply:"
+    "reply": "Lawyer's reply:",
+    "articlesH": "Articles"
   },
   "widget": {
     "title": "Book an online consultation",
@@ -923,7 +925,9 @@
     "tfaCodeSent": "We sent a code to your number — enter it.",
     "tfaConfirm": "Confirm",
     "tfaDisable": "Disable",
-    "phoneChange": "Change"
+    "phoneChange": "Change",
+    "photoBtn": "Change photo",
+    "photoBusy": "Uploading…"
   },
   "cphone": {
     "title": "Add your phone number",
@@ -959,7 +963,8 @@
     "cancel": "Close",
     "slugTaken": "This slug already exists.",
     "err": "Error — check the fields.",
-    "area": "Practice area"
+    "area": "Practice area",
+    "byLawyer": "Lawyer article"
   },
   "adminNav": {
     "dash": "Dashboard",
@@ -1115,5 +1120,17 @@
     "dlShifted": "The last day fell on a weekend and was moved to the next working day.",
     "dlHolidays": "Note: public holidays are not accounted for — only weekend shifting is applied.",
     "draftTag": "DRAFT"
+  },
+  "lart": {
+    "title": "My articles",
+    "subtitle": "Your articles appear on the blog and your profile after admin approval.",
+    "new": "New article",
+    "pending": "In review",
+    "live": "Published",
+    "view": "View",
+    "del": "Delete",
+    "submit": "Submit for review",
+    "locked": "Published articles are edited via the admin.",
+    "reviewNote": "The article is saved as a draft and goes live after admin approval."
   }
 }

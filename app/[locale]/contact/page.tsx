@@ -23,7 +23,7 @@ export async function generateMetadata({
 export default async function ContactPage() {
   const t = await getTranslations("contact");
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("title")}</h1>
       <p className="mt-3 text-slate">{t("subtitle")}</p>
 

@@ -26,12 +26,12 @@ function safePath(v: string | undefined): string {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ next?: string; verify?: string }>;
+  searchParams: Promise<{ next?: string; verify?: string; google?: string }>;
 }) {
   const sp = await searchParams;
   return (
-    <div className="mx-auto max-w-sm px-4 py-14">
-      <LoginForm next={safePath(sp.next)} verifyFailed={sp.verify === "failed"} />
+    <div className="mx-auto max-w-sm px-4 py-10">
+      <LoginForm next={safePath(sp.next)} verifyFailed={sp.verify === "failed"} googleError={sp.google ?? null} />
     </div>
   );
 }

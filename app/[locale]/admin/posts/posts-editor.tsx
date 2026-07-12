@@ -8,7 +8,7 @@ type P = {
   titleAz: string; titleRu: string | null; titleEn: string | null;
   excerptAz: string; excerptRu: string | null; excerptEn: string | null;
   bodyAz: string; bodyRu: string | null; bodyEn: string | null;
-  coverUrl: string | null; authorName: string | null; practiceAreaSlug: string | null; published: boolean;
+  coverUrl: string | null; authorName: string | null; practiceAreaSlug: string | null; byLawyer: boolean; published: boolean;
 };
 const EMPTY: Omit<P, "id" | "published"> = {
   kind: "BLOG", slug: "", titleAz: "", titleRu: "", titleEn: "",
@@ -86,7 +86,14 @@ export default function PostsEditor({ posts, areas }: { posts: P[]; areas: { slu
           <div key={p.id} className="flex items-center justify-between rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-sm">
             <div className="min-w-0">
               <p className="truncate font-bold text-navy">{p.titleAz}</p>
-              <p className="text-xs text-slate">{p.kind} · /{p.slug}</p>
+              <p className="text-xs text-slate">
+                {p.kind} · /{p.slug}
+                {p.byLawyer && (
+                  <span className="ml-2 rounded-full bg-navy/5 px-2 py-0.5 text-[10px] font-semibold text-navy">
+                    {t("admP.byLawyer")}
+                  </span>
+                )}
+              </p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${p.published ? "bg-emerald-50 text-emerald-700" : "bg-gray-100 text-slate-600"}`}>

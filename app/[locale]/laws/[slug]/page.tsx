@@ -46,7 +46,7 @@ export default async function LawPage({
   const toc = extractToc(body);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <Link href="/laws" className="text-sm font-medium text-emerald hover:underline">
         ← {t("laws.back")}
       </Link>

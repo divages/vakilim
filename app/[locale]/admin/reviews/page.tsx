@@ -30,7 +30,7 @@ export default async function AdminReviewsPage({
   if (hasMore) reviews.pop();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div>
       <h1 className="text-2xl font-bold text-navy">{t("dash.revT")}</h1>
       <p className="mt-2 text-sm">
         {t("admRev.subtitle")}

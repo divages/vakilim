@@ -7,6 +7,7 @@ import BookingWidget from "./booking-widget";
 import Avatar from "@/components/avatar";
 import FavoriteButton from "@/components/favorite-button";
 import { Link } from "@/i18n/navigation";
+import { pickL } from "@/lib/locale-pick";
 
 async function loadProfile(slug: string) {
   return prisma.lawyerProfile.findFirst({
@@ -101,8 +102,17 @@ export default async function LawyerProfilePage({
         }))
       : null;
 
+  const articles = await prisma.post.findMany({
+    where: {
+      authorLawyerId: profile.id,
+      publishedAt: { not: null, lte: new Date() },
+    },
+    orderBy: { publishedAt: "desc" },
+    take: 4,
+  });
+
   return (
-    <div className="mx-auto max-w-2xl px-4 py-12">
+    <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <div className="flex items-start gap-6">
         <Avatar
           name={profile.user.fullName ?? "—"}
@@ -146,6 +156,30 @@ export default async function LawyerProfilePage({
         ))}
       </div>
 
+      {articles.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-slate">
+            {t("profile.articlesH")}
+          </h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {articles.map((a) => (
+              <Link
+                key={a.id}
+                href={`/blog/${a.slug}`}
+                className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-md"
+              >
+                <p className="text-xs text-slate">
+                  {a.publishedAt!.toISOString().slice(0, 10)}
+                </p>
+                <p className="mt-1 line-clamp-2 font-semibold text-navy">
+                  {pickL(a, "title", locale)}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
         {t("profile.about")}
       </h2>
@@ -166,7 +200,7 @@ export default async function LawyerProfilePage({
               >
                 <span className="text-navy">
                   {t(`common.serviceType.${s.type}`)}
-                  {s.durationMin ? ` · ${s.durationMin} {t("common.min")}` : ""}
+                  {s.durationMin ? ` · ${s.durationMin} ${t("common.min")}` : ""}
                 </span>
                 <span className="font-semibold text-navy">
                   {formatAzn(s.priceQepik)}

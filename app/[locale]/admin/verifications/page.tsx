@@ -62,7 +62,7 @@ export default async function VerificationsPage() {
   const { pending, decided } = await loadApplications();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div>
       <h1 className="text-2xl font-bold text-navy">{t("admV.title")}</h1>
 
       <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
