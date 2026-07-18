@@ -1,0 +1,50 @@
+# FIX for audit §3.9 — the guards exist but nothing runs them.
+#
+# This runs on every PR and push to main: install, generate the Prisma
+# client, typecheck, lint, test, and the two project scripts. It is also
+# the gate that makes "deploy through GitHub" safe — a red check blocks
+# the merge that would otherwise ship to the server.
+#
+# Note: query-bounds currently reports 24 pre-existing findings. Until
+# those are triaged, this runs it in report mode (no --strict) so it
+# doesn't wall the first PR. Flip to `--strict` once the backlog is clear.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Reproducible install. Requires package-lock.json to be in sync —
+      # see audit §3.8; run `npm install` and commit the lockfile once.
+      - run: npm ci
+
+      # Prisma types must exist or the typecheck sees `any` everywhere.
+      - run: npx prisma generate
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: i18n parallel-key check
+        run: node scripts/i18n-check.mjs
+
+      - name: Query bounds (report-only for now)
+        run: node scripts/query-bounds.mjs
