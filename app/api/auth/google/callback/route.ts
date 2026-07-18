@@ -95,31 +95,35 @@ export async function GET(req: Request) {
     });
     userId = viewer.id;
   } else if (claims.email && claims.email_verified) {
-    const byEmail = await prisma.user.findUnique({ where: { email: claims.email } });
+    const byEmail = await prisma.user.findUnique({
+      where: { email: claims.email },
+      select: { id: true },
+    });
     if (byEmail) {
-      await prisma.account.create({
-        data: { userId: byEmail.id, provider: "google", providerAccountId: claims.sub },
-      });
-      if (!byEmail.emailVerifiedAt)
-        await prisma.user.update({
-          where: { id: byEmail.id },
-          data: { emailVerifiedAt: new Date() },
-        });
-      userId = byEmail.id;
-    } else {
-      const created = await prisma.user.create({
-        data: {
-          email: claims.email,
-          fullName: claims.name ?? null,
-          emailVerifiedAt: new Date(),
-          locale,
-          accounts: {
-            create: { provider: "google", providerAccountId: claims.sub },
-          },
-        },
-      });
-      userId = created.id;
+      // SECURITY (audit §1.2): do NOT silently adopt an existing local account
+      // by email match for a logged-OUT visitor. That is the account
+      // pre-hijacking vector: an attacker squats the victim's email on their
+      // own account, the victim later "signs in with Google", and Google's
+      // asserted email lands them inside the attacker's account.
+      //
+      // Require the user to authenticate with their existing credentials first,
+      // then link Google from settings (the logged-in branch above). The login
+      // page should show a helpful message for ?google=linkrequired.
+      return fail(url.origin, locale, "linkrequired");
     }
+    // No local account owns this email — safe to provision a fresh one.
+    const created = await prisma.user.create({
+      data: {
+        email: claims.email,
+        fullName: claims.name ?? null,
+        emailVerifiedAt: new Date(),
+        locale,
+        accounts: {
+          create: { provider: "google", providerAccountId: claims.sub },
+        },
+      },
+    });
+    userId = created.id;
   } else {
     return fail(url.origin, locale, "failed");
   }
