@@ -63,7 +63,7 @@ export default async function VerificationsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-navy">{t("admV.title")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("admV.title")}</h1>
 
       <h2 className="mt-8 text-sm font-medium uppercase tracking-wide text-slate">
         {t("admV.pending", { n: pending.length })}

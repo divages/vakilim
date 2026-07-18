@@ -57,7 +57,7 @@ export default async function LawyerDashboardPage() {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10">
-      <h1 className="text-2xl font-bold text-navy">{t("dash.title")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("dash.title")}</h1>
 
       {status === "PENDING" && (
         <div className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-6">

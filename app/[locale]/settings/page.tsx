@@ -12,7 +12,7 @@ export default async function SettingsPage() {
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-10">
-      <h1 className="text-2xl font-bold text-navy">Profil</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("sett.title")}</h1>
       <p className="mt-2 text-sm">
         {t("sett.subtitle")}
       </p>

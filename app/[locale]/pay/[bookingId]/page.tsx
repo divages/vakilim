@@ -31,7 +31,7 @@ export default async function PayPage({
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-10">
-      <h1 className="text-2xl font-bold text-navy">{t("common.payTitle")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("common.payTitle")}</h1>
 
       <div className="mt-6 rounded-2xl border border-gray-100 shadow-sm p-4 text-sm">
         <p className="font-medium text-navy">

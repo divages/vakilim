@@ -32,7 +32,7 @@ export default function ForgotForm() {
   if (sent)
     return (
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-navy">
+        <h1 className="text-3xl font-extrabold tracking-tight text-navy">
           {t("reset.sentT")}
         </h1>
         <p className="mt-3 text-slate">{t("reset.sentB")}</p>
@@ -46,7 +46,7 @@ export default function ForgotForm() {
 
   return (
     <form onSubmit={submit}>
-      <h1 className="text-2xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t("reset.title")}
       </h1>
       <p className="mt-2 text-sm text-slate">{t("reset.subtitle")}</p>

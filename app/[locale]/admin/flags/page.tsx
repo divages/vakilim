@@ -37,7 +37,7 @@ export default async function AdminFlagsPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-navy">{t("nav.admFlags")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("nav.admFlags")}</h1>
       <p className="mt-2 text-sm">
         {t("admF.subtitle")}
       </p>

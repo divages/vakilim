@@ -5,7 +5,7 @@ export default async function NotFound() {
   const t = await getTranslations();
   return (
     <div className="mx-auto max-w-md px-4 py-24 text-center">
-      <h1 className="text-xl font-bold text-navy">{t("sys.nfTitle")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("sys.nfTitle")}</h1>
       <p className="mt-3 text-sm text-slate">{t("sys.nfBody")}</p>
       <Link
         href="/"

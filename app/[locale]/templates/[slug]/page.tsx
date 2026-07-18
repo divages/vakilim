@@ -57,7 +57,7 @@ export default async function TemplateDetailPage({
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10">
       <div className="flex items-start justify-between gap-4">
-        <h1 className="text-2xl font-bold text-navy">{template.title}</h1>
+        <h1 className="text-3xl font-extrabold tracking-tight text-navy">{template.title}</h1>
         <span className="rounded-xl bg-navy/5 px-3 py-1.5 text-sm font-semibold text-navy">
           {template.priceQepik === 0 ? tr("common.free") : formatAzn(template.priceQepik)}
         </span>

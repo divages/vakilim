@@ -523,7 +523,8 @@
       "INVALID_BODY": "Describe the complaint in at least 10 characters.",
       "DEFAULT": "Something went wrong. Try again shortly.",
       "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
-    }
+    },
+    "title": "Report a problem"
   },
   "review": {
     "title": "Write a review",
@@ -554,7 +555,8 @@
       "INVALID_BODY": "Name must be 3+ characters and the email valid.",
       "DEFAULT": "Something went wrong. Try again shortly.",
       "TOO_MANY_REQUESTS": "Too many attempts — try again in a few minutes."
-    }
+    },
+    "title": "Profile"
   },
   "admV": {
     "title": "Lawyer applications",

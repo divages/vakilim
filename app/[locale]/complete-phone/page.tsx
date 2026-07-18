@@ -17,7 +17,7 @@ export default async function CompletePhonePage({
   const t = await getTranslations();
   return (
     <div className="mx-auto w-full max-w-sm px-4 py-10">
-      <h1 className="text-2xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t("cphone.title")}
       </h1>
       <p className="mt-2 text-sm text-slate">{t("cphone.subtitle")}</p>

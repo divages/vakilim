@@ -24,7 +24,7 @@ export default async function PostArticle({
         {p.publishedAt!.toISOString().slice(0, 10)}
         {p.authorName ? ` · ${p.authorName}` : ""}
       </p>
-      <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {pick(p, "title", locale)}
       </h1>
       {p.coverUrl && (

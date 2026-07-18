@@ -523,7 +523,8 @@
       "INVALID_BODY": "Şikayəti ən azı 10 simvolla təsvir edin.",
       "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
       "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
-    }
+    },
+    "title": "Problem bildirin"
   },
   "review": {
     "title": "Rəy yazın",
@@ -554,7 +555,8 @@
       "INVALID_BODY": "Ad ən azı 3 simvol, e-poçt düzgün formatda olmalıdır.",
       "DEFAULT": "Xəta baş verdi. Bir az sonra yenidən cəhd edin.",
       "TOO_MANY_REQUESTS": "Çox sürətli əməliyyat — bir neçə dəqiqə sonra yenidən cəhd edin."
-    }
+    },
+    "title": "Profil"
   },
   "admV": {
     "title": "Vəkil müraciətləri",

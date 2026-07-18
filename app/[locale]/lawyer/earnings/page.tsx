@@ -70,12 +70,12 @@ export default async function LawyerEarningsPage() {
 
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-10">
-      <Link href="/lawyer/dashboard" className="text-sm font-medium text-emerald hover:underline">
-        ← {t("earn.back")}
-      </Link>
-      <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t("earn.title")}
       </h1>
+      <Link href="/lawyer/dashboard" className="mt-3 inline-block text-sm font-medium text-emerald hover:underline">
+        ← {t("earn.back")}
+      </Link>
 
       <div className="mt-6 overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
         <table className="w-full text-sm">

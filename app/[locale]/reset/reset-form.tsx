@@ -42,7 +42,7 @@ export default function ResetForm({ token }: { token: string }) {
   if (done)
     return (
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-navy">
+        <h1 className="text-3xl font-extrabold tracking-tight text-navy">
           {t("reset.doneT")}
         </h1>
         <p className="mt-3 text-slate">{t("reset.doneB")}</p>
@@ -57,7 +57,7 @@ export default function ResetForm({ token }: { token: string }) {
 
   return (
     <form onSubmit={submit}>
-      <h1 className="text-2xl font-extrabold tracking-tight text-navy">
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">
         {t("reset.newT")}
       </h1>
       <input

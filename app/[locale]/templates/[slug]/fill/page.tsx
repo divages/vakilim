@@ -28,7 +28,7 @@ export default async function FillPage({
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-10">
-      <h1 className="text-xl font-bold text-navy">{template.title}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{template.title}</h1>
       <Wizard
         slug={template.slug}
         free={template.priceQepik === 0}

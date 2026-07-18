@@ -55,7 +55,7 @@ export default async function AdminRecordingsPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-navy">{t("admRec.title")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("admRec.title")}</h1>
       <p className="mt-2 text-sm">
         {t("admRec.subtitle")}
       </p>

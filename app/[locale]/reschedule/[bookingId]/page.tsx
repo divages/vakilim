@@ -37,7 +37,7 @@ export default async function ReschedulePage({
 
   return (
     <div className="mx-auto w-full max-w-md px-4 py-10">
-      <h1 className="text-xl font-bold text-navy">{t("reschedule.title")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("reschedule.title")}</h1>
       <p className="mt-2 text-sm">
         {booking.lawyer.user.fullName ?? t("common.lawyer")} · {t("reschedule.current")}{" "}
         <b className="text-navy">

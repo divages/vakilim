@@ -31,7 +31,7 @@ export default async function AdminReviewsPage({
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-navy">{t("dash.revT")}</h1>
+      <h1 className="text-3xl font-extrabold tracking-tight text-navy">{t("dash.revT")}</h1>
       <p className="mt-2 text-sm">
         {t("admRev.subtitle")}
       </p>
