@@ -5,5 +5,5 @@ export default createMiddleware(routing);
 
 export const config = {
   // Everything except API routes, Next internals, and files with extensions.
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|monitoring|.*\\..*).*)"],
 };
