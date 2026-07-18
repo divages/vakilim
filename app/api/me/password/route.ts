@@ -31,5 +31,6 @@ export async function POST(req: Request) {
     where: { id: user.id },
     data: { passwordHash: await hashPassword(parsed.data.password) },
   });
+  await prisma.session.deleteMany({ where: { userId: user.id } }); // sign out everywhere
   return NextResponse.json({ ok: true });
 }
